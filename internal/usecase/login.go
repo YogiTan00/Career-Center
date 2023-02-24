@@ -18,8 +18,8 @@ func (u UseCaseAccountInteractor) Login(ctx context.Context, email string, passw
 			return nil, errors.New("error email or password")
 		} else {
 
-		}git remote -v
-		
+		}
+
 	}
 	return data, nil
 }
