@@ -12,20 +12,21 @@ import (
 )
 
 var (
-	ctx             = context.TODO()
-	mysqlConn       = database.InitMysqlDB()
-	repoRegister    = repository.NewAccountMysqlInteractor(mysqlConn)
-	useCaseRegister = usecase.NewAccountUsecase(repoRegister)
+	ctx            = context.TODO()
+	mysqlConn      = database.InitMysqlDB()
+	repoAccount    = repository.NewAccountMysqlInteractor(mysqlConn)
+	useCaseAccount = usecase.NewAccountUsecase(repoAccount)
 )
 
 func main() {
 	r := mux.NewRouter()
 
-	handlerRegister := http2.NewUseCaseHandler(useCaseRegister)
+	handlerAccount := http2.NewUseCaseHandler(useCaseAccount)
 
 	r.HandleFunc("/", ParamHandlerWithoutInput).Methods(http.MethodGet)
 
-	r.HandleFunc("/v1/register", handlerRegister.Register).Methods(http.MethodPost)
+	r.HandleFunc("/v1/register", handlerAccount.Register).Methods(http.MethodPost)
+	r.HandleFunc("/v1/login", handlerAccount.Login).Methods(http.MethodPost)
 	http.ListenAndServe(":8080", r)
 }
 

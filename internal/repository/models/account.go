@@ -1,9 +1,15 @@
 package models
 
+import (
+	"time"
+)
+
 type AccountModel struct {
-	Email    string `dbq:"email"`
-	Nama     string `dbq:"nama"`
-	Password string `dbq:"password"`
+	Email     string    `dbq:"email"`
+	Nama      string    `dbq:"nama"`
+	Password  string    `dbq:"password"`
+	CreatedAt time.Time `dbq:"created_at"`
+	UpdateAt  time.Time `dbq:"updated_at"`
 }
 
 func GetTableName() string {
@@ -15,5 +21,7 @@ func TableAccount() []string {
 		"email",
 		"nama",
 		"password",
+		"created_at",
+		"updated_at",
 	}
 }

@@ -11,6 +11,7 @@ func (u UseCaseAccountInteractor) Register(ctx context.Context, data *entity.Acc
 		password, _ := utils.HashPassword(data.Password)
 		data.Password = password
 	}
+
 	register, errRegister := entity.NewAccount(data)
 	if errRegister != nil {
 		return errRegister

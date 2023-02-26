@@ -29,6 +29,5 @@ func (l AccountMysqlInteractor) GetByEmail(ctx context.Context, email string) (*
 	if errMap != nil {
 		return nil, errMap
 	}
-	fmt.Println(account)
 	return account, nil
 }
