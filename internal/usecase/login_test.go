@@ -6,7 +6,6 @@ import (
 	"CareerCenter/utils"
 	"context"
 	"github.com/stretchr/testify/mock"
-	"reflect"
 	"testing"
 )
 
@@ -49,13 +48,8 @@ func TestUseCaseAccountInteractor_Login(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := tt.u.Login(tt.args.ctx, tt.args.email, tt.args.password)
-			if (err != nil) != tt.wantErr {
+			if err := tt.u.Login(tt.args.ctx, tt.args.email, tt.args.password); (err != nil) != tt.wantErr {
 				t.Errorf("UseCaseAccountInteractor.Login() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("UseCaseAccountInteractor.Login() = %v, want %v", got, tt.want)
 			}
 		})
 	}
