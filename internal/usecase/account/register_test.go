@@ -2,7 +2,7 @@ package account
 
 import (
 	"CareerCenter/domain/entity"
-	mock2 "CareerCenter/internal/repository/mock"
+	"CareerCenter/domain/mocks"
 	"context"
 	"errors"
 	"testing"
@@ -27,12 +27,12 @@ func TestUseCaseRegisterInteractor_Register(t *testing.T) {
 		Password: "asdwas",
 	}
 
-	repoAccount := new(mock2.RepoAccount)
+	repoAccount := new(mocks.RepoAccount)
 	repoAccount.On("CreateAccount", mock.Anything, mock.Anything).
 		Times(1).
 		Return(nil)
 
-	repoRegisterErrRegister := new(mock2.RepoAccount)
+	repoRegisterErrRegister := new(mocks.RepoAccount)
 	repoRegisterErrRegister.On("CreateAccount", mock.Anything, mock.Anything).
 		Times(1).
 		Return(errors.New("mock email telah terdaftar"))
