@@ -1,4 +1,4 @@
-package repository
+package account
 
 import (
 	"CareerCenter/internal/config/database"

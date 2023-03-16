@@ -1,4 +1,4 @@
-package repository
+package account
 
 import (
 	"CareerCenter/domain/entity"
@@ -14,7 +14,7 @@ func (l AccountMysqlInteractor) GetByEmail(ctx context.Context, email string) (*
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ?`, models.GetTableName())
+	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ?`, models.GetTableNameAccount())
 	opts := &dbq.Options{
 		SingleResult:   true,
 		ConcreteStruct: models.AccountModel{},

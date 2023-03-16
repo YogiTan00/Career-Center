@@ -12,7 +12,7 @@ type AccountModel struct {
 	UpdateAt  time.Time `dbq:"updated_at"`
 }
 
-func GetTableName() string {
+func GetTableNameAccount() string {
 	return "account"
 }
 
