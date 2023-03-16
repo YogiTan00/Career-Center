@@ -1,4 +1,4 @@
-package http
+package account
 
 import (
 	"CareerCenter/domain/entity"
@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-func (h *RegisterHandler) Register(w http.ResponseWriter, r *http.Request) {
+func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx     = context.TODO()
 		req     request.RequestRegister
@@ -28,7 +28,7 @@ func (h *RegisterHandler) Register(w http.ResponseWriter, r *http.Request) {
 		Password: req.Password,
 	}
 
-	errRegisterUseCase := h.UCRegister.Register(ctx, buildRegister)
+	errRegisterUseCase := h.UCAccount.Register(ctx, buildRegister)
 	if errRegisterUseCase != nil {
 		response, errMap := response2.MapResponse(1, "register error")
 		if errMap != nil {

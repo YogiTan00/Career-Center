@@ -1,9 +1,9 @@
-package repository_test
+package account_test
 
 import (
 	"CareerCenter/domain/entity"
 	"CareerCenter/internal/config/database"
-	"CareerCenter/internal/repository"
+	"CareerCenter/internal/repository/account"
 	"CareerCenter/testdata"
 	"context"
 	"testing"
@@ -19,13 +19,13 @@ func TestRegisterMysqlInteractor_CreateRegister(t *testing.T) {
 	data := testdata.TestDataAccount()
 	tests := []struct {
 		name    string
-		r       repository.AccountMysqlInteractor
+		r       account.AccountMysqlInteractor
 		args    args
 		wantErr bool
 	}{
 		{
 			name: "sucess register",
-			r:    repository.AccountMysqlInteractor{DbConn: dbConn},
+			r:    account.AccountMysqlInteractor{DbConn: dbConn},
 			args: args{
 				ctx:  ctx,
 				data: data,
