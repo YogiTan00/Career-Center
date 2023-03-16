@@ -2,31 +2,40 @@ package main
 
 import (
 	"CareerCenter/internal/config/database"
-	http2 "CareerCenter/internal/delivery/http"
-	"CareerCenter/internal/repository"
-	"CareerCenter/internal/usecase"
-	"context"
+	http2 "CareerCenter/internal/delivery/http/account"
+	jobs3 "CareerCenter/internal/delivery/http/jobs"
+	"CareerCenter/internal/repository/account"
+	"CareerCenter/internal/repository/jobs"
+	account2 "CareerCenter/internal/usecase/account"
+	jobs2 "CareerCenter/internal/usecase/jobs"
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 )
 
 var (
-	ctx            = context.TODO()
-	mysqlConn      = database.InitMysqlDB()
-	repoAccount    = repository.NewAccountMysqlInteractor(mysqlConn)
-	useCaseAccount = usecase.NewAccountUsecase(repoAccount)
+	mysqlConn = database.InitMysqlDB()
+
+	repoAccount    = account.NewAccountMysqlInteractor(mysqlConn)
+	useCaseAccount = account2.NewAccountUsecase(repoAccount)
+
+	repoJobs    = jobs.NewJobsMysqlInteractor(mysqlConn)
+	useCaseJobs = jobs2.NewJobsUsecase(repoJobs)
+
+	handlerAccount = http2.NewUseCaseAccountHandler(useCaseAccount)
+	handlerJobs    = jobs3.NewUseCaseJobsHandler(useCaseJobs)
 )
 
 func main() {
 	r := mux.NewRouter()
 
-	handlerAccount := http2.NewUseCaseHandler(useCaseAccount)
-
 	r.HandleFunc("/", ParamHandlerWithoutInput).Methods(http.MethodGet)
 
 	r.HandleFunc("/v1/register", handlerAccount.Register).Methods(http.MethodPost)
 	r.HandleFunc("/v1/login", handlerAccount.Login).Methods(http.MethodPost)
+
+	r.HandleFunc("/v1/list-jobs", handlerJobs.GetListJob).Methods(http.MethodGet)
+
 	http.ListenAndServe(":8080", r)
 }
 
