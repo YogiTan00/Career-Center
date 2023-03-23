@@ -36,23 +36,6 @@ func NewAccount(dto *AccountDTO) (*Account, error) {
 	}, nil
 }
 
-func (g *Account) GetEmail() string {
-	return g.email
-}
-func (g *Account) GetNama() string {
-	return g.nama
-}
-func (g *Account) GetPassword() string {
-	return g.password
-}
-
-func (g *Account) GetCreatedAt() time.Time {
-	return g.createdAt
-}
-func (g *Account) GetUpdatedAt() time.Time {
-	return g.updateAt
-}
-
 func (dto *AccountDTO) Validation() error {
 	email := utils.ValitEmail(dto.Email)
 	if email != true {
@@ -60,11 +43,26 @@ func (dto *AccountDTO) Validation() error {
 	}
 
 	timeNow := time.Now()
-	if dto.CreatedAt.IsZero() {
-		dto.CreatedAt = timeNow
-	}
-	if dto.UpdateAt.IsZero() {
-		dto.UpdateAt = timeNow
-	}
+	dto.CreatedAt = timeNow
+	dto.UpdateAt = timeNow
+
 	return nil
+}
+
+func (g *Account) GetEmail() string {
+	return g.email
+}
+func (g *Account) GetNama() string {
+	return g.nama
+}
+
+func (g *Account) GetPassword() string {
+	return g.password
+}
+func (g *Account) GetCreatedAt() time.Time {
+	return g.createdAt
+}
+
+func (g *Account) GetUpdatedAt() time.Time {
+	return g.updateAt
 }
