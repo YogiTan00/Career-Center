@@ -2,11 +2,13 @@ package jobs
 
 import (
 	"CareerCenter/domain/entity"
+	"CareerCenter/domain/entity/filter"
 	"context"
 )
 
-func (u UseCaseJobstInteractor) GetListJobs(ctx context.Context, f *entity.FilterDTO) ([]*entity.JobsDTO, error) {
-	filter := entity.NewFilter(f)
+func (u UseCaseJobstInteractor) GetListJobs(ctx context.Context, f *filter.FilterDTO) ([]*entity.JobsDTO, error) {
+	filter := filter.NewFilter(f)
+
 	data, err := u.repoJobs.GetListJobs(ctx, filter)
 	if err != nil {
 		return nil, err

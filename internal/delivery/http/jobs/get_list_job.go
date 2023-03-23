@@ -1,7 +1,6 @@
 package jobs
 
 import (
-	"CareerCenter/domain/entity"
 	"CareerCenter/internal/delivery/request"
 	response2 "CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
@@ -9,23 +8,30 @@ import (
 	"net/http"
 )
 
-func (u *JobsrHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
+func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx = context.TODO()
 		req request.RequestFilter
 	)
+
 	_, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		http.Error(w, errToken.Error(), http.StatusUnauthorized)
 		return
 	}
 
-	buildFilter := &entity.FilterDTO{
-		Limit: req.Limit,
-		Page:  req.Limit,
+	filter, errFilter := request.FilterGeneral(r, &req)
+	if errFilter != nil {
+		response, errMap := response2.MapResponse(1, errFilter.Error())
+		if errMap != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte("Error mapping data"))
+		}
+		w.Write(response)
+		return
 	}
 
-	jobs, err := u.UCJobs.GetListJobs(ctx, buildFilter)
+	jobs, err := u.UCJobs.GetListJobs(ctx, filter)
 	if err != nil {
 		response, errMap := response2.MapResponse(1, "wrong email or password")
 		if errMap != nil {

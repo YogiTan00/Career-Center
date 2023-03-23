@@ -10,7 +10,7 @@ type JobsModel struct {
 	Company     string    `dbq:"company"`
 	Logo        string    `dbq:"logo"`
 	Address     string    `dbq:"address"`
-	CreatedDate time.Time `dbq:"created_date"`
+	CreatedDate time.Time `dbq:"created_at"`
 }
 
 func GetTableNameJobs() string {

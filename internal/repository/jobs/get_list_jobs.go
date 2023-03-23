@@ -2,6 +2,7 @@ package jobs
 
 import (
 	"CareerCenter/domain/entity"
+	"CareerCenter/domain/entity/filter"
 	"CareerCenter/internal/repository/mapper"
 	"CareerCenter/internal/repository/models"
 	"context"
@@ -11,16 +12,17 @@ import (
 	"time"
 )
 
-func (j JobsMysqlInteractor) GetListJobs(ctx context.Context, filter *entity.Filter) ([]*entity.JobsDTO, error) {
+func (j JobsMysqlInteractor) GetListJobs(ctx context.Context, f *filter.Filter) ([]*entity.JobsDTO, error) {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	stmt := fmt.Sprintf(`SELECT * FROM %s`, models.GetTableNameJobs())
+	stmt := fmt.Sprintf(`SELECT * FROM %s LIMIT %d OFFSET %d`, models.GetTableNameJobs(), f.GetLimit(), f.GetPage())
 	opts := &dbq.Options{
 		SingleResult:   false,
 		ConcreteStruct: models.JobsModel{},
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
+
 	result := dbq.MustQ(ctx, j.DbConn, stmt, opts)
 	if result == nil {
 		return nil, nil
