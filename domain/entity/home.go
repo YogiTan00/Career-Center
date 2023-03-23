@@ -1,16 +1,25 @@
 package entity
 
+import (
+	"CareerCenter/domain/entity/profile"
+)
+
 type HomePage struct {
-	account *Account
+	profile *profile.ProfileUser
 	jobs    []*Jobs
 }
 
 type HomePageDTO struct {
-	account *Account
+	Profile *profile.ProfileUserDTO
 	Jobs    []*JobsDTO
 }
 
 func NewHomePage(dto *HomePageDTO) (*HomePage, error) {
+	err := dto.Validation()
+	if err != nil {
+		return nil, err
+	}
+
 	listJob := make([]*Jobs, 0)
 	for _, data := range dto.Jobs {
 		jobs := &JobsDTO{
@@ -28,8 +37,12 @@ func NewHomePage(dto *HomePageDTO) (*HomePage, error) {
 		listJob = append(listJob, resultJob)
 	}
 
+	profile, errProfile := profile.NewProfile(dto.Profile)
+	if errProfile != nil {
+		return nil, errProfile
+	}
 	return &HomePage{
-		account: &Account{},
+		profile: profile,
 		jobs:    listJob,
 	}, nil
 }
