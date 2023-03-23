@@ -4,6 +4,7 @@ package mocks
 
 import (
 	entity "CareerCenter/domain/entity"
+	filter "CareerCenter/domain/entity/filter"
 	context "context"
 
 	mock "github.com/stretchr/testify/mock"
@@ -14,25 +15,25 @@ type RepoJobs struct {
 	mock.Mock
 }
 
-// GetListJobs provides a mock function with given fields: ctx, filter
-func (_m *RepoJobs) GetListJobs(ctx context.Context, filter *entity.Filter) ([]*entity.JobsDTO, error) {
-	ret := _m.Called(ctx, filter)
+// GetListJobs provides a mock function with given fields: ctx, _a1
+func (_m *RepoJobs) GetListJobs(ctx context.Context, _a1 *filter.Filter) ([]*entity.JobsDTO, error) {
+	ret := _m.Called(ctx, _a1)
 
 	var r0 []*entity.JobsDTO
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, *entity.Filter) ([]*entity.JobsDTO, error)); ok {
-		return rf(ctx, filter)
+	if rf, ok := ret.Get(0).(func(context.Context, *filter.Filter) ([]*entity.JobsDTO, error)); ok {
+		return rf(ctx, _a1)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, *entity.Filter) []*entity.JobsDTO); ok {
-		r0 = rf(ctx, filter)
+	if rf, ok := ret.Get(0).(func(context.Context, *filter.Filter) []*entity.JobsDTO); ok {
+		r0 = rf(ctx, _a1)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).([]*entity.JobsDTO)
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, *entity.Filter) error); ok {
-		r1 = rf(ctx, filter)
+	if rf, ok := ret.Get(1).(func(context.Context, *filter.Filter) error); ok {
+		r1 = rf(ctx, _a1)
 	} else {
 		r1 = ret.Error(1)
 	}

@@ -4,6 +4,7 @@ package mocks
 
 import (
 	entity "CareerCenter/domain/entity"
+	filter "CareerCenter/domain/entity/filter"
 	context "context"
 
 	mock "github.com/stretchr/testify/mock"
@@ -15,15 +16,15 @@ type UseCaseJobs struct {
 }
 
 // GetListJobs provides a mock function with given fields: ctx, f
-func (_m *UseCaseJobs) GetListJobs(ctx context.Context, f *entity.FilterDTO) ([]*entity.JobsDTO, error) {
+func (_m *UseCaseJobs) GetListJobs(ctx context.Context, f *filter.FilterDTO) ([]*entity.JobsDTO, error) {
 	ret := _m.Called(ctx, f)
 
 	var r0 []*entity.JobsDTO
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, *entity.FilterDTO) ([]*entity.JobsDTO, error)); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, *filter.FilterDTO) ([]*entity.JobsDTO, error)); ok {
 		return rf(ctx, f)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, *entity.FilterDTO) []*entity.JobsDTO); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, *filter.FilterDTO) []*entity.JobsDTO); ok {
 		r0 = rf(ctx, f)
 	} else {
 		if ret.Get(0) != nil {
@@ -31,7 +32,7 @@ func (_m *UseCaseJobs) GetListJobs(ctx context.Context, f *entity.FilterDTO) ([]
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, *entity.FilterDTO) error); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, *filter.FilterDTO) error); ok {
 		r1 = rf(ctx, f)
 	} else {
 		r1 = ret.Error(1)
