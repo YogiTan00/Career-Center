@@ -21,15 +21,14 @@ var (
 
 	repoAccount    = account.NewAccountMysqlInteractor(mysqlConn)
 	useCaseAccount = account2.NewAccountUsecase(repoAccount)
+	handlerAccount = http2.NewUseCaseAccountHandler(useCaseAccount)
 
 	repoJobs    = jobs.NewJobsMysqlInteractor(mysqlConn)
 	useCaseJobs = jobs2.NewJobsUsecase(repoJobs)
+	handlerJobs = jobs3.NewUseCaseJobsHandler(useCaseJobs)
 
 	repoProfile    = profile.NewProfileMysqlInteractor(mysqlConn)
 	useCaseProfile = profile2.NewProfileUsecase(repoProfile)
-
-	handlerAccount = http2.NewUseCaseAccountHandler(useCaseAccount)
-	handlerJobs    = jobs3.NewUseCaseJobsHandler(useCaseJobs)
 	handlerProfile = profile3.NewUseCaseProfileHandler(useCaseProfile)
 )
 
