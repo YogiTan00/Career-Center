@@ -36,7 +36,7 @@ func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 		w.Write(response)
 	} else {
 		http.SetCookie(w, token)
-		response, errMap := response2.MapResponseLogin(0, "success login", token.Value)
+		response, errMap := response2.MapResponseInterface(0, "success login", token.Value)
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))

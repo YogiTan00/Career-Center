@@ -1,7 +1,6 @@
 package account
 
 import (
-	"CareerCenter/domain/entity"
 	"CareerCenter/internal/delivery/request"
 	response2 "CareerCenter/internal/delivery/response"
 	"context"
@@ -12,7 +11,7 @@ import (
 func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx     = context.TODO()
-		req     request.RequestRegister
+		req     *request.RequestRegister
 		decoder = json.NewDecoder(r.Body)
 	)
 	errDecode := decoder.Decode(&req)
@@ -22,11 +21,7 @@ func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	buildRegister := &entity.AccountDTO{
-		Email:    req.Email,
-		Nama:     req.Nama,
-		Password: req.Password,
-	}
+	buildRegister := request.NewRegisterRequest(req)
 
 	errRegisterUseCase := h.UCAccount.Register(ctx, buildRegister)
 	if errRegisterUseCase != nil {
