@@ -33,15 +33,15 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 
 	jobs, err := u.UCJobs.GetListJobs(ctx, filter)
 	if err != nil {
-		response, errMap := response2.MapResponse(1, "wrong email or password")
+		response, errMap := response2.MapResponse(1, "cant get list job")
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
 		}
 		w.Write(response)
 	} else {
-		response := response2.GetListJob(jobs)
-		result, errMap := response2.MapResponseInterface(0, "success login", response)
+		response := response2.GetListJobResponse(jobs)
+		result, errMap := response2.MapResponseInterface(0, "success Get list job", response)
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
