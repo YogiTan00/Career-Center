@@ -1,11 +1,10 @@
 package utils
 
 import (
+	"golang.org/x/crypto/bcrypt"
 	"math/rand"
 	"net/mail"
-	"time"
-
-	"golang.org/x/crypto/bcrypt"
+	"strings"
 )
 
 func ValitEmail(email string) bool {
@@ -23,10 +22,6 @@ func CheckPasswordHash(password, hash string) bool {
 	return err == nil
 }
 
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
-
 var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 func RandomString(n int) string {
@@ -35,4 +30,9 @@ func RandomString(n int) string {
 		b[i] = letterRunes[rand.Intn(len(letterRunes))]
 	}
 	return string(b)
+}
+
+func SplitTextToArray(s string) []string {
+	listString := strings.Split(s, ",")
+	return listString
 }

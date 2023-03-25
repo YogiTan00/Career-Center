@@ -3,51 +3,47 @@ package profile
 import (
 	"CareerCenter/utils"
 	"errors"
-	uuid2 "github.com/google/uuid"
+	"time"
 )
 
 type ProfileUser struct {
-	id             string
 	name           string
-	photo          *PhotoProfile
+	photo          string
 	skill          string
 	email          string
-	noTlp          int
+	noTlp          string
 	workExperience *WorkExperience
 	education      *Education
 	ability        []string
 	language       []string
 	cv             string
 	portofolio     string
+	createdAt      time.Time
+	updateAt       time.Time
 }
 
 type ProfileUserDTO struct {
-	Id             string
 	Name           string
-	Photo          *PhotoProfileDTO
+	Photo          string
 	Skill          string
 	Email          string
-	NoTlp          int
+	NoTlp          string
 	WorkExperience *WorkExperienceDTO
 	Education      *EducationDTO
 	Ability        []string
 	Language       []string
 	Cv             string
 	Portofolio     string
+	CreatedAt      time.Time
+	UpdateAt       time.Time
 }
 
 func NewProfile(dto *ProfileUserDTO) (*ProfileUser, error) {
-	uuid, err := uuid2.NewUUID()
-	if err != nil {
-		return nil, err
-	}
-	photo := NewPhoto(dto.Photo)
 	workExperiencet := NewWorkExperience(dto.WorkExperience)
 	education := NewEducation(dto.Education)
 	return &ProfileUser{
-		id:             uuid.String(),
 		name:           dto.Name,
-		photo:          photo,
+		photo:          dto.Photo,
 		skill:          dto.Skill,
 		email:          dto.Email, //Validation
 		noTlp:          dto.NoTlp,
@@ -57,6 +53,8 @@ func NewProfile(dto *ProfileUserDTO) (*ProfileUser, error) {
 		language:       dto.Language,
 		cv:             dto.Cv,         //Validation
 		portofolio:     dto.Portofolio, //Validation
+		createdAt:      dto.CreatedAt,
+		updateAt:       dto.UpdateAt,
 	}, nil
 }
 
