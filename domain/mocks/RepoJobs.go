@@ -15,17 +15,17 @@ type RepoJobs struct {
 	mock.Mock
 }
 
-// GetListJobs provides a mock function with given fields: ctx, _a1
-func (_m *RepoJobs) GetListJobs(ctx context.Context, _a1 *filter.Filter) ([]*entity.JobsDTO, error) {
-	ret := _m.Called(ctx, _a1)
+// GetListJobs provides a mock function with given fields: ctx, f
+func (_m *RepoJobs) GetListJobs(ctx context.Context, f *filter.Filter) ([]*entity.JobsDTO, error) {
+	ret := _m.Called(ctx, f)
 
 	var r0 []*entity.JobsDTO
 	var r1 error
 	if rf, ok := ret.Get(0).(func(context.Context, *filter.Filter) ([]*entity.JobsDTO, error)); ok {
-		return rf(ctx, _a1)
+		return rf(ctx, f)
 	}
 	if rf, ok := ret.Get(0).(func(context.Context, *filter.Filter) []*entity.JobsDTO); ok {
-		r0 = rf(ctx, _a1)
+		r0 = rf(ctx, f)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).([]*entity.JobsDTO)
@@ -33,7 +33,7 @@ func (_m *RepoJobs) GetListJobs(ctx context.Context, _a1 *filter.Filter) ([]*ent
 	}
 
 	if rf, ok := ret.Get(1).(func(context.Context, *filter.Filter) error); ok {
-		r1 = rf(ctx, _a1)
+		r1 = rf(ctx, f)
 	} else {
 		r1 = ret.Error(1)
 	}
