@@ -14,7 +14,7 @@ type JobsResponse struct {
 	CreatedAt time.Time `json:"createdAt"`
 }
 
-func GetJob(dto *entity.JobsDTO) *JobsResponse {
+func GetJobResponse(dto *entity.JobsDTO) *JobsResponse {
 	return &JobsResponse{
 		Id:        dto.Id,
 		Position:  dto.Position,
@@ -25,10 +25,10 @@ func GetJob(dto *entity.JobsDTO) *JobsResponse {
 	}
 }
 
-func GetListJob(dto []*entity.JobsDTO) []*JobsResponse {
+func GetListJobResponse(dto []*entity.JobsDTO) []*JobsResponse {
 	listJobs := make([]*JobsResponse, 0)
 	for _, data := range dto {
-		job := GetJob(data)
+		job := GetJobResponse(data)
 		listJobs = append(listJobs, job)
 	}
 	return listJobs

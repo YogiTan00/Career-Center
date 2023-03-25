@@ -15,8 +15,9 @@ import (
 func (j JobsMysqlInteractor) GetListJobs(ctx context.Context, f *filter.Filter) ([]*entity.JobsDTO, error) {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
+	filter := txQuery(f)
+	stmt := fmt.Sprintf(`SELECT * FROM %s %s`, models.GetTableNameJobs(), filter)
 
-	stmt := fmt.Sprintf(`SELECT * FROM %s LIMIT %d OFFSET %d`, models.GetTableNameJobs(), f.GetLimit(), f.GetPage())
 	opts := &dbq.Options{
 		SingleResult:   false,
 		ConcreteStruct: models.JobsModel{},
