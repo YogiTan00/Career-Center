@@ -2,7 +2,7 @@ package request
 
 type RequestRegister struct {
 	Email    string `json:"email"`
-	Nama     string `json:"nama"`
+	Nama     string `json:"name"`
 	Password string `json:"password"`
 }
 
