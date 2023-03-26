@@ -17,7 +17,7 @@ func main() {
 	r.HandleFunc("/v1/list-jobs", handlerJobs.GetListJob).Methods(http.MethodGet)
 	r.HandleFunc("/v1/job-detail/{job_id}", handlerJobs.GetJobById).Methods(http.MethodGet)
 
-	r.HandleFunc("/v1/profile/people", handlerProfile.GetProfile).Methods(http.MethodGet)
+	r.HandleFunc("/v1/profile", handlerProfile.GetProfile).Methods(http.MethodGet)
 
 	r.HandleFunc("/v1/list-company", handlerCompany.GetListCompany).Methods(http.MethodGet)
 	r.HandleFunc("/v1/profile/company/{company_id}", handlerCompany.GetCompanyById).Methods(http.MethodGet)
