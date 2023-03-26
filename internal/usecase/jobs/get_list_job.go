@@ -3,13 +3,15 @@ package jobs
 import (
 	"CareerCenter/domain/entity"
 	"CareerCenter/domain/entity/filter"
+	"CareerCenter/domain/valueobject"
 	"context"
 )
 
-func (u UseCaseJobstInteractor) GetListJobs(ctx context.Context, f *filter.FilterDTO) ([]*entity.JobsDTO, error) {
+func (u UseCaseJobsInteractor) GetListJobs(ctx context.Context, f *filter.FilterDTO) ([]*entity.JobsDTO, error) {
 	filter := filter.NewFilter(f)
 
-	data, err := u.repoJobs.GetListJobs(ctx, filter)
+	typeSearch := valueobject.NewTypeSearch(valueobject.JOBS)
+	data, err := u.repoJobs.GetListJobs(ctx, typeSearch, filter)
 	if err != nil {
 		return nil, err
 	}

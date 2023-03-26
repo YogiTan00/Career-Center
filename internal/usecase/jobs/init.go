@@ -2,12 +2,12 @@ package jobs
 
 import "CareerCenter/domain/repository"
 
-type UseCaseJobstInteractor struct {
+type UseCaseJobsInteractor struct {
 	repoJobs repository.RepoJobs
 }
 
-func NewJobsUsecase(repoJobs repository.RepoJobs) *UseCaseJobstInteractor {
-	return &UseCaseJobstInteractor{
+func NewJobsUsecase(repoJobs repository.RepoJobs) *UseCaseJobsInteractor {
+	return &UseCaseJobsInteractor{
 		repoJobs: repoJobs,
 	}
 }

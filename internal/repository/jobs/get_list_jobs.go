@@ -3,6 +3,8 @@ package jobs
 import (
 	"CareerCenter/domain/entity"
 	"CareerCenter/domain/entity/filter"
+	"CareerCenter/domain/valueobject"
+	"CareerCenter/internal/repository"
 	"CareerCenter/internal/repository/mapper"
 	"CareerCenter/internal/repository/models"
 	"context"
@@ -12,10 +14,10 @@ import (
 	"time"
 )
 
-func (j JobsMysqlInteractor) GetListJobs(ctx context.Context, f *filter.Filter) ([]*entity.JobsDTO, error) {
+func (j JobsMysqlInteractor) GetListJobs(ctx context.Context, typeSearch *valueobject.TypeSearch, f *filter.Filter) ([]*entity.JobsDTO, error) {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
-	filter := txQuery(f)
+	filter := repository.TxQuery(typeSearch, f)
 	stmt := fmt.Sprintf(`SELECT * FROM %s %s`, models.GetTableNameJobs(), filter)
 
 	opts := &dbq.Options{

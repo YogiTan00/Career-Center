@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-func (u UseCaseJobstInteractor) GetJobById(ctx context.Context, id string) (*entity.JobsDTO, error) {
+func (u UseCaseJobsInteractor) GetJobById(ctx context.Context, id string) (*entity.JobsDTO, error) {
 	uuid, err := utils.ValitUuId(id)
 	if err != nil {
 		return nil, err
