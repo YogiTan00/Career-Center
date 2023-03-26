@@ -5,7 +5,6 @@ import "strings"
 type TypeSearchEnum string
 
 const (
-	PEOPLE  TypeSearchEnum = "PEOPLE"
 	JOBS    TypeSearchEnum = "JOBS"
 	COMPANY TypeSearchEnum = "COMPANY"
 )
@@ -18,15 +17,13 @@ func NewTypeSearch(s TypeSearchEnum) *TypeSearch {
 	return &TypeSearch{value: s}
 }
 
-func (s TypeSearch) String() string {
+func (s TypeSearch) StringSearch() string {
 	return string(s.value)
 }
 
 func NewTypeSearchFromString(s string) *TypeSearch {
 	var typeSearch TypeSearchEnum
 	switch strings.ToUpper(s) {
-	case string(PEOPLE):
-		typeSearch = PEOPLE
 	case string(JOBS):
 		typeSearch = JOBS
 	case string(COMPANY):

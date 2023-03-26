@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"math/rand"
 	"net/mail"
@@ -10,6 +11,14 @@ import (
 func ValitEmail(email string) bool {
 	_, err := mail.ParseAddress(email)
 	return err == nil
+}
+
+func ValitUuId(id string) (string, error) {
+	uuid, err := uuid.Parse(id)
+	if err != nil {
+
+	}
+	return uuid.String(), nil
 }
 
 func HashPassword(password string) (string, error) {
