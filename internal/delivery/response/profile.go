@@ -32,7 +32,7 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 		Education:      dto.Education,
 		Ability:        dto.Ability,
 		Language:       dto.Language,
-		CvResume:       dto.Cv,
+		CvResume:       dto.CvResume,
 		Portofolio:     dto.Portofolio,
 		CreatedAt:      dto.CreatedAt,
 		UpdateAt:       dto.UpdateAt,

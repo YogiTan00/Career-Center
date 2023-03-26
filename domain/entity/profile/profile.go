@@ -16,7 +16,7 @@ type ProfileUser struct {
 	education      *Education
 	ability        []string
 	language       []string
-	cv             string
+	cvResume       string
 	portofolio     string
 	createdAt      time.Time
 	updateAt       time.Time
@@ -32,7 +32,7 @@ type ProfileUserDTO struct {
 	Education      *EducationDTO
 	Ability        []string
 	Language       []string
-	Cv             string
+	CvResume       string
 	Portofolio     string
 	CreatedAt      time.Time
 	UpdateAt       time.Time
@@ -51,7 +51,7 @@ func NewProfile(dto *ProfileUserDTO) (*ProfileUser, error) {
 		education:      education,
 		ability:        dto.Ability,
 		language:       dto.Language,
-		cv:             dto.Cv,         //Validation
+		cvResume:       dto.CvResume,   //Validation
 		portofolio:     dto.Portofolio, //Validation
 		createdAt:      dto.CreatedAt,
 		updateAt:       dto.UpdateAt,

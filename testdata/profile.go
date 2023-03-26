@@ -46,7 +46,7 @@ func TestDataProfile() *profile.ProfileUserDTO {
 			"Indonesia",
 			"Japan",
 		},
-		Cv:         "CV " + test + "@gmail.com.pdf",
+		CvResume:   "CV " + test + "@gmail.com.pdf",
 		Portofolio: "Portofolio " + test + "@gmail.com.pdf",
 		CreatedAt:  time.Now(),
 		UpdateAt:   time.Now(),

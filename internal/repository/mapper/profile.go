@@ -19,7 +19,7 @@ func ModelProfileToEntity(m *models.ProfileModel) (*profile.ProfileUserDTO, erro
 		Education:      nil,
 		Ability:        listAbility,
 		Language:       listLanguage,
-		Cv:             m.Cv,
+		CvResume:       m.Cv,
 		Portofolio:     m.Portofolio,
 		CreatedAt:      m.CreatedAt,
 		UpdateAt:       m.UpdateAt,
