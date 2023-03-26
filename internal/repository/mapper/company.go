@@ -19,6 +19,8 @@ func ModelToEntityCompany(m *models.CompanyModel) *entity.CompanyDTO {
 			Website:  m.Website,
 			Location: m.Location,
 		},
+		CreatedAt: m.CreatedAt,
+		UpdatedAt: m.UpdatedAt,
 	}
 }
 

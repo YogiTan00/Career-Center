@@ -15,7 +15,7 @@ type CompanyModel struct {
 	Website     string                      `dbq:"website"`
 	Location    string                      `dbq:"location"`
 	CreatedAt   time.Time                   `dbq:"created_at"`
-	UpdatedAt   time.Time                   `dbq:"update_at"`
+	UpdatedAt   time.Time                   `dbq:"updated_at"`
 }
 
 func GetTableNameCompany() string {
