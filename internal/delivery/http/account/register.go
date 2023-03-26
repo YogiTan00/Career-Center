@@ -34,7 +34,7 @@ func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
 		w.Write(response)
 		return
 	} else {
-		response, errMap := response2.MapResponse(0, "Success")
+		response, errMap := response2.MapResponse(0, "Success register")
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
