@@ -17,7 +17,7 @@ type JobsModel struct {
 	Category       string    `dbq:"category"`
 	Description    string    `dbq:"description"`
 	CreatedAt      time.Time `dbq:"created_at"`
-	UpdatedAt      time.Time `dbq:"update_at"`
+	UpdatedAt      time.Time `dbq:"updated_at"`
 }
 
 func GetTableNameJobs() string {
