@@ -15,7 +15,7 @@ type ProfileResponse struct {
 	Education      *profile.EducationDTO      `json:"education"`
 	Ability        []string                   `json:"ability"`
 	Language       []string                   `json:"language"`
-	Cv             string                     `json:"cv"`
+	CvResume       string                     `json:"cvResume"`
 	Portofolio     string                     `json:"portofolio"`
 	CreatedAt      time.Time                  `json:"createdAt"`
 	UpdateAt       time.Time                  `json:"updateAt"`
@@ -32,7 +32,7 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 		Education:      dto.Education,
 		Ability:        dto.Ability,
 		Language:       dto.Language,
-		Cv:             dto.Cv,
+		CvResume:       dto.Cv,
 		Portofolio:     dto.Portofolio,
 		CreatedAt:      dto.CreatedAt,
 		UpdateAt:       dto.UpdateAt,
