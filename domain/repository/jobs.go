@@ -8,4 +8,5 @@ import (
 
 type RepoJobs interface {
 	GetListJobs(ctx context.Context, f *filter.Filter) ([]*entity.JobsDTO, error)
+	GetJobById(ctx context.Context, id string) (*entity.JobsDTO, error)
 }

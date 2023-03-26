@@ -6,21 +6,35 @@ import (
 )
 
 type Jobs struct {
-	id        string
-	position  string
-	company   string
-	logo      string
-	address   string
-	createdAt time.Time
+	id             string
+	position       string
+	company        string
+	logo           string
+	address        string
+	status         bool
+	sendDate       time.Time
+	qualification  string
+	jobDescription string
+	category       string
+	description    string
+	createdAt      time.Time
+	updatedAt      time.Time
 }
 
 type JobsDTO struct {
-	Id        string
-	Position  string
-	Company   string
-	Logo      string
-	Address   string
-	CreatedAt time.Time
+	Id             string
+	Position       string
+	Company        string
+	Logo           string
+	Address        string
+	Status         bool
+	SendDate       time.Time
+	Qualification  string
+	JobDescription string
+	Category       string
+	Description    string
+	CreatedAt      time.Time
+	UpdatedAt      time.Time
 }
 
 func NewJobs(dto *JobsDTO) (*Jobs, error) {
