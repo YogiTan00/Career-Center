@@ -11,7 +11,7 @@ type ProfileUser struct {
 	photo          string
 	skill          string
 	email          string
-	noTlp          string
+	phoneNumber    string
 	workExperience *WorkExperience
 	education      *Education
 	ability        []string
@@ -27,7 +27,7 @@ type ProfileUserDTO struct {
 	Photo          string
 	Skill          string
 	Email          string
-	NoTlp          string
+	PhoneNumber    string
 	WorkExperience *WorkExperienceDTO
 	Education      *EducationDTO
 	Ability        []string
@@ -46,7 +46,7 @@ func NewProfile(dto *ProfileUserDTO) (*ProfileUser, error) {
 		photo:          dto.Photo,
 		skill:          dto.Skill,
 		email:          dto.Email, //Validation
-		noTlp:          dto.NoTlp,
+		phoneNumber:    dto.PhoneNumber,
 		workExperience: workExperiencet,
 		education:      education,
 		ability:        dto.Ability,

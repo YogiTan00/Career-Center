@@ -10,7 +10,7 @@ type ProfileResponse struct {
 	Name           string                     `json:"name"`
 	Photo          string                     `json:"photo"`
 	Skill          string                     `json:"skill"`
-	NoTlp          string                     `json:"noTlp"`
+	PhoneNumber    string                     `json:"phoneNumber"`
 	WorkExperience *profile.WorkExperienceDTO `json:"workExperience"`
 	Education      *profile.EducationDTO      `json:"education"`
 	Ability        []string                   `json:"ability"`
@@ -27,7 +27,7 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 		Name:           dto.Name,
 		Photo:          dto.Photo,
 		Skill:          dto.Skill,
-		NoTlp:          dto.NoTlp,
+		PhoneNumber:    dto.PhoneNumber,
 		WorkExperience: dto.WorkExperience,
 		Education:      dto.Education,
 		Ability:        dto.Ability,

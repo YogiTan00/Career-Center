@@ -14,7 +14,7 @@ func ModelProfileToEntity(m *models.ProfileModel) (*profile.ProfileUserDTO, erro
 		Photo:          m.Photo,
 		Skill:          m.Skill,
 		Email:          m.Email,
-		NoTlp:          m.NoTlp,
+		PhoneNumber:    m.NoTlp,
 		WorkExperience: nil,
 		Education:      nil,
 		Ability:        listAbility,

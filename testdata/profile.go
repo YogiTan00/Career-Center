@@ -11,11 +11,11 @@ func TestDataProfile() *profile.ProfileUserDTO {
 	test := utils.RandomString(4)
 	id, _ := uuid2.NewUUID()
 	profile := &profile.ProfileUserDTO{
-		Name:  test,
-		Photo: test + "@gmail.com.png",
-		Skill: "Programer Golang",
-		Email: test + "@gmail.com",
-		NoTlp: "08123123",
+		Name:        test,
+		Photo:       test + "@gmail.com.png",
+		Skill:       "Programer Golang",
+		Email:       test + "@gmail.com",
+		PhoneNumber: "08123123",
 		WorkExperience: &profile.WorkExperienceDTO{
 			Id:              id.String(),
 			SkillExperience: "DKV",
