@@ -13,6 +13,7 @@ func main() {
 
 	r.HandleFunc("/v1/register", handlerAccount.Register).Methods(http.MethodPost)
 	r.HandleFunc("/v1/login", handlerAccount.Login).Methods(http.MethodPost)
+	r.HandleFunc("/v1/change/password", handlerAccount.ChangePassword).Methods(http.MethodPost)
 
 	r.HandleFunc("/v1/list-jobs", handlerJobs.GetListJob).Methods(http.MethodGet)
 	r.HandleFunc("/v1/job-detail/{job_id}", handlerJobs.GetJobById).Methods(http.MethodGet)

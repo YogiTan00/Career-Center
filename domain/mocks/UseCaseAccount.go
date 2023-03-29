@@ -3,8 +3,9 @@
 package mocks
 
 import (
-	entity "CareerCenter/domain/entity/account"
+	account "CareerCenter/domain/entity/account"
 	context "context"
+
 	http "net/http"
 
 	mock "github.com/stretchr/testify/mock"
@@ -42,12 +43,26 @@ func (_m *UseCaseAccount) Login(ctx context.Context, email string, password stri
 }
 
 // Register provides a mock function with given fields: ctx, data
-func (_m *UseCaseAccount) Register(ctx context.Context, data *entity.AccountDTO) error {
+func (_m *UseCaseAccount) Register(ctx context.Context, data *account.AccountDTO) error {
 	ret := _m.Called(ctx, data)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, *entity.AccountDTO) error); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, *account.AccountDTO) error); ok {
 		r0 = rf(ctx, data)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// UpdatePassword provides a mock function with given fields: ctx, email, password
+func (_m *UseCaseAccount) UpdatePassword(ctx context.Context, email string, password *account.UpdatePasswordDTO) error {
+	ret := _m.Called(ctx, email, password)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, *account.UpdatePasswordDTO) error); ok {
+		r0 = rf(ctx, email, password)
 	} else {
 		r0 = ret.Error(0)
 	}

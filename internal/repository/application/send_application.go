@@ -17,7 +17,7 @@ func (a ApplicationMysqlInteractor) SendApplication(ctx context.Context, applica
 	txQuery := fmt.Sprintf("INSERT INTO %s (id, company_id, email, name , skill, phone_number,cv_resume, portofolio, created_at, updated_at) "+
 		"values ('%s','%s','%s','%s','%s','%s','%s','%s','%v','%v')",
 		models.GetTableNameApplication(),
-		application.GetCompanyId(), application.GetId(), application.GetEmail(),
+		application.GetId(), application.GetCompanyId(), application.GetEmail(),
 		application.GetName(), application.GetSkill(), application.GetPhoneNumber(),
 		application.GetCvResume(), application.GetPortofolio(), application.GetCreatedAt(),
 		application.GetUpdatedAt())

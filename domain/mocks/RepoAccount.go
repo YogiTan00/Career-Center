@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	entity "CareerCenter/domain/entity/account"
+	account "CareerCenter/domain/entity/account"
 	context "context"
 
 	mock "github.com/stretchr/testify/mock"
@@ -15,11 +15,11 @@ type RepoAccount struct {
 }
 
 // CreateAccount provides a mock function with given fields: ctx, data
-func (_m *RepoAccount) CreateAccount(ctx context.Context, data *entity.Account) error {
+func (_m *RepoAccount) CreateAccount(ctx context.Context, data *account.Account) error {
 	ret := _m.Called(ctx, data)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, *entity.Account) error); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, *account.Account) error); ok {
 		r0 = rf(ctx, data)
 	} else {
 		r0 = ret.Error(0)
@@ -29,19 +29,19 @@ func (_m *RepoAccount) CreateAccount(ctx context.Context, data *entity.Account) 
 }
 
 // GetByEmail provides a mock function with given fields: ctx, email
-func (_m *RepoAccount) GetByEmail(ctx context.Context, email string) (*entity.AccountDTO, error) {
+func (_m *RepoAccount) GetByEmail(ctx context.Context, email string) (*account.AccountDTO, error) {
 	ret := _m.Called(ctx, email)
 
-	var r0 *entity.AccountDTO
+	var r0 *account.AccountDTO
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, string) (*entity.AccountDTO, error)); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, string) (*account.AccountDTO, error)); ok {
 		return rf(ctx, email)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, string) *entity.AccountDTO); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, string) *account.AccountDTO); ok {
 		r0 = rf(ctx, email)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*entity.AccountDTO)
+			r0 = ret.Get(0).(*account.AccountDTO)
 		}
 	}
 
@@ -52,6 +52,20 @@ func (_m *RepoAccount) GetByEmail(ctx context.Context, email string) (*entity.Ac
 	}
 
 	return r0, r1
+}
+
+// UpdatePassword provides a mock function with given fields: ctx, email, password
+func (_m *RepoAccount) UpdatePassword(ctx context.Context, email string, password string) error {
+	ret := _m.Called(ctx, email, password)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, string) error); ok {
+		r0 = rf(ctx, email, password)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
 }
 
 type mockConstructorTestingTNewRepoAccount interface {

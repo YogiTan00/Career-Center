@@ -1,18 +1,18 @@
 package account
 
 import (
-	"CareerCenter/domain/entity/account"
 	"CareerCenter/internal/delivery/request"
 	"CareerCenter/internal/delivery/response"
+	"CareerCenter/utils"
 	"context"
 	"encoding/json"
 	"net/http"
 )
 
-func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
+func (h *AccountHandler) ChangePassword(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx     = context.TODO()
-		req     request.RequestLogin
+		req     *request.RequestPassword
 		decoder = json.NewDecoder(r.Body)
 	)
 	errDecode := decoder.Decode(&req)
@@ -21,21 +21,25 @@ func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Error decode data"))
 		return
 	}
-	buildLogin := &account.AccountDTO{
-		Email:    req.Email,
-		Password: req.Password,
+
+	user, errToken := utils.ValidateTokenFromHeader(r)
+	if errToken != nil {
+		http.Error(w, errToken.Error(), http.StatusUnauthorized)
+		return
 	}
-	token, err := h.UCAccount.Login(ctx, buildLogin.Email, buildLogin.Password)
+
+	password := request.NewPassword(req)
+
+	err := h.UCAccount.UpdatePassword(ctx, user, password)
 	if err != nil {
-		result, errMap := response.MapResponse(1, err.Error())
+		response, errMap := response.MapResponse(1, err.Error())
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
 		}
-		w.Write(result)
+		w.Write(response)
 	} else {
-		http.SetCookie(w, token)
-		result, errMap := response.MapResponseInterface(0, "success login", token.Value)
+		result, errMap := response.MapResponse(0, "success change password")
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))

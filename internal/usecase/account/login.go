@@ -2,8 +2,8 @@ package account
 
 import (
 	"CareerCenter/utils"
+	"CareerCenter/utils/exceptions"
 	"context"
-	"errors"
 	"net/http"
 )
 
@@ -12,9 +12,10 @@ func (r UseCaseAccountInteractor) Login(ctx context.Context, email string, passw
 	if err != nil {
 		return nil, err
 	}
+
 	checkPw := utils.CheckPasswordHash(password, data.Password)
 	if checkPw != true {
-		return nil, errors.New("wrong email or password")
+		return nil, exceptions.ErrorWrongEmailorPassword
 	}
 
 	token, errToken := utils.GenerateToken(email)
