@@ -1,18 +1,18 @@
 package account
 
 import (
-	"CareerCenter/domain/entity"
+	"CareerCenter/domain/entity/account"
 	"CareerCenter/utils"
 	"context"
 )
 
-func (u UseCaseAccountInteractor) Register(ctx context.Context, data *entity.AccountDTO) error {
+func (u UseCaseAccountInteractor) Register(ctx context.Context, data *account.AccountDTO) error {
 	if data.Password != "" {
 		password, _ := utils.HashPassword(data.Password)
 		data.Password = password
 	}
 
-	register, errRegister := entity.NewAccount(data)
+	register, errRegister := account.NewAccount(data)
 	if errRegister != nil {
 		return errRegister
 	}

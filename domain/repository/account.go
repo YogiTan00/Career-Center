@@ -1,11 +1,11 @@
 package repository
 
 import (
-	"CareerCenter/domain/entity"
+	"CareerCenter/domain/entity/account"
 	"context"
 )
 
 type RepoAccount interface {
-	CreateAccount(ctx context.Context, data *entity.Account) error
-	GetByEmail(ctx context.Context, email string) (*entity.AccountDTO, error)
+	CreateAccount(ctx context.Context, data *account.Account) error
+	GetByEmail(ctx context.Context, email string) (*account.AccountDTO, error)
 }

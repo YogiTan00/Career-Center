@@ -1,7 +1,7 @@
 package account
 
 import (
-	"CareerCenter/domain/entity"
+	"CareerCenter/domain/entity/account"
 	"CareerCenter/internal/delivery/request"
 	response2 "CareerCenter/internal/delivery/response"
 	"context"
@@ -21,7 +21,7 @@ func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Error decode data"))
 		return
 	}
-	buildLogin := &entity.AccountDTO{
+	buildLogin := &account.AccountDTO{
 		Email:    req.Email,
 		Password: req.Password,
 	}

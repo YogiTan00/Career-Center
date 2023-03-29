@@ -1,12 +1,12 @@
 package mapper
 
 import (
-	"CareerCenter/domain/entity"
+	"CareerCenter/domain/entity/account"
 	"CareerCenter/internal/repository/models"
 	"github.com/rocketlaunchr/dbq/v2"
 )
 
-func EntityToModel(m *entity.Account) *models.AccountModel {
+func EntityToModel(m *account.Account) *models.AccountModel {
 	return &models.AccountModel{
 		Email:    m.GetEmail(),
 		Nama:     m.GetNama(),
@@ -14,8 +14,8 @@ func EntityToModel(m *entity.Account) *models.AccountModel {
 	}
 }
 
-func ModelToEntity(m *models.AccountModel) (*entity.AccountDTO, error) {
-	data := &entity.AccountDTO{
+func ModelToEntity(m *models.AccountModel) (*account.AccountDTO, error) {
+	data := &account.AccountDTO{
 		Email:    m.Email,
 		Nama:     m.Nama,
 		Password: m.Password,
@@ -23,11 +23,11 @@ func ModelToEntity(m *models.AccountModel) (*entity.AccountDTO, error) {
 	return data, nil
 }
 
-func EntityToInterface(data *entity.Account) []interface{} {
+func EntityToInterface(data *account.Account) []interface{} {
 	return dbq.Struct(EntityToModel(data))
 }
 
-func DomainToInterface(domain *entity.Account) (dbqStruct []interface{}) {
+func DomainToInterface(domain *account.Account) (dbqStruct []interface{}) {
 	dbqStruct = append(dbqStruct, EntityToInterface(domain))
 	return
 }

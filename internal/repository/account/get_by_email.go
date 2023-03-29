@@ -1,7 +1,7 @@
 package account
 
 import (
-	"CareerCenter/domain/entity"
+	"CareerCenter/domain/entity/account"
 	"CareerCenter/internal/repository/mapper"
 	"CareerCenter/internal/repository/models"
 	"context"
@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func (l AccountMysqlInteractor) GetByEmail(ctx context.Context, email string) (*entity.AccountDTO, error) {
+func (l AccountMysqlInteractor) GetByEmail(ctx context.Context, email string) (*account.AccountDTO, error) {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 

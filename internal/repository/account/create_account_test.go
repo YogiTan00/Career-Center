@@ -1,7 +1,7 @@
 package account_test
 
 import (
-	"CareerCenter/domain/entity"
+	account2 "CareerCenter/domain/entity/account"
 	"CareerCenter/internal/config/database"
 	"CareerCenter/internal/repository/account"
 	"CareerCenter/testdata"
@@ -12,7 +12,7 @@ import (
 func TestRegisterMysqlInteractor_CreateRegister(t *testing.T) {
 	type args struct {
 		ctx  context.Context
-		data *entity.Account
+		data *account2.Account
 	}
 	dbConn := database.InitMysqlDB()
 	ctx := context.TODO()

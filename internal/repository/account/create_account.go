@@ -1,14 +1,14 @@
 package account
 
 import (
-	"CareerCenter/domain/entity"
+	"CareerCenter/domain/entity/account"
 	"CareerCenter/internal/repository/models"
 	"context"
 	"fmt"
 	"time"
 )
 
-func (r AccountMysqlInteractor) CreateAccount(ctx context.Context, data *entity.Account) error {
+func (r AccountMysqlInteractor) CreateAccount(ctx context.Context, data *account.Account) error {
 	var (
 		err error
 	)

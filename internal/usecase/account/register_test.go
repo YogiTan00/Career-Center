@@ -1,7 +1,7 @@
 package account
 
 import (
-	"CareerCenter/domain/entity"
+	"CareerCenter/domain/entity/account"
 	"CareerCenter/domain/mocks"
 	"context"
 	"errors"
@@ -13,15 +13,15 @@ import (
 func TestUseCaseRegisterInteractor_Register(t *testing.T) {
 	type args struct {
 		ctx  context.Context
-		data *entity.AccountDTO
+		data *account.AccountDTO
 	}
 	ctx := context.TODO()
-	data := &entity.AccountDTO{
+	data := &account.AccountDTO{
 		Email:    "testing@gmail.com",
 		Nama:     "testing",
 		Password: "asdwas",
 	}
-	dataErr := &entity.AccountDTO{
+	dataErr := &account.AccountDTO{
 		Email:    "yogitest@gmail.com",
 		Nama:     "testing",
 		Password: "asdwas",

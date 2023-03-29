@@ -1,13 +1,13 @@
 package testdata
 
 import (
-	"CareerCenter/domain/entity"
+	"CareerCenter/domain/entity/account"
 	"CareerCenter/utils"
 )
 
-func TestDataAccount() *entity.Account {
+func TestDataAccount() *account.Account {
 	test := utils.RandomString(10)
-	register, _ := entity.NewAccount(&entity.AccountDTO{
+	register, _ := account.NewAccount(&account.AccountDTO{
 		Email:    test + "@gmail.com",
 		Nama:     "yogi",
 		Password: "abcd123",

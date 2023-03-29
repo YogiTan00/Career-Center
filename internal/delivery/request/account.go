@@ -1,7 +1,7 @@
 package request
 
 import (
-	"CareerCenter/domain/entity"
+	"CareerCenter/domain/entity/account"
 )
 
 type RequestRegister struct {
@@ -15,8 +15,8 @@ type RequestLogin struct {
 	Password string `json:"password"`
 }
 
-func NewRegisterRequest(req *RequestRegister) *entity.AccountDTO {
-	return &entity.AccountDTO{
+func NewRegisterRequest(req *RequestRegister) *account.AccountDTO {
+	return &account.AccountDTO{
 		Email:    req.Email,
 		Nama:     req.Nama,
 		Password: req.Password,

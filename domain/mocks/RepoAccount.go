@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	entity "CareerCenter/domain/entity"
+	entity "CareerCenter/domain/entity/account"
 	context "context"
 
 	mock "github.com/stretchr/testify/mock"
