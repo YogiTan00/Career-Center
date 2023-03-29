@@ -2,7 +2,7 @@ package application
 
 import (
 	"CareerCenter/internal/delivery/request"
-	response2 "CareerCenter/internal/delivery/response"
+	"CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
 	"context"
 	"encoding/json"
@@ -30,14 +30,14 @@ func (h *ApplicationHandler) SendApplication(w http.ResponseWriter, r *http.Requ
 
 	err := h.UCApplication.SendApplication(ctx, user, req.CompanyId)
 	if err != nil {
-		response, errMap := response2.MapResponse(1, err.Error())
+		result, errMap := response.MapResponse(1, err.Error())
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
 		}
-		w.Write(response)
+		w.Write(result)
 	} else {
-		result, errMap := response2.MapResponse(0, "success send application")
+		result, errMap := response.MapResponse(0, "success send application")
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))

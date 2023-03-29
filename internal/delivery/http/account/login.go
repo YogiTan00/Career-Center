@@ -3,7 +3,7 @@ package account
 import (
 	"CareerCenter/domain/entity/account"
 	"CareerCenter/internal/delivery/request"
-	response2 "CareerCenter/internal/delivery/response"
+	"CareerCenter/internal/delivery/response"
 	"context"
 	"encoding/json"
 	"net/http"
@@ -28,19 +28,19 @@ func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 	token, err := h.UCAccount.Login(ctx, buildLogin.Email, buildLogin.Password)
 	if err != nil {
-		response, errMap := response2.MapResponse(1, "wrong email or password")
+		result, errMap := response.MapResponse(1, "wrong email or password")
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
 		}
-		w.Write(response)
+		w.Write(result)
 	} else {
 		http.SetCookie(w, token)
-		response, errMap := response2.MapResponseInterface(0, "success login", token.Value)
+		result, errMap := response.MapResponseInterface(0, "success login", token.Value)
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
 		}
-		w.Write(response)
+		w.Write(result)
 	}
 }

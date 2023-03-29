@@ -1,7 +1,7 @@
 package jobs
 
 import (
-	response2 "CareerCenter/internal/delivery/response"
+	"CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
 	"context"
 	"github.com/gorilla/mux"
@@ -24,15 +24,15 @@ func (h *JobsHandler) GetJobById(w http.ResponseWriter, r *http.Request) {
 
 	jobs, err := h.UCJobs.GetJobById(ctx, jobId)
 	if err != nil {
-		response, errMap := response2.MapResponse(1, "cant get detail job")
+		result, errMap := response.MapResponse(1, "cant get detail job")
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
 		}
-		w.Write(response)
+		w.Write(result)
 	} else {
-		response := response2.GetDetailJobResponse(jobs)
-		result, errMap := response2.MapResponseInterface(0, "success Get detail job", response)
+		jobsResponse := response.GetDetailJobResponse(jobs)
+		result, errMap := response.MapResponseInterface(0, "success Get detail job", jobsResponse)
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))

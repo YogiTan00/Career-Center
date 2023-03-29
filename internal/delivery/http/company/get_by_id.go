@@ -1,7 +1,7 @@
 package company
 
 import (
-	response2 "CareerCenter/internal/delivery/response"
+	"CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
 	"context"
 	"github.com/gorilla/mux"
@@ -24,15 +24,15 @@ func (h *CompanyHandler) GetCompanyById(w http.ResponseWriter, r *http.Request) 
 
 	company, jobs, err := h.UCCompany.GetCompanyById(ctx, companyId)
 	if err != nil {
-		response, errMap := response2.MapResponse(1, "cant get profile company")
+		result, errMap := response.MapResponse(1, "cant get profile company")
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
 		}
-		w.Write(response)
+		w.Write(result)
 	} else {
-		response := response2.GetCompanyProfileResponse(company, jobs)
-		result, errMap := response2.MapResponseInterface(0, "success Get profile company", response)
+		companyResponse := response.GetCompanyProfileResponse(company, jobs)
+		result, errMap := response.MapResponseInterface(0, "success Get profile company", companyResponse)
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))

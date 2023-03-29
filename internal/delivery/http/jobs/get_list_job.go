@@ -2,7 +2,7 @@ package jobs
 
 import (
 	"CareerCenter/internal/delivery/request"
-	response2 "CareerCenter/internal/delivery/response"
+	"CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
 	"context"
 	"net/http"
@@ -22,7 +22,7 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 
 	filter, errFilter := request.FilterGeneral(r, &req)
 	if errFilter != nil {
-		response, errMap := response2.MapResponse(1, errFilter.Error())
+		response, errMap := response.MapResponse(1, errFilter.Error())
 		if errMap != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			w.Write([]byte("Error mapping data"))
@@ -33,15 +33,15 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 
 	jobs, err := u.UCJobs.GetListJobs(ctx, filter)
 	if err != nil {
-		response, errMap := response2.MapResponse(1, "cant get list job")
+		result, errMap := response.MapResponse(1, "cant get list job")
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
 		}
-		w.Write(response)
+		w.Write(result)
 	} else {
-		response := response2.GetListJobResponse(jobs)
-		result, errMap := response2.MapResponseInterface(0, "success Get list job", response)
+		JobsResponse := response.GetListJobResponse(jobs)
+		result, errMap := response.MapResponseInterface(0, "success Get list job", JobsResponse)
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))

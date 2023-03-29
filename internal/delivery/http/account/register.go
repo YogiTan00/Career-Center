@@ -2,7 +2,7 @@ package account
 
 import (
 	"CareerCenter/internal/delivery/request"
-	response2 "CareerCenter/internal/delivery/response"
+	"CareerCenter/internal/delivery/response"
 	"context"
 	"encoding/json"
 	"net/http"
@@ -25,16 +25,16 @@ func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
 
 	errRegisterUseCase := h.UCAccount.Register(ctx, buildRegister)
 	if errRegisterUseCase != nil {
-		response, errMap := response2.MapResponse(1, "register error")
+		result, errMap := response.MapResponse(1, "register error")
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
 		}
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write(response)
+		w.Write(result)
 		return
 	} else {
-		response, errMap := response2.MapResponse(0, "Success register")
+		response, errMap := response.MapResponse(0, "Success register")
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
