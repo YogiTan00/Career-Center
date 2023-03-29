@@ -8,7 +8,10 @@ import (
 
 func (u UseCaseAccountInteractor) Register(ctx context.Context, data *account.AccountDTO) error {
 	if data.Password != "" {
-		password, _ := utils.HashPassword(data.Password)
+		password, err := utils.HashPassword(data.Password)
+		if err != nil {
+			return err
+		}
 		data.Password = password
 	}
 
