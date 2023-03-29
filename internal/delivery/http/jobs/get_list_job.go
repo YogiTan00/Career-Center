@@ -22,12 +22,12 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 
 	filter, errFilter := request.FilterGeneral(r, &req)
 	if errFilter != nil {
-		response, errMap := response.MapResponse(1, errFilter.Error())
+		result, errMap := response.MapResponse(1, errFilter.Error())
 		if errMap != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			w.Write([]byte("Error mapping data"))
 		}
-		w.Write(response)
+		w.Write(result)
 		return
 	}
 
