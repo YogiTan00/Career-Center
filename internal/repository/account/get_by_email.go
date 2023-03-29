@@ -4,6 +4,7 @@ import (
 	"CareerCenter/domain/entity/account"
 	"CareerCenter/internal/repository/mapper"
 	"CareerCenter/internal/repository/models"
+	"CareerCenter/utils/exceptions"
 	"context"
 	"fmt"
 	"github.com/rocketlaunchr/dbq/v2"
@@ -22,7 +23,7 @@ func (l AccountMysqlInteractor) GetByEmail(ctx context.Context, email string) (*
 	}
 	result := dbq.MustQ(ctx, l.DbConn, stmt, opts, email)
 	if result == nil {
-		return nil, nil
+		return nil, exceptions.ErrorWrongEmailorPassword
 	}
 
 	account, errMap := mapper.ModelToEntity(result.(*models.AccountModel))
