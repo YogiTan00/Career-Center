@@ -6,7 +6,7 @@ type WorkExperience struct {
 	id              string
 	skillExperience string
 	name            string
-	dateRange       *DateRangeWork
+	dateRange       DateRangeWork
 	description     string
 }
 type DateRangeWork struct {
@@ -18,7 +18,7 @@ type WorkExperienceDTO struct {
 	Id              string
 	SkillExperience string
 	Name            string
-	DateRange       *DateRangeWorkDTO
+	DateRange       DateRangeWorkDTO
 	Description     string
 }
 type DateRangeWorkDTO struct {
@@ -26,10 +26,9 @@ type DateRangeWorkDTO struct {
 	End   time.Time
 }
 
-func NewWorkExperience(dto *WorkExperienceDTO) *WorkExperience {
-
+func NewWorkExperience(dto WorkExperienceDTO) WorkExperience {
 	dateRange := NewWorkDateRange(dto.DateRange)
-	return &WorkExperience{
+	return WorkExperience{
 		id:              dto.Id,
 		skillExperience: dto.SkillExperience,
 		name:            dto.Name,
@@ -38,8 +37,8 @@ func NewWorkExperience(dto *WorkExperienceDTO) *WorkExperience {
 	}
 }
 
-func NewWorkDateRange(dto *DateRangeWorkDTO) *DateRangeWork {
-	return &DateRangeWork{ //Validation
+func NewWorkDateRange(dto DateRangeWorkDTO) DateRangeWork {
+	return DateRangeWork{ //Validation
 		start: dto.Start,
 		end:   dto.End,
 	}

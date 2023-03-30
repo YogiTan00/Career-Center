@@ -6,7 +6,7 @@ import (
 
 type ProfileModel struct {
 	Email       string    `dbq:"email"`
-	Nama        string    `dbq:"name"`
+	Name        string    `dbq:"name"`
 	Photo       string    `dbq:"photo"`
 	Skill       string    `dbq:"skill"`
 	PhoneNumber string    `dbq:"phone_number"`
@@ -15,7 +15,7 @@ type ProfileModel struct {
 	CvResume    string    `dbq:"cv_resume"`
 	Portofolio  string    `dbq:"portofolio"`
 	CreatedAt   time.Time `dbq:"created_at"`
-	UpdateAt    time.Time `dbq:"updated_at"`
+	UpdatedAt   time.Time `dbq:"updated_at"`
 }
 
 func GetTableNameProfile() string {
@@ -24,13 +24,12 @@ func GetTableNameProfile() string {
 
 func TableProfile() []string {
 	return []string{
-		"id",
-		"company_id",
 		"email",
 		"name",
 		"photo",
 		"skill",
 		"phone_number",
+		"ability",
 		"language",
 		"cv_resume",
 		"portofolio",

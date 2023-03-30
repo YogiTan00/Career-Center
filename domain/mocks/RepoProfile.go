@@ -14,6 +14,20 @@ type RepoProfile struct {
 	mock.Mock
 }
 
+// CreateProfile provides a mock function with given fields: ctx, data
+func (_m *RepoProfile) CreateProfile(ctx context.Context, data *profile.ProfileUser) error {
+	ret := _m.Called(ctx, data)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, *profile.ProfileUser) error); ok {
+		r0 = rf(ctx, data)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // GetProfileByEmail provides a mock function with given fields: ctx, email
 func (_m *RepoProfile) GetProfileByEmail(ctx context.Context, email string) (*profile.ProfileUserDTO, error) {
 	ret := _m.Called(ctx, email)
@@ -38,6 +52,20 @@ func (_m *RepoProfile) GetProfileByEmail(ctx context.Context, email string) (*pr
 	}
 
 	return r0, r1
+}
+
+// UpdateProfile provides a mock function with given fields: ctx, email, data
+func (_m *RepoProfile) UpdateProfile(ctx context.Context, email string, data *profile.ProfileUser) error {
+	ret := _m.Called(ctx, email, data)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, *profile.ProfileUser) error); ok {
+		r0 = rf(ctx, email, data)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
 }
 
 type mockConstructorTestingTNewRepoProfile interface {

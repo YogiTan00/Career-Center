@@ -7,4 +7,5 @@ import (
 
 type UseCaseProfile interface {
 	GetProfileByEmail(ctx context.Context, email string) (*profile.ProfileUserDTO, error)
+	UpdateProfile(ctx context.Context, email string, data *profile.ProfileUserDTO) error
 }

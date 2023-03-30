@@ -40,6 +40,20 @@ func (_m *UseCaseProfile) GetProfileByEmail(ctx context.Context, email string) (
 	return r0, r1
 }
 
+// UpdateProfile provides a mock function with given fields: ctx, email, data
+func (_m *UseCaseProfile) UpdateProfile(ctx context.Context, email string, data *profile.ProfileUserDTO) error {
+	ret := _m.Called(ctx, email, data)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, *profile.ProfileUserDTO) error); ok {
+		r0 = rf(ctx, email, data)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 type mockConstructorTestingTNewUseCaseProfile interface {
 	mock.TestingT
 	Cleanup(func())

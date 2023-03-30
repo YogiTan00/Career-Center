@@ -6,19 +6,19 @@ import (
 )
 
 type ProfileResponse struct {
-	Email          string                     `json:"email"`
-	Name           string                     `json:"name"`
-	Photo          string                     `json:"photo"`
-	Skill          string                     `json:"skill"`
-	PhoneNumber    string                     `json:"phoneNumber"`
-	WorkExperience *profile.WorkExperienceDTO `json:"workExperience"`
-	Education      *profile.EducationDTO      `json:"education"`
-	Ability        []string                   `json:"ability"`
-	Language       []string                   `json:"language"`
-	CvResume       string                     `json:"cvResume"`
-	Portofolio     string                     `json:"portofolio"`
-	CreatedAt      time.Time                  `json:"createdAt"`
-	UpdateAt       time.Time                  `json:"updateAt"`
+	Email          string                    `json:"email"`
+	Name           string                    `json:"name"`
+	Photo          string                    `json:"photo"`
+	Skill          string                    `json:"skill"`
+	PhoneNumber    string                    `json:"phoneNumber"`
+	WorkExperience profile.WorkExperienceDTO `json:"workExperience"`
+	Education      profile.EducationDTO      `json:"education"`
+	Ability        []string                  `json:"ability"`
+	Language       []string                  `json:"language"`
+	CvResume       string                    `json:"cvResume"`
+	Portofolio     string                    `json:"portofolio"`
+	CreatedAt      time.Time                 `json:"createdAt"`
+	UpdateAt       time.Time                 `json:"updateAt"`
 }
 
 func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
@@ -35,6 +35,6 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 		CvResume:       dto.CvResume,
 		Portofolio:     dto.Portofolio,
 		CreatedAt:      dto.CreatedAt,
-		UpdateAt:       dto.UpdateAt,
+		UpdateAt:       dto.UpdatedAt,
 	}
 }

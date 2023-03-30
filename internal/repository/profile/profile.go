@@ -25,9 +25,6 @@ func (p ProfileMysqlInteractor) GetProfileByEmail(ctx context.Context, email str
 		return nil, nil
 	}
 
-	account, errMap := mapper.ModelProfileToEntity(result.(*models.ProfileModel))
-	if errMap != nil {
-		return nil, errMap
-	}
+	account := mapper.ModelProfileToEntity(result.(*models.ProfileModel))
 	return account, nil
 }

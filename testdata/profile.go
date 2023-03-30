@@ -16,20 +16,20 @@ func TestDataProfile() *profile.ProfileUserDTO {
 		Skill:       "Programer Golang",
 		Email:       test + "@gmail.com",
 		PhoneNumber: "08123123",
-		WorkExperience: &profile.WorkExperienceDTO{
+		WorkExperience: profile.WorkExperienceDTO{
 			Id:              id.String(),
 			SkillExperience: "DKV",
 			Name:            "Toko Super 2013",
-			DateRange: &profile.DateRangeWorkDTO{
+			DateRange: profile.DateRangeWorkDTO{
 				Start: time.Now().AddDate(-2, 0, 0),
 				End:   time.Now().AddDate(-1, 0, 0),
 			},
 			Description: "pengalaman kerja di salt",
 		},
-		Education: &profile.EducationDTO{
+		Education: profile.EducationDTO{
 			Id:   id.String(),
 			Name: "SMA Lulusan 1023",
-			DateRange: &profile.DateRangeEduDTO{
+			DateRange: profile.DateRangeEduDTO{
 				Start: time.Now().AddDate(-5, 0, 0),
 				End:   time.Now().AddDate(-2, 0, 0),
 			},
@@ -49,7 +49,7 @@ func TestDataProfile() *profile.ProfileUserDTO {
 		CvResume:   "CV " + test + "@gmail.com.pdf",
 		Portofolio: "Portofolio " + test + "@gmail.com.pdf",
 		CreatedAt:  time.Now(),
-		UpdateAt:   time.Now(),
+		UpdatedAt:  time.Now(),
 	}
 	return profile
 }

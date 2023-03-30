@@ -5,7 +5,7 @@ import "time"
 type Education struct {
 	id              string
 	name            string
-	dateRange       *DateRangeEdu
+	dateRange       DateRangeEdu
 	skillExperience string
 	description     string
 }
@@ -17,7 +17,7 @@ type DateRangeEdu struct {
 type EducationDTO struct {
 	Id              string
 	Name            string
-	DateRange       *DateRangeEduDTO
+	DateRange       DateRangeEduDTO
 	SkillExperience string
 	Description     string
 }
@@ -26,10 +26,10 @@ type DateRangeEduDTO struct {
 	End   time.Time
 }
 
-func NewEducation(dto *EducationDTO) *Education {
+func NewEducation(dto EducationDTO) Education {
 
 	dateRange := NewEduDateRange(dto.DateRange)
-	return &Education{
+	return Education{
 		id:              dto.Id,
 		name:            dto.Name,
 		dateRange:       dateRange,
@@ -38,8 +38,8 @@ func NewEducation(dto *EducationDTO) *Education {
 	}
 }
 
-func NewEduDateRange(dto *DateRangeEduDTO) *DateRangeEdu {
-	return &DateRangeEdu{ //Validation
+func NewEduDateRange(dto DateRangeEduDTO) DateRangeEdu {
+	return DateRangeEdu{ //Validation
 		start: dto.Start,
 		end:   dto.End,
 	}
