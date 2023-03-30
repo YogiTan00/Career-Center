@@ -13,12 +13,12 @@ func ValitEmail(email string) bool {
 	return err == nil
 }
 
-func ValitUuId(id string) (string, error) {
-	uuid, err := uuid.Parse(id)
+func ValitUuId(s string) (string, error) {
+	id, err := uuid.Parse(s)
 	if err != nil {
 
 	}
-	return uuid.String(), nil
+	return id.String(), nil
 }
 
 func HashPassword(password string) (string, error) {
