@@ -45,3 +45,8 @@ func SplitTextToArray(s string) []string {
 	listString := strings.Split(s, ",")
 	return listString
 }
+
+func JoinTextFromArray(s []string) string {
+	text := strings.Join(s, ",")
+	return text
+}

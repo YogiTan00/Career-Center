@@ -23,7 +23,7 @@ var (
 	mysqlConn = database.InitMysqlDB()
 
 	repoAccount    = account.NewAccountMysqlInteractor(mysqlConn)
-	useCaseAccount = account2.NewAccountUsecase(repoAccount)
+	useCaseAccount = account2.NewAccountUsecase(repoAccount, repoProfile)
 	handlerAccount = http2.NewUseCaseAccountHandler(useCaseAccount)
 
 	repoJobs    = jobs.NewJobsMysqlInteractor(mysqlConn)
