@@ -18,12 +18,12 @@ func TestUseCaseRegisterInteractor_Register(t *testing.T) {
 	ctx := context.TODO()
 	data := &account.AccountDTO{
 		Email:    "testing@gmail.com",
-		Nama:     "testing",
+		Name:     "testing",
 		Password: "asdwas",
 	}
 	dataErr := &account.AccountDTO{
 		Email:    "yogitest@gmail.com",
-		Nama:     "testing",
+		Name:     "testing",
 		Password: "asdwas",
 	}
 
