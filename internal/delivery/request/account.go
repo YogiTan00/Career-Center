@@ -13,7 +13,7 @@ type RequestRegister struct {
 func NewRegisterRequest(req *RequestRegister) *account.AccountDTO {
 	return &account.AccountDTO{
 		Email:    req.Email,
-		Nama:     req.Nama,
+		Name:     req.Nama,
 		Password: req.Password,
 	}
 }

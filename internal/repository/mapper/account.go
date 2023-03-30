@@ -19,7 +19,7 @@ func EntityToModel(m *account.Account) *models.AccountModel {
 func ModelToEntity(m *models.AccountModel) (*account.AccountDTO, error) {
 	data := &account.AccountDTO{
 		Email:    m.Email,
-		Nama:     m.Nama,
+		Name:     m.Nama,
 		Password: m.Password,
 	}
 	return data, nil

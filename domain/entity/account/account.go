@@ -8,18 +8,18 @@ import (
 
 type Account struct {
 	email     string
-	nama      string
+	name      string
 	password  string
 	createdAt time.Time
-	updateAt  time.Time
+	updatedAt time.Time
 }
 
 type AccountDTO struct {
 	Email     string
-	Nama      string
+	Name      string
 	Password  string
 	CreatedAt time.Time
-	UpdateAt  time.Time
+	UpdatedAt time.Time
 }
 
 func NewAccount(dto *AccountDTO) (*Account, error) {
@@ -29,10 +29,10 @@ func NewAccount(dto *AccountDTO) (*Account, error) {
 	}
 	return &Account{
 		email:     dto.Email,
-		nama:      dto.Nama,
+		name:      dto.Name,
 		password:  dto.Password,
 		createdAt: dto.CreatedAt,
-		updateAt:  dto.UpdateAt,
+		updatedAt: dto.UpdatedAt,
 	}, nil
 }
 
@@ -43,8 +43,10 @@ func (dto *AccountDTO) Validation() error {
 	}
 
 	timeNow := time.Now()
-	dto.CreatedAt = timeNow
-	dto.UpdateAt = timeNow
+	if dto.CreatedAt.IsZero() && dto.UpdatedAt.IsZero() {
+		dto.CreatedAt = timeNow
+		dto.UpdatedAt = timeNow
+	}
 
 	return nil
 }
@@ -53,7 +55,7 @@ func (g *Account) GetEmail() string {
 	return g.email
 }
 func (g *Account) GetNama() string {
-	return g.nama
+	return g.name
 }
 
 func (g *Account) GetPassword() string {
@@ -64,5 +66,5 @@ func (g *Account) GetCreatedAt() time.Time {
 }
 
 func (g *Account) GetUpdatedAt() time.Time {
-	return g.updateAt
+	return g.updatedAt
 }
