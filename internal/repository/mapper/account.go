@@ -8,9 +8,11 @@ import (
 
 func EntityToModel(m *account.Account) *models.AccountModel {
 	return &models.AccountModel{
-		Email:    m.GetEmail(),
-		Nama:     m.GetNama(),
-		Password: m.GetPassword(),
+		Email:     m.GetEmail(),
+		Nama:      m.GetNama(),
+		Password:  m.GetPassword(),
+		CreatedAt: m.GetCreatedAt(),
+		UpdateAt:  m.GetUpdatedAt(),
 	}
 }
 

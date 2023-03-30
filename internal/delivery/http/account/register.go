@@ -25,7 +25,7 @@ func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
 
 	errRegisterUseCase := h.UCAccount.Register(ctx, buildRegister)
 	if errRegisterUseCase != nil {
-		result, errMap := response.MapResponse(1, "register error")
+		result, errMap := response.MapResponse(1, errRegisterUseCase.Error())
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
