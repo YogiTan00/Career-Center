@@ -16,6 +16,7 @@ func (r AccountMysqlInteractor) CreateAccount(ctx context.Context, data *account
 	)
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
+
 	err := dbq.Tx(ctx, r.DbConn, func(tx interface{}, Q dbq.QFn, E dbq.EFn, txCommit dbq.TxCommit) {
 		postModelStruct := mapper.DomainToInterface(data)
 

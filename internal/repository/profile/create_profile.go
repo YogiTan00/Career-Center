@@ -12,6 +12,7 @@ import (
 func (p ProfileMysqlInteractor) CreateProfile(ctx context.Context, data *profile.ProfileUser) error {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
+
 	err := dbq.Tx(ctx, p.DbConn, func(tx interface{}, Q dbq.QFn, E dbq.EFn, txCommit dbq.TxCommit) {
 		postModelStruct := mapper.DomainProfileToInterface(data)
 

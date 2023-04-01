@@ -4,6 +4,7 @@ import (
 	"CareerCenter/domain/entity/profile"
 	"CareerCenter/internal/repository/models"
 	"CareerCenter/utils"
+	"fmt"
 	"github.com/rocketlaunchr/dbq/v2"
 )
 
@@ -11,6 +12,7 @@ func ModelProfileToEntity(m *models.ProfileModel) *profile.ProfileUserDTO {
 	listAbility := utils.SplitTextToArray(m.Ability)
 	listLanguage := utils.SplitTextToArray(m.Language)
 	data := &profile.ProfileUserDTO{
+		Id:          m.Id,
 		Name:        m.Name,
 		Photo:       m.Photo,
 		Skill:       m.Skill,
@@ -30,6 +32,7 @@ func EntityProfileToModel(m *profile.ProfileUser) *models.ProfileModel {
 	listAbility := utils.JoinTextFromArray(m.GetAbility())
 	listLanguage := utils.JoinTextFromArray(m.GetLanguage())
 	data := &models.ProfileModel{
+		Id:          m.GetId(),
 		Name:        m.GetName(),
 		Photo:       m.GetEmail(),
 		Skill:       m.GetSkill(),
@@ -42,6 +45,7 @@ func EntityProfileToModel(m *profile.ProfileUser) *models.ProfileModel {
 		CreatedAt:   m.GetCreatedAt(),
 		UpdatedAt:   m.GetUpdatedAt(),
 	}
+	fmt.Println(data.Id)
 	return data
 }
 

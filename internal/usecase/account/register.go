@@ -5,7 +5,6 @@ import (
 	"CareerCenter/domain/entity/profile"
 	"CareerCenter/utils"
 	"context"
-	"time"
 )
 
 func (u UseCaseAccountInteractor) Register(ctx context.Context, data *account.AccountDTO) error {
@@ -19,28 +18,22 @@ func (u UseCaseAccountInteractor) Register(ctx context.Context, data *account.Ac
 		}
 		data.Password = password
 	}
-	timeNow := time.Now()
-	data.CreatedAt = timeNow
-	data.UpdatedAt = timeNow
+
 	register, errRegister := account.NewAccount(data)
 	if errRegister != nil {
 		return errRegister
 	}
+
 	err = u.repoAccount.CreateAccount(ctx, register)
 	if err != nil {
 		return err
 	}
-	create := &profile.ProfileUserDTO{
-		Name:      data.Name,
-		Email:     data.Email,
-		CreatedAt: timeNow,
-		UpdatedAt: timeNow,
-	}
 
-	dataProfile, err := profile.NewProfile(create)
+	dataProfile, err := profile.NewProfileByRegister(register)
 	if err != nil {
 		return err
 	}
+
 	err = u.repoProfile.CreateProfile(ctx, dataProfile)
 	if err != nil {
 		return err

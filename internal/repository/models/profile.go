@@ -5,6 +5,7 @@ import (
 )
 
 type ProfileModel struct {
+	Id          string    `dbq:"id"`
 	Email       string    `dbq:"email"`
 	Name        string    `dbq:"name"`
 	Photo       string    `dbq:"photo"`
@@ -24,6 +25,7 @@ func GetTableNameProfile() string {
 
 func TableProfile() []string {
 	return []string{
+		"id",
 		"email",
 		"name",
 		"photo",

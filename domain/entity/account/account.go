@@ -3,10 +3,12 @@ package account
 import (
 	"CareerCenter/utils"
 	"errors"
+	"github.com/google/uuid"
 	"time"
 )
 
 type Account struct {
+	id        string
 	email     string
 	name      string
 	password  string
@@ -15,6 +17,7 @@ type Account struct {
 }
 
 type AccountDTO struct {
+	Id        string
 	Email     string
 	Name      string
 	Password  string
@@ -28,6 +31,7 @@ func NewAccount(dto *AccountDTO) (*Account, error) {
 		return nil, err
 	}
 	return &Account{
+		id:        uuid.NewString(),
 		email:     dto.Email,
 		name:      dto.Name,
 		password:  dto.Password,
@@ -51,6 +55,9 @@ func (dto *AccountDTO) Validation() error {
 	return nil
 }
 
+func (g *Account) GetId() string {
+	return g.id
+}
 func (g *Account) GetEmail() string {
 	return g.email
 }

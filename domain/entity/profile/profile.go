@@ -1,12 +1,14 @@
 package profile
 
 import (
+	"CareerCenter/domain/entity/account"
 	"CareerCenter/utils"
 	"CareerCenter/utils/exceptions"
 	"time"
 )
 
 type ProfileUser struct {
+	id             string
 	name           string
 	photo          string
 	skill          string
@@ -23,6 +25,7 @@ type ProfileUser struct {
 }
 
 type ProfileUserDTO struct {
+	Id             string
 	Name           string
 	Photo          string
 	Skill          string
@@ -45,7 +48,9 @@ func NewProfile(dto *ProfileUserDTO) (*ProfileUser, error) {
 	}
 	workExperiencet := NewWorkExperience(dto.WorkExperience)
 	education := NewEducation(dto.Education)
+	timeNow := time.Now()
 	return &ProfileUser{
+		id:             dto.Id,
 		name:           dto.Name,
 		photo:          dto.Photo,
 		skill:          dto.Skill,
@@ -57,9 +62,26 @@ func NewProfile(dto *ProfileUserDTO) (*ProfileUser, error) {
 		language:       dto.Language,
 		cvResume:       dto.CvResume,
 		portofolio:     dto.Portofolio,
-		createdAt:      dto.CreatedAt,
-		updatedAt:      dto.UpdatedAt,
+		createdAt:      timeNow,
+		updatedAt:      timeNow,
 	}, nil
+}
+
+func NewProfileByRegister(dto *account.Account) (*ProfileUser, error) {
+	timeNow := time.Now()
+	data := &ProfileUserDTO{
+		Id:        dto.GetId(),
+		Name:      dto.GetNama(),
+		Email:     dto.GetEmail(),
+		CreatedAt: timeNow,
+		UpdatedAt: timeNow,
+	}
+	newProfile, err := NewProfile(data)
+
+	if err != nil {
+		return nil, err
+	}
+	return newProfile, nil
 }
 
 func (dto *ProfileUserDTO) Validation() error {
@@ -88,6 +110,9 @@ func (dto *ProfileUserDTO) Validation() error {
 	return nil
 }
 
+func (data *ProfileUser) GetId() string {
+	return data.id
+}
 func (data *ProfileUser) GetName() string {
 	return data.name
 }

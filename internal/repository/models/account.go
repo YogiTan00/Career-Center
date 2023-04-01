@@ -5,6 +5,7 @@ import (
 )
 
 type AccountModel struct {
+	Id        string    `dbq:"id"`
 	Email     string    `dbq:"email"`
 	Nama      string    `dbq:"name"`
 	Password  string    `dbq:"password"`
@@ -18,6 +19,7 @@ func GetTableNameAccount() string {
 
 func TableAccount() []string {
 	return []string{
+		"id",
 		"email",
 		"name",
 		"password",
