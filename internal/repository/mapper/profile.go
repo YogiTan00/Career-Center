@@ -4,7 +4,6 @@ import (
 	"CareerCenter/domain/entity/profile"
 	"CareerCenter/internal/repository/models"
 	"CareerCenter/utils"
-	"fmt"
 	"github.com/rocketlaunchr/dbq/v2"
 )
 
@@ -45,7 +44,6 @@ func EntityProfileToModel(m *profile.ProfileUser) *models.ProfileModel {
 		CreatedAt:   m.GetCreatedAt(),
 		UpdatedAt:   m.GetUpdatedAt(),
 	}
-	fmt.Println(data.Id)
 	return data
 }
 
