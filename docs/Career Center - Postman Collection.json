@@ -7,274 +7,377 @@
 	},
 	"item": [
 		{
-			"name": "Register",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\":\"yogi00@gmail.com\",\r\n    \"name\":\"yogi00\",\r\n    \"password\":\"abcd123\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{local}}/v1/register",
-					"host": [
-						"{{local}}"
-					],
-					"path": [
-						"v1",
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"email\":\"yogi@gmail.com\",\r\n  \"password\":\"abcd123\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{local}}/v1/login",
-					"host": [
-						"{{local}}"
-					],
-					"path": [
-						"v1",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Home",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk2NjM1NTAsInVzZXJfaWQiOiJ5b2dpQGdtYWlsLmNvbSJ9.7OanXJ2QipvBQ4FVjnALDFZj4W29R7i09y-mHVSRr8I",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{local}}/v1/home?limitJobs=3&limitActivity=2",
-					"host": [
-						"{{local}}"
-					],
-					"path": [
-						"v1",
-						"home"
-					],
-					"query": [
-						{
-							"key": "limitJobs",
-							"value": "3"
+			"name": "Account",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"yogi@gmail.com\",\r\n    \"name\":\"yogi\",\r\n    \"password\":\"abcd123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "limitActivity",
-							"value": "2"
+						"url": {
+							"raw": "{{local}}/v1/register",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"register"
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get List Job",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk5MTA4NzIsInVzZXJfaWQiOiJ5b2dpQGdtYWlsLmNvbSJ9.93UKmRaM-WOzzC8maB0T_QmiS65pb4uSWZwaRUSEm5Y",
-							"type": "string"
-						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{local}}/v1/list-jobs",
-					"host": [
-						"{{local}}"
-					],
-					"path": [
-						"v1",
-						"list-jobs"
-					],
-					"query": [
-						{
-							"key": "q",
-							"value": "2",
-							"disabled": true
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\":\"yogi00@gmail.com\",\r\n  \"password\":\"abcd123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "limit",
-							"value": "3",
-							"disabled": true
+						"url": {
+							"raw": "{{local}}/v1/login",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODA0NDc1MDEsInVzZXJfaWQiOiJ5b2dpMDBAZ21haWwuY29tIn0.bwC7qGc7W7IXRDD_6uHRdnC2Gw5s4GdvavFDC__SL8w",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"key": "page",
-							"value": "1",
-							"disabled": true
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Detail Job",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk5MTA4NzIsInVzZXJfaWQiOiJ5b2dpQGdtYWlsLmNvbSJ9.93UKmRaM-WOzzC8maB0T_QmiS65pb4uSWZwaRUSEm5Y",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{local}}/v1/job-detail/eb0ddfb8-019e-43c9-8c42-088586fd9726",
-					"host": [
-						"{{local}}"
-					],
-					"path": [
-						"v1",
-						"job-detail",
-						"eb0ddfb8-019e-43c9-8c42-088586fd9726"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Profile",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk5MTA4NzIsInVzZXJfaWQiOiJ5b2dpQGdtYWlsLmNvbSJ9.93UKmRaM-WOzzC8maB0T_QmiS65pb4uSWZwaRUSEm5Y",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{local}}/v1/profile/people",
-					"host": [
-						"{{local}}"
-					],
-					"path": [
-						"v1",
-						"profile",
-						"people"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get List Company",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk5MTA4NzIsInVzZXJfaWQiOiJ5b2dpQGdtYWlsLmNvbSJ9.93UKmRaM-WOzzC8maB0T_QmiS65pb4uSWZwaRUSEm5Y",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{local}}/v1/list-company",
-					"host": [
-						"{{local}}"
-					],
-					"path": [
-						"v1",
-						"list-company"
-					],
-					"query": [
-						{
-							"key": "q",
-							"value": "maju",
-							"disabled": true
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"abcd123\",\r\n    \"newPassword\": \"abcd123\",\r\n    \"confirmPassword\": \"abcd123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "limit",
-							"value": "3",
-							"disabled": true
-						},
-						{
-							"key": "page",
-							"value": "1",
-							"disabled": true
+						"url": {
+							"raw": "{{local}}/v1/change/password",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"change",
+								"password"
+							]
 						}
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Get Profile Company",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk5MTA4NzIsInVzZXJfaWQiOiJ5b2dpQGdtYWlsLmNvbSJ9.93UKmRaM-WOzzC8maB0T_QmiS65pb4uSWZwaRUSEm5Y",
-							"type": "string"
+			"name": "Jobs",
+			"item": [
+				{
+					"name": "Get List Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODA0NDc1MDEsInVzZXJfaWQiOiJ5b2dpMDBAZ21haWwuY29tIn0.bwC7qGc7W7IXRDD_6uHRdnC2Gw5s4GdvavFDC__SL8w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/v1/list-jobs",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"list-jobs"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{local}}/v1/profile/company/09f887b2-8f32-460b-be62-d88522f5998d",
-					"host": [
-						"{{local}}"
-					],
-					"path": [
-						"v1",
-						"profile",
-						"company",
-						"09f887b2-8f32-460b-be62-d88522f5998d"
-					]
+				{
+					"name": "Get Detail Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODA0NDc1MDEsInVzZXJfaWQiOiJ5b2dpMDBAZ21haWwuY29tIn0.bwC7qGc7W7IXRDD_6uHRdnC2Gw5s4GdvavFDC__SL8w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/v1/job-detail/eb0ddfb8-019e-43c9-8c42-088586fd9726",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"job-detail",
+								"eb0ddfb8-019e-43c9-8c42-088586fd9726"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODA0NDc1MDEsInVzZXJfaWQiOiJ5b2dpMDBAZ21haWwuY29tIn0.bwC7qGc7W7IXRDD_6uHRdnC2Gw5s4GdvavFDC__SL8w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/v1/profile",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODA0NDc1MDEsInVzZXJfaWQiOiJ5b2dpMDBAZ21haWwuY29tIn0.bwC7qGc7W7IXRDD_6uHRdnC2Gw5s4GdvavFDC__SL8w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Yogi\",\r\n    \"skill\": \"Back End Development\",\r\n    \"phoneNumber\": \"0128391721\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/v1/profile/update-profile",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"profile",
+								"update-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Photo Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODA0NDc1MDEsInVzZXJfaWQiOiJ5b2dpMDBAZ21haWwuY29tIn0.bwC7qGc7W7IXRDD_6uHRdnC2Gw5s4GdvavFDC__SL8w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/yogiw/Pictures/WhatsApp Image 2023-04-02 at 00.45.43.png",
+									"disabled": true
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/yogiw/Pictures/297C451C-86EB-4826-9CAA-0BA189BBD27B-removebg.png",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/v1/profile/update-photo",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"profile",
+								"update-photo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "Get List Company",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk5MTA4NzIsInVzZXJfaWQiOiJ5b2dpQGdtYWlsLmNvbSJ9.93UKmRaM-WOzzC8maB0T_QmiS65pb4uSWZwaRUSEm5Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/v1/list-company",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"list-company"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "maju",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile Company",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk5MTA4NzIsInVzZXJfaWQiOiJ5b2dpQGdtYWlsLmNvbSJ9.93UKmRaM-WOzzC8maB0T_QmiS65pb4uSWZwaRUSEm5Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/v1/profile/company/09f887b2-8f32-460b-be62-d88522f5998d",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"profile",
+								"company",
+								"09f887b2-8f32-460b-be62-d88522f5998d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Send Application",
@@ -284,7 +387,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODAxMDk4NDMsInVzZXJfaWQiOiJ5b2dpQGdtYWlsLmNvbSJ9.3xw9VvIKY_dtLXKcidjyuZ96gRpBcnVo4TE3dE7BVsE",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODA0NDc1MDEsInVzZXJfaWQiOiJ5b2dpMDBAZ21haWwuY29tIn0.bwC7qGc7W7IXRDD_6uHRdnC2Gw5s4GdvavFDC__SL8w",
 							"type": "string"
 						}
 					]
@@ -293,7 +396,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"companyId\": \"09f887b2-8f32-460b-be62-d88522f5998d\"\r\n}\r\n",
+					"raw": "{\r\n    \"companyId\": \"09f887b2-8f32-460b-be62-d88522f5998a\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
