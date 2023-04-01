@@ -33,12 +33,13 @@ func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write(result)
 		return
-	} else {
-		response, errMap := response.MapResponse(0, "Success register")
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(response)
 	}
+
+	response, errMap := response.MapResponse(0, "Success register")
+	if errMap != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Error mapping data"))
+	}
+	w.Write(response)
+	return
 }

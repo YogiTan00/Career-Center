@@ -39,13 +39,15 @@ func (h *CompanyHandler) GetListCompany(w http.ResponseWriter, r *http.Request) 
 			w.Write([]byte("Error mapping data"))
 		}
 		w.Write(result)
-	} else {
-		companyResponse := response.GetListCompanyResponse(company)
-		result, errMap := response.MapResponseInterface(0, "success Get list company", companyResponse)
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		return
 	}
+
+	companyResponse := response.GetListCompanyResponse(company)
+	result, errMap := response.MapResponseInterface(0, "success Get list company", companyResponse)
+	if errMap != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Error mapping data"))
+	}
+	w.Write(result)
+	return
 }

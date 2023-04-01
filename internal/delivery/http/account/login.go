@@ -1,7 +1,6 @@
 package account
 
 import (
-	"CareerCenter/domain/entity/account"
 	"CareerCenter/internal/delivery/request"
 	"CareerCenter/internal/delivery/response"
 	"context"
@@ -12,7 +11,7 @@ import (
 func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx     = context.TODO()
-		req     request.RequestLogin
+		req     *request.RequestLogin
 		decoder = json.NewDecoder(r.Body)
 	)
 	errDecode := decoder.Decode(&req)
@@ -21,10 +20,7 @@ func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Error decode data"))
 		return
 	}
-	buildLogin := &account.AccountDTO{
-		Email:    req.Email,
-		Password: req.Password,
-	}
+	buildLogin := request.NewLoginRequest(req)
 	token, err := h.UCAccount.Login(ctx, buildLogin.Email, buildLogin.Password)
 	if err != nil {
 		result, errMap := response.MapResponse(1, err.Error())
@@ -33,13 +29,15 @@ func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("Error mapping data"))
 		}
 		w.Write(result)
-	} else {
-		http.SetCookie(w, token)
-		result, errMap := response.MapResponseInterface(0, "success login", token.Value)
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		return
 	}
+
+	http.SetCookie(w, token)
+	result, errMap := response.MapResponseInterface(0, "success login", token.Value)
+	if errMap != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Error mapping data"))
+	}
+	w.Write(result)
+	return
 }

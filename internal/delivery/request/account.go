@@ -23,6 +23,13 @@ type RequestLogin struct {
 	Password string `json:"password"`
 }
 
+func NewLoginRequest(req *RequestLogin) *account.AccountDTO {
+	return &account.AccountDTO{
+		Email:    req.Email,
+		Password: req.Password,
+	}
+}
+
 type RequestPassword struct {
 	OldPassword     string `json:"oldPassword"`
 	NewPassword     string `json:"newPassword"`

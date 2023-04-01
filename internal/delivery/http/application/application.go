@@ -36,12 +36,14 @@ func (h *ApplicationHandler) SendApplication(w http.ResponseWriter, r *http.Requ
 			w.Write([]byte("Error mapping data"))
 		}
 		w.Write(result)
-	} else {
-		result, errMap := response.MapResponse(0, "success send application")
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		return
 	}
+
+	result, errMap := response.MapResponse(0, "success send application")
+	if errMap != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Error mapping data"))
+	}
+	w.Write(result)
+	return
 }

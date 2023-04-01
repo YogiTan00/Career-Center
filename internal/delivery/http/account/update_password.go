@@ -38,12 +38,14 @@ func (h *AccountHandler) ChangePassword(w http.ResponseWriter, r *http.Request) 
 			w.Write([]byte("Error mapping data"))
 		}
 		w.Write(response)
-	} else {
-		result, errMap := response.MapResponse(0, "success change password")
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		return
 	}
+
+	result, errMap := response.MapResponse(0, "success change password")
+	if errMap != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Error mapping data"))
+	}
+	w.Write(result)
+	return
 }

@@ -30,13 +30,15 @@ func (h *JobsHandler) GetJobById(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("Error mapping data"))
 		}
 		w.Write(result)
-	} else {
-		jobsResponse := response.GetDetailJobResponse(jobs)
-		result, errMap := response.MapResponseInterface(0, "success Get detail job", jobsResponse)
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		return
 	}
+
+	jobsResponse := response.GetDetailJobResponse(jobs)
+	result, errMap := response.MapResponseInterface(0, "success Get detail job", jobsResponse)
+	if errMap != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Error mapping data"))
+	}
+	w.Write(result)
+	return
 }

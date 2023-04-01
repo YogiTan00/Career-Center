@@ -25,13 +25,15 @@ func (h *ProfileHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("Error mapping data"))
 		}
 		w.Write(result)
-	} else {
-		profileResponse := response.GetProfileResponse(profile)
-		result, errMap := response.MapResponseInterface(0, "success get profile", profileResponse)
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		return
 	}
+
+	profileResponse := response.GetProfileResponse(profile)
+	result, errMap := response.MapResponseInterface(0, "success get profile", profileResponse)
+	if errMap != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Error mapping data"))
+	}
+	w.Write(result)
+	return
 }

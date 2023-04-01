@@ -39,13 +39,15 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("Error mapping data"))
 		}
 		w.Write(result)
-	} else {
-		JobsResponse := response.GetListJobResponse(jobs)
-		result, errMap := response.MapResponseInterface(0, "success Get list job", JobsResponse)
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		return
 	}
+
+	JobsResponse := response.GetListJobResponse(jobs)
+	result, errMap := response.MapResponseInterface(0, "success Get list job", JobsResponse)
+	if errMap != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Error mapping data"))
+	}
+	w.Write(result)
+	return
 }
