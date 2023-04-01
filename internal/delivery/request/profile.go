@@ -17,3 +17,11 @@ func NewUpdateProfileRequest(req *RequestUpdateProfile) *profile.ProfileUserDTO 
 		PhoneNumber: req.PhoneNumber,
 	}
 }
+
+type RequestUpdatephotoProfile struct {
+	Photo string `json:"photo"`
+}
+
+func NewUpdatePhotoProfile() {
+
+}
