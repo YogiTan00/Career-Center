@@ -61,7 +61,7 @@ func (g *Account) GetId() string {
 func (g *Account) GetEmail() string {
 	return g.email
 }
-func (g *Account) GetNama() string {
+func (g *Account) GetName() string {
 	return g.name
 }
 

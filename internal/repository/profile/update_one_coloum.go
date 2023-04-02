@@ -1,7 +1,7 @@
 package profile
 
 import (
-	"CareerCenter/internal/repository/models"
+	"CareerCenter/internal/repository/models/profile"
 	"context"
 	"fmt"
 	"github.com/rocketlaunchr/dbq/v2"
@@ -13,7 +13,7 @@ func (p ProfileMysqlInteractor) UpdateOneColoum(ctx context.Context, email strin
 	defer cancel()
 
 	query := fmt.Sprintf("UPDATE %s SET %s='%s' WHERE email = '%s' ",
-		models.GetTableNameProfile(), coloum, path, email)
+		profile.GetTableNameProfile(), coloum, path, email)
 
 	_, err := dbq.E(ctx, p.DbConn, query, nil)
 

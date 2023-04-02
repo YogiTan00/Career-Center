@@ -2,8 +2,8 @@ package profile
 
 import (
 	"CareerCenter/domain/entity/profile"
-	"CareerCenter/internal/repository/mapper"
-	"CareerCenter/internal/repository/models"
+	profile2 "CareerCenter/internal/repository/mapper/profile"
+	profile3 "CareerCenter/internal/repository/models/profile"
 	"context"
 	"fmt"
 	"github.com/rocketlaunchr/dbq/v2"
@@ -14,10 +14,10 @@ func (p ProfileMysqlInteractor) GetProfileByEmail(ctx context.Context, email str
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ?`, models.GetTableNameProfile())
+	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ?`, profile3.GetTableNameProfile())
 	opts := &dbq.Options{
 		SingleResult:   true,
-		ConcreteStruct: models.ProfileModel{},
+		ConcreteStruct: profile3.ProfileModel{},
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
 	result := dbq.MustQ(ctx, p.DbConn, stmt, opts, email)
@@ -25,6 +25,6 @@ func (p ProfileMysqlInteractor) GetProfileByEmail(ctx context.Context, email str
 		return nil, nil
 	}
 
-	account := mapper.ModelProfileToEntity(result.(*models.ProfileModel))
+	account := profile2.ModelProfileToEntity(result.(*profile3.ProfileModel))
 	return account, nil
 }

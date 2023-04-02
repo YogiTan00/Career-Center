@@ -14,7 +14,7 @@ type ProfileUser struct {
 	skill          string
 	email          string
 	phoneNumber    string
-	workExperience WorkExperience
+	workExperience *WorkExperience
 	education      Education
 	ability        []string
 	language       []string
@@ -71,7 +71,7 @@ func NewProfileByRegister(dto *account.Account) (*ProfileUser, error) {
 	timeNow := time.Now()
 	data := &ProfileUserDTO{
 		Id:        dto.GetId(),
-		Name:      dto.GetNama(),
+		Name:      dto.GetName(),
 		Email:     dto.GetEmail(),
 		CreatedAt: timeNow,
 		UpdatedAt: timeNow,
@@ -128,7 +128,7 @@ func (data *ProfileUser) GetEmail() string {
 func (data *ProfileUser) GetPhoneNumber() string {
 	return data.phoneNumber
 }
-func (data *ProfileUser) GetWorkExperience() WorkExperience {
+func (data *ProfileUser) GetWorkExperience() *WorkExperience {
 	return data.workExperience
 }
 func (data *ProfileUser) GetEducation() Education {

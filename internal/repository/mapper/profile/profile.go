@@ -1,13 +1,13 @@
-package mapper
+package profile
 
 import (
 	"CareerCenter/domain/entity/profile"
-	"CareerCenter/internal/repository/models"
+	profile2 "CareerCenter/internal/repository/models/profile"
 	"CareerCenter/utils"
 	"github.com/rocketlaunchr/dbq/v2"
 )
 
-func ModelProfileToEntity(m *models.ProfileModel) *profile.ProfileUserDTO {
+func ModelProfileToEntity(m *profile2.ProfileModel) *profile.ProfileUserDTO {
 	listAbility := utils.SplitTextToArray(m.Ability)
 	listLanguage := utils.SplitTextToArray(m.Language)
 	data := &profile.ProfileUserDTO{
@@ -27,10 +27,10 @@ func ModelProfileToEntity(m *models.ProfileModel) *profile.ProfileUserDTO {
 	return data
 }
 
-func EntityProfileToModel(m *profile.ProfileUser) *models.ProfileModel {
+func EntityProfileToModel(m *profile.ProfileUser) *profile2.ProfileModel {
 	listAbility := utils.JoinTextFromArray(m.GetAbility())
 	listLanguage := utils.JoinTextFromArray(m.GetLanguage())
-	data := &models.ProfileModel{
+	data := &profile2.ProfileModel{
 		Id:          m.GetId(),
 		Name:        m.GetName(),
 		Photo:       m.GetEmail(),

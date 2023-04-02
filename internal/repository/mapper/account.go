@@ -10,7 +10,7 @@ func EntityToModel(m *account.Account) *models.AccountModel {
 	return &models.AccountModel{
 		Id:        m.GetId(),
 		Email:     m.GetEmail(),
-		Nama:      m.GetNama(),
+		Nama:      m.GetName(),
 		Password:  m.GetPassword(),
 		CreatedAt: m.GetCreatedAt(),
 		UpdateAt:  m.GetUpdatedAt(),

@@ -9,4 +9,5 @@ type UseCaseProfile interface {
 	GetProfileByEmail(ctx context.Context, email string) (*profile.ProfileUserDTO, error)
 	UpdateProfile(ctx context.Context, email string, data *profile.ProfileUserDTO) error
 	UpdatePhotoProfile(ctx context.Context, email string, path string) error
+	UpdateWorkExperience(ctx context.Context, email string, workExp *profile.WorkExperienceDTO) error
 }

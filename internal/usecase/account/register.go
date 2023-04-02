@@ -39,5 +39,11 @@ func (u UseCaseAccountInteractor) Register(ctx context.Context, data *account.Ac
 		return err
 	}
 
+	dataWorkExperience := profile.NewWorkExperienceByRegis(register)
+
+	err = u.repoProfile.CreateWorkExperience(ctx, dataWorkExperience)
+	if err != nil {
+		return err
+	}
 	return nil
 }

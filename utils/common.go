@@ -1,11 +1,13 @@
 package utils
 
 import (
+	"CareerCenter/utils/exceptions"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"math/rand"
 	"net/mail"
 	"strings"
+	"time"
 )
 
 func ValitEmail(email string) bool {
@@ -48,4 +50,12 @@ func SplitTextToArray(s string) []string {
 func JoinTextFromArray(s []string) string {
 	text := strings.Join(s, ",")
 	return text
+}
+
+func ToDate(s string) (time.Time, error) {
+	conv, err := time.Parse("2006-01-02", s)
+	if err != nil {
+		return time.Time{}, exceptions.ErrCustomString("err format date")
+	}
+	return conv, nil
 }

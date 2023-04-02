@@ -9,14 +9,14 @@ import (
 	"time"
 )
 
-func (p ProfileMysqlInteractor) CreateProfile(ctx context.Context, data *profile.ProfileUser) error {
+func (p ProfileMysqlInteractor) CreateWorkExperience(ctx context.Context, workExp *profile.WorkExperience) error {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
 	err := dbq.Tx(ctx, p.DbConn, func(tx interface{}, Q dbq.QFn, E dbq.EFn, txCommit dbq.TxCommit) {
-		postModelStruct := profile2.DomainProfileToInterface(data)
+		postModelStruct := profile2.DomainWorkExperienceToInterface(workExp)
 
-		stmt := dbq.INSERTStmt(profile3.GetTableNameProfile(), profile3.TableProfile(), len(postModelStruct), dbq.MySQL)
+		stmt := dbq.INSERTStmt(profile3.GetTableNameWorkExperience(), profile3.TableWorkExperience(), len(postModelStruct), dbq.MySQL)
 
 		_, errStore := E(ctx, stmt, nil, postModelStruct)
 
