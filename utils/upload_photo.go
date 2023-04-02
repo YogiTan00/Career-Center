@@ -24,7 +24,7 @@ func UploadPhoto(r *http.Request) (string, error) {
 	timeNow := time.Now().Format(fmt.Sprintf("2006%s01%s02%s15%s04%s05", RandomString(2), RandomString(2), RandomString(2), RandomString(2), RandomString(2)))
 	header.Filename = timeNow + ".png"
 
-	path := "uploads/" + header.Filename
+	path := "uploads/image/" + header.Filename
 	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		return "", err
