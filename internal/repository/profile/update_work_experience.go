@@ -1,8 +1,11 @@
 package profile
 
-import "context"
+import (
+	"CareerCenter/domain/entity/profile"
+	"context"
+)
 
-func (p ProfileMysqlInteractor) UpdateWorkExperience(ctx context.Context, email string) error {
+func (p ProfileMysqlInteractor) UpdateWorkExperience(ctx context.Context, email string, workExp *profile.WorkExperience) error {
 	//ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	//defer cancel()
 	//
