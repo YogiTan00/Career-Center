@@ -16,7 +16,7 @@ func (h *JobsHandler) GetJobById(w http.ResponseWriter, r *http.Request) {
 
 	jobId := vars["job_id"]
 
-	_, errToken := utils.ValidateTokenFromHeader(r)
+	email, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		result, errMap := response.MapResponse(1, errToken.Error())
 		if errMap != nil {
@@ -27,7 +27,7 @@ func (h *JobsHandler) GetJobById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jobs, err := h.UCJobs.GetJobById(ctx, jobId)
+	jobs, err := h.UCJobs.GetJobById(ctx, email, jobId)
 	if err != nil {
 		result, errMap := response.MapResponse(1, "cant get detail job")
 		if errMap != nil {

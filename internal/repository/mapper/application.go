@@ -21,7 +21,7 @@ func EntityApplicationToModel(m *entity.Application) *models.ApplicationModel {
 	}
 }
 
-func ModelApplicationToEntity(m *models.ApplicationModel) (*entity.ApplicationDTO, error) {
+func ModelApplicationToEntity(m *models.ApplicationModel) *entity.ApplicationDTO {
 	data := &entity.ApplicationDTO{
 		Id:          m.Id,
 		CompanyId:   m.CompanyId,
@@ -34,7 +34,7 @@ func ModelApplicationToEntity(m *models.ApplicationModel) (*entity.ApplicationDT
 		CreatedAt:   m.CreatedAt,
 		UpdatedAt:   m.UpdateAt,
 	}
-	return data, nil
+	return data
 }
 
 func EntityApplicationToInterface(data *entity.Application) []interface{} {

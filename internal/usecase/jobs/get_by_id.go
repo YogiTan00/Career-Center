@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-func (u UseCaseJobsInteractor) GetJobById(ctx context.Context, id string) (*entity.JobsDTO, error) {
+func (u UseCaseJobsInteractor) GetJobById(ctx context.Context, email string, id string) (*entity.JobsDTO, error) {
 	uuid, err := utils.ValitUuId(id)
 	if err != nil {
 		return nil, err
@@ -14,6 +14,16 @@ func (u UseCaseJobsInteractor) GetJobById(ctx context.Context, id string) (*enti
 	data, err := u.repoJobs.GetJobById(ctx, uuid)
 	if err != nil {
 		return nil, err
+	}
+
+	check, err := u.repoApplication.GetByEmail(ctx, email, id)
+	if err != nil {
+		return nil, err
+	}
+
+	if check != nil {
+		data.Status = true
+		data.SendDate = check.UpdatedAt
 	}
 
 	return data, nil

@@ -27,7 +27,7 @@ var (
 	handlerAccount = account3.NewUseCaseAccountHandler(useCaseAccount)
 
 	repoJobs    = jobs.NewJobsMysqlInteractor(mysqlConn)
-	useCaseJobs = jobs2.NewJobsUsecase(repoJobs)
+	useCaseJobs = jobs2.NewJobsUsecase(repoJobs, repoApplication)
 	handlerJobs = jobs3.NewUseCaseJobsHandler(useCaseJobs)
 
 	repoProfile    = profile.NewProfileMysqlInteractor(mysqlConn)
