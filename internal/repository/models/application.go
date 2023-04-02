@@ -4,9 +4,9 @@ import "time"
 
 type ApplicationModel struct {
 	Id          string    `dbq:"id"`
-	CompanyId   string    `dbq:"company_d"`
+	CompanyId   string    `dbq:"company_id"`
 	Email       string    `dbq:"email"`
-	Nama        string    `dbq:"name"`
+	Name        string    `dbq:"name"`
 	Skill       string    `dbq:"skill"`
 	PhoneNumber string    `dbq:"phone_number"`
 	CvResume    string    `dbq:"cv_resume"`
@@ -17,4 +17,19 @@ type ApplicationModel struct {
 
 func GetTableNameApplication() string {
 	return "application"
+}
+
+func TableApplication() []string {
+	return []string{
+		"id",
+		"company_id",
+		"email",
+		"name",
+		"skill",
+		"phone_number",
+		"cv_resume",
+		"portofolio",
+		"created_at",
+		"updated_at",
+	}
 }

@@ -16,7 +16,12 @@ func (h *CompanyHandler) GetListCompany(w http.ResponseWriter, r *http.Request) 
 
 	_, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
-		http.Error(w, errToken.Error(), http.StatusUnauthorized)
+		result, errMap := response.MapResponse(1, errToken.Error())
+		if errMap != nil {
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write([]byte("Error mapping data"))
+		}
+		w.Write(result)
 		return
 	}
 

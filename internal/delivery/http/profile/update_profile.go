@@ -17,8 +17,12 @@ func (h *ProfileHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	)
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error decode data"))
+		result, errMap := response.MapResponse(1, errDecode.Error())
+		if errMap != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte("Error mapping data"))
+		}
+		w.Write(result)
 		return
 	}
 

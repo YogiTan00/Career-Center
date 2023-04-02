@@ -6,6 +6,6 @@ type ApplicationHandler struct {
 	UCApplication usecase.UseCasApplication
 }
 
-func NewUseCaseAccountHandler(UCApplication usecase.UseCasApplication) *ApplicationHandler {
+func NewUseCaseApplicationHandler(UCApplication usecase.UseCasApplication) *ApplicationHandler {
 	return &ApplicationHandler{UCApplication: UCApplication}
 }

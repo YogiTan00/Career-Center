@@ -17,14 +17,23 @@ func (h *AccountHandler) ChangePassword(w http.ResponseWriter, r *http.Request) 
 	)
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error decode data"))
+		result, errMap := response.MapResponse(1, errDecode.Error())
+		if errMap != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte("Error mapping data"))
+		}
+		w.Write(result)
 		return
 	}
 
 	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
-		http.Error(w, errToken.Error(), http.StatusUnauthorized)
+		result, errMap := response.MapResponse(1, errToken.Error())
+		if errMap != nil {
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write([]byte("Error mapping data"))
+		}
+		w.Write(result)
 		return
 	}
 
@@ -32,12 +41,12 @@ func (h *AccountHandler) ChangePassword(w http.ResponseWriter, r *http.Request) 
 
 	err := h.UCAccount.UpdatePassword(ctx, user, password)
 	if err != nil {
-		response, errMap := response.MapResponse(1, err.Error())
+		result, errMap := response.MapResponse(1, err.Error())
 		if errMap != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Error mapping data"))
 		}
-		w.Write(response)
+		w.Write(result)
 		return
 	}
 

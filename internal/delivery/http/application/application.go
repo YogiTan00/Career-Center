@@ -17,14 +17,23 @@ func (h *ApplicationHandler) SendApplication(w http.ResponseWriter, r *http.Requ
 	)
 	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
-		http.Error(w, errToken.Error(), http.StatusUnauthorized)
+		result, errMap := response.MapResponse(1, errToken.Error())
+		if errMap != nil {
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write([]byte("Error mapping data"))
+		}
+		w.Write(result)
 		return
 	}
 
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error decode data"))
+		result, errMap := response.MapResponse(1, errDecode.Error())
+		if errMap != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte("Error mapping data"))
+		}
+		w.Write(result)
 		return
 	}
 

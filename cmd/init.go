@@ -2,7 +2,7 @@ package main
 
 import (
 	"CareerCenter/internal/config/database"
-	http2 "CareerCenter/internal/delivery/http/account"
+	account3 "CareerCenter/internal/delivery/http/account"
 	application3 "CareerCenter/internal/delivery/http/application"
 	company3 "CareerCenter/internal/delivery/http/company"
 	jobs3 "CareerCenter/internal/delivery/http/jobs"
@@ -24,7 +24,7 @@ var (
 
 	repoAccount    = account.NewAccountMysqlInteractor(mysqlConn)
 	useCaseAccount = account2.NewAccountUsecase(repoAccount, repoProfile)
-	handlerAccount = http2.NewUseCaseAccountHandler(useCaseAccount)
+	handlerAccount = account3.NewUseCaseAccountHandler(useCaseAccount)
 
 	repoJobs    = jobs.NewJobsMysqlInteractor(mysqlConn)
 	useCaseJobs = jobs2.NewJobsUsecase(repoJobs)
@@ -36,7 +36,7 @@ var (
 
 	repoApplication    = application.NewApplicationMysqlInteractor(mysqlConn)
 	useCaseApplication = application2.NewApplicationUsecase(repoApplication, repoProfile)
-	handlerApplication = application3.NewUseCaseAccountHandler(useCaseApplication)
+	handlerApplication = application3.NewUseCaseApplicationHandler(useCaseApplication)
 
 	repoCompany    = company.NewCompanyMysqlInteractor(mysqlConn)
 	useCaseCompany = company2.NewCompanyUsecase(repoCompany, repoJobs)

@@ -10,4 +10,5 @@ type RepoProfile interface {
 	GetProfileByEmail(ctx context.Context, email string) (*profile.ProfileUserDTO, error)
 	UpdateProfile(ctx context.Context, email string, data *profile.ProfileUser) error
 	UpdatePhotoProfile(ctx context.Context, email string, photo string) error
+	UpdateWorkExperience(ctx context.Context, email string) error
 }
