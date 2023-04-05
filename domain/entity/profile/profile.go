@@ -14,8 +14,8 @@ type ProfileUser struct {
 	skill          string
 	email          string
 	phoneNumber    string
-	workExperience *WorkExperience
-	education      Education
+	workExperience []*WorkExperience
+	education      []*Education
 	ability        []string
 	language       []string
 	cvResume       string
@@ -31,8 +31,8 @@ type ProfileUserDTO struct {
 	Skill          string
 	Email          string
 	PhoneNumber    string
-	WorkExperience WorkExperienceDTO
-	Education      EducationDTO
+	WorkExperience []*WorkExperienceDTO
+	Education      []*EducationDTO
 	Ability        []string
 	Language       []string
 	CvResume       string
@@ -46,8 +46,8 @@ func NewProfile(dto *ProfileUserDTO) (*ProfileUser, error) {
 	if err != nil {
 		return nil, err
 	}
-	workExperiencet := NewWorkExperience(dto.WorkExperience)
-	education := NewEducation(dto.Education)
+	workExperiencet := NewListWorkExperience(dto.WorkExperience)
+	education := NewListEducation(dto.Education)
 	timeNow := time.Now()
 	return &ProfileUser{
 		id:             dto.Id,
@@ -128,10 +128,10 @@ func (data *ProfileUser) GetEmail() string {
 func (data *ProfileUser) GetPhoneNumber() string {
 	return data.phoneNumber
 }
-func (data *ProfileUser) GetWorkExperience() *WorkExperience {
+func (data *ProfileUser) GetWorkExperience() []*WorkExperience {
 	return data.workExperience
 }
-func (data *ProfileUser) GetEducation() Education {
+func (data *ProfileUser) GetEducation() []*Education {
 	return data.education
 }
 func (data *ProfileUser) GetAbility() []string {

@@ -26,10 +26,9 @@ type DateRangeEduDTO struct {
 	End   time.Time
 }
 
-func NewEducation(dto EducationDTO) Education {
-
+func NewEducation(dto *EducationDTO) *Education {
 	dateRange := NewEduDateRange(dto.DateRange)
-	return Education{
+	return &Education{
 		id:              dto.Id,
 		name:            dto.Name,
 		dateRange:       dateRange,
@@ -43,4 +42,13 @@ func NewEduDateRange(dto DateRangeEduDTO) DateRangeEdu {
 		start: dto.Start,
 		end:   dto.End,
 	}
+}
+
+func NewListEducation(dto []*EducationDTO) []*Education {
+	listEducation := make([]*Education, 0)
+	for _, data := range dto {
+		education := NewEducation(data)
+		listEducation = append(listEducation, education)
+	}
+	return listEducation
 }

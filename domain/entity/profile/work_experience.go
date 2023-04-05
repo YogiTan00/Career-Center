@@ -1,7 +1,6 @@
 package profile
 
 import (
-	"CareerCenter/domain/entity/account"
 	"time"
 )
 
@@ -33,7 +32,7 @@ type DateRangeWorkDTO struct {
 	End   time.Time
 }
 
-func NewWorkExperience(dto WorkExperienceDTO) *WorkExperience {
+func NewWorkExperience(dto *WorkExperienceDTO) *WorkExperience {
 	dateRange := NewWorkDateRange(dto.DateRange)
 	return &WorkExperience{
 		id:              dto.Id,
@@ -46,20 +45,20 @@ func NewWorkExperience(dto WorkExperienceDTO) *WorkExperience {
 	}
 }
 
-func NewWorkExperienceByRegis(dto *account.Account) *WorkExperience {
-	data := WorkExperienceDTO{
-		Id:    dto.GetId(),
-		Email: dto.GetEmail(),
-	}
-	result := NewWorkExperience(data)
-	return result
-}
-
 func NewWorkDateRange(dto DateRangeWorkDTO) DateRangeWork {
 	return DateRangeWork{ //Validation
 		start: dto.Start,
 		end:   dto.End,
 	}
+}
+
+func NewListWorkExperience(dto []*WorkExperienceDTO) []*WorkExperience {
+	listWE := make([]*WorkExperience, 0)
+	for _, data := range dto {
+		workExperience := NewWorkExperience(data)
+		listWE = append(listWE, workExperience)
+	}
+	return listWE
 }
 
 func (data *WorkExperience) GetId() string {

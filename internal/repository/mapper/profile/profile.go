@@ -33,7 +33,7 @@ func EntityProfileToModel(m *profile.ProfileUser) *profile2.ProfileModel {
 	data := &profile2.ProfileModel{
 		Id:          m.GetId(),
 		Name:        m.GetName(),
-		Photo:       m.GetEmail(),
+		Photo:       m.GetPhoto(),
 		Skill:       m.GetSkill(),
 		Email:       m.GetEmail(),
 		PhoneNumber: m.GetPhoneNumber(),
