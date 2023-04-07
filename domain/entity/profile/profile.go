@@ -46,7 +46,10 @@ func NewProfile(dto *ProfileUserDTO) (*ProfileUser, error) {
 	if err != nil {
 		return nil, err
 	}
-	workExperiencet := NewListWorkExperience(dto.WorkExperience)
+	workExperiencet, err := NewListWorkExperience(dto.WorkExperience)
+	if err != nil {
+		return nil, err
+	}
 	education := NewListEducation(dto.Education)
 	timeNow := time.Now()
 	return &ProfileUser{

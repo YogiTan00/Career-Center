@@ -19,7 +19,7 @@ func NewUpdateProfileRequest(req *RequestUpdateProfile) *profile.ProfileUserDTO 
 	}
 }
 
-type RequestUpdateWorkExperience struct {
+type RequestWorkExperience struct {
 	SkillExperience string `json:"skillExperience"`
 	Name            string `json:"name"`
 	StillWorking    bool   `json:"stillWorking"`
@@ -28,7 +28,7 @@ type RequestUpdateWorkExperience struct {
 	Description     string `json:"description"`
 }
 
-func NewUpdateWorkExperience(req *RequestUpdateWorkExperience) (*profile.WorkExperienceDTO, error) {
+func NewUpdateWorkExperience(req *RequestWorkExperience) (*profile.WorkExperienceDTO, error) {
 	startWork, err := utils.ToDate(req.StartWork)
 	if err != nil {
 		return nil, err
