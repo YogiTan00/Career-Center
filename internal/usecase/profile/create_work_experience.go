@@ -10,7 +10,7 @@ func (u UseCaseProfileInteractor) CreateWorkExperiencet(ctx context.Context, ema
 	if err != nil {
 		return err
 	}
-
+	data.SetEmail(email)
 	err = u.repoProfile.CreateWorkExperience(ctx, data)
 	if err != nil {
 		return err

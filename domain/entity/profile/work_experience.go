@@ -100,3 +100,7 @@ func (data *WorkExperience) GetEndWork() time.Time {
 func (data *WorkExperience) GetDescription() string {
 	return data.description
 }
+
+func (data *WorkExperience) SetEmail(email string) {
+	data.email = email
+}

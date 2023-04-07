@@ -9,8 +9,10 @@ import (
 func ModelWorkExperienceToEntity(m *profile2.WorkExperienceModel) *profile.WorkExperienceDTO {
 	data := &profile.WorkExperienceDTO{
 		Id:              m.Id,
+		Email:           m.Email,
 		SkillExperience: m.SkillExperience,
 		Name:            m.Name,
+		StillWorking:    m.StillWorking,
 		DateRange: profile.DateRangeWorkDTO{
 			Start: m.StartWork,
 			End:   m.EndWork,
