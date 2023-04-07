@@ -16,11 +16,15 @@ func TestUseCaseProfileInteractor_GetProfileByEmail(t *testing.T) {
 		email string
 	}
 	ctx := context.TODO()
-	data := testdata.TestDataProfile()
+	data := testdata.TestDataProfile(3, 2)
 	repoGetProfile := new(mocks.RepoProfile)
 	repoGetProfile.On("GetProfileByEmail", mock.Anything, mock.Anything).
 		Times(1).
 		Return(data, nil)
+
+	repoGetProfile.On("GetListWorkExperience", mock.Anything, mock.Anything).
+		Times(1).
+		Return(data.WorkExperience, nil)
 
 	tests := []struct {
 		name    string

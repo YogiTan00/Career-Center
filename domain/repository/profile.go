@@ -12,5 +12,6 @@ type RepoProfile interface {
 	UpdateOneColoum(ctx context.Context, email string, coloum string, path string) error
 	CreateWorkExperience(ctx context.Context, workExp *profile.WorkExperience) error
 	GetListWorkExperience(ctx context.Context, email string) ([]*profile.WorkExperienceDTO, error)
-	UpdateWorkExperience(ctx context.Context, email string, workExp *profile.WorkExperience) error
+	UpdateWorkExperience(ctx context.Context, id string, workExp *profile.WorkExperience) error
+	DeletedWorkExperience(ctx context.Context, id string) error
 }

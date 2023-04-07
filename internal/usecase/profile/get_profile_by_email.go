@@ -16,7 +16,7 @@ func (u UseCaseProfileInteractor) GetProfileByEmail(ctx context.Context, email s
 		return nil, err
 	}
 
-	data.WorkExperience = dataWorkExperience
+	data.SetWorkExperiencet(dataWorkExperience)
 
 	return data, nil
 }

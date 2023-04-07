@@ -155,3 +155,23 @@ func (data *ProfileUser) GetCreatedAt() time.Time {
 func (data *ProfileUser) GetUpdatedAt() time.Time {
 	return data.updatedAt
 }
+
+func (data *ProfileUserDTO) SetWorkExperiencet(dto []*WorkExperienceDTO) {
+	listWorkExperience := make([]*WorkExperienceDTO, 0)
+	for _, dt := range dto {
+		workExperiencet := &WorkExperienceDTO{
+			Id:              dt.Id,
+			Email:           dt.Email,
+			SkillExperience: dt.SkillExperience,
+			Name:            dt.Name,
+			StillWorking:    dt.StillWorking,
+			DateRange: DateRangeWorkDTO{
+				Start: dt.DateRange.Start,
+				End:   dt.DateRange.End,
+			},
+			Description: dt.Description,
+		}
+		listWorkExperience = append(listWorkExperience, workExperiencet)
+	}
+	data.WorkExperience = listWorkExperience
+}

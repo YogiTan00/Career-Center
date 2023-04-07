@@ -11,4 +11,5 @@ type UseCaseProfile interface {
 	UpdatePhotoProfile(ctx context.Context, email string, path string) error
 	CreateWorkExperiencet(ctx context.Context, email string, workExp *profile.WorkExperienceDTO) error
 	UpdateWorkExperience(ctx context.Context, id string, workExp *profile.WorkExperienceDTO) error
+	DeletedWorkExperience(ctx context.Context, id string) error
 }
