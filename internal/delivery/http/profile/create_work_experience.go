@@ -40,7 +40,7 @@ func (h *ProfileHandler) CreateWorkExperience(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	result, errMap := response.MapResponse(0, "success update profile")
+	result, errMap := response.MapResponse(0, "success add work experience")
 	if errMap != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("Error mapping data"))
