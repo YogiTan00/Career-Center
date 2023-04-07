@@ -14,6 +14,32 @@ type RepoApplication struct {
 	mock.Mock
 }
 
+// GetByEmail provides a mock function with given fields: ctx, email, companyId
+func (_m *RepoApplication) GetByEmail(ctx context.Context, email string, companyId string) (*entity.ApplicationDTO, error) {
+	ret := _m.Called(ctx, email, companyId)
+
+	var r0 *entity.ApplicationDTO
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, string) (*entity.ApplicationDTO, error)); ok {
+		return rf(ctx, email, companyId)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, string, string) *entity.ApplicationDTO); ok {
+		r0 = rf(ctx, email, companyId)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*entity.ApplicationDTO)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, string, string) error); ok {
+		r1 = rf(ctx, email, companyId)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // SendApplication provides a mock function with given fields: ctx, application
 func (_m *RepoApplication) SendApplication(ctx context.Context, application *entity.Application) error {
 	ret := _m.Called(ctx, application)

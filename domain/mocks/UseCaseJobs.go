@@ -15,25 +15,25 @@ type UseCaseJobs struct {
 	mock.Mock
 }
 
-// GetJobById provides a mock function with given fields: ctx, id
-func (_m *UseCaseJobs) GetJobById(ctx context.Context, id string) (*entity.JobsDTO, error) {
-	ret := _m.Called(ctx, id)
+// GetJobById provides a mock function with given fields: ctx, email, id
+func (_m *UseCaseJobs) GetJobById(ctx context.Context, email string, id string) (*entity.JobsDTO, error) {
+	ret := _m.Called(ctx, email, id)
 
 	var r0 *entity.JobsDTO
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, string) (*entity.JobsDTO, error)); ok {
-		return rf(ctx, id)
+	if rf, ok := ret.Get(0).(func(context.Context, string, string) (*entity.JobsDTO, error)); ok {
+		return rf(ctx, email, id)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, string) *entity.JobsDTO); ok {
-		r0 = rf(ctx, id)
+	if rf, ok := ret.Get(0).(func(context.Context, string, string) *entity.JobsDTO); ok {
+		r0 = rf(ctx, email, id)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*entity.JobsDTO)
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
-		r1 = rf(ctx, id)
+	if rf, ok := ret.Get(1).(func(context.Context, string, string) error); ok {
+		r1 = rf(ctx, email, id)
 	} else {
 		r1 = ret.Error(1)
 	}
