@@ -1,6 +1,7 @@
 package profile
 
 import (
+	"github.com/google/uuid"
 	"time"
 )
 
@@ -32,7 +33,11 @@ type DateRangeWorkDTO struct {
 	End   time.Time
 }
 
-func NewWorkExperience(dto *WorkExperienceDTO) *WorkExperience {
+func NewWorkExperience(dto *WorkExperienceDTO) (*WorkExperience, error) {
+	err := dto.Validation()
+	if err != nil {
+		return nil, err
+	}
 	dateRange := NewWorkDateRange(dto.DateRange)
 	return &WorkExperience{
 		id:              dto.Id,
@@ -42,7 +47,7 @@ func NewWorkExperience(dto *WorkExperienceDTO) *WorkExperience {
 		stillWorking:    dto.StillWorking,
 		dateRange:       dateRange,
 		description:     dto.Description,
-	}
+	}, nil
 }
 
 func NewWorkDateRange(dto DateRangeWorkDTO) DateRangeWork {
@@ -52,13 +57,23 @@ func NewWorkDateRange(dto DateRangeWorkDTO) DateRangeWork {
 	}
 }
 
-func NewListWorkExperience(dto []*WorkExperienceDTO) []*WorkExperience {
+func NewListWorkExperience(dto []*WorkExperienceDTO) ([]*WorkExperience, error) {
 	listWE := make([]*WorkExperience, 0)
 	for _, data := range dto {
-		workExperience := NewWorkExperience(data)
+		workExperience, err := NewWorkExperience(data)
+		if err != nil {
+			return nil, err
+		}
 		listWE = append(listWE, workExperience)
 	}
-	return listWE
+	return listWE, nil
+}
+
+func (dto *WorkExperienceDTO) Validation() error {
+	if len(dto.Id) <= 0 {
+		dto.Id = uuid.NewString()
+	}
+	return nil
 }
 
 func (data *WorkExperience) GetId() string {

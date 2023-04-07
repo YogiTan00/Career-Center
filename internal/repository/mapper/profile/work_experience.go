@@ -35,6 +35,15 @@ func EntityWorkExperienceToModel(m *profile.WorkExperience) *profile2.WorkExperi
 	return data
 }
 
+func ModelListWorkExperienceToEntity(m []*profile2.WorkExperienceModel) []*profile.WorkExperienceDTO {
+	listWorkExperience := make([]*profile.WorkExperienceDTO, 0)
+	for _, data := range m {
+		workExperiencet := ModelWorkExperienceToEntity(data)
+		listWorkExperience = append(listWorkExperience, workExperiencet)
+	}
+	return listWorkExperience
+}
+
 func EntityWorkExperienceToInterface(data *profile.WorkExperience) []interface{} {
 	return dbq.Struct(EntityWorkExperienceToModel(data))
 }
