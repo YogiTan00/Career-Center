@@ -7,22 +7,27 @@ import (
 	"CareerCenter/utils/helper"
 	"context"
 	"encoding/json"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
 func (h *ProfileHandler) UpdateWorkExperience(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx     = context.TODO()
-		req     *request.RequestUpdateWorkExperience
+		req     *request.RequestWorkExperience
 		decoder = json.NewDecoder(r.Body)
+		vars    = mux.Vars(r)
 	)
+
+	workExperienceId := vars["work_experience_id"]
+
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusUnauthorized)
 		return
 	}
 
-	email, errToken := utils.ValidateTokenFromHeader(r)
+	_, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		return
@@ -34,7 +39,7 @@ func (h *ProfileHandler) UpdateWorkExperience(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	err = h.UCProfile.UpdateWorkExperience(ctx, email, workExperience)
+	err = h.UCProfile.UpdateWorkExperience(ctx, workExperienceId, workExperience)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		return
