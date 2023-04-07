@@ -7,16 +7,17 @@ import (
 	"time"
 )
 
-func TestDataProfile() *profile.ProfileUserDTO {
+func TestDataProfile(countWorkExperiencet int, countEducation int) *profile.ProfileUserDTO {
+	var (
+		listWorkExperience []*profile.WorkExperienceDTO
+		listEducation      []*profile.EducationDTO
+	)
+
 	test := utils.RandomString(4)
 	id, _ := uuid2.NewUUID()
-	profile := &profile.ProfileUserDTO{
-		Name:        test,
-		Photo:       test + "@gmail.com.png",
-		Skill:       "Programer Golang",
-		Email:       test + "@gmail.com",
-		PhoneNumber: "08123123",
-		WorkExperience: profile.WorkExperienceDTO{
+
+	for i := 0; i < countWorkExperiencet; i++ {
+		workExperience := &profile.WorkExperienceDTO{
 			Id:              id.String(),
 			SkillExperience: "DKV",
 			Name:            "Toko Super 2013",
@@ -25,8 +26,11 @@ func TestDataProfile() *profile.ProfileUserDTO {
 				End:   time.Now().AddDate(-1, 0, 0),
 			},
 			Description: "pengalaman kerja di salt",
-		},
-		Education: profile.EducationDTO{
+		}
+		listWorkExperience = append(listWorkExperience, workExperience)
+	}
+	for i := 0; i < countEducation; i++ {
+		education := &profile.EducationDTO{
 			Id:   id.String(),
 			Name: "SMA Lulusan 1023",
 			DateRange: profile.DateRangeEduDTO{
@@ -35,7 +39,18 @@ func TestDataProfile() *profile.ProfileUserDTO {
 			},
 			SkillExperience: "Jaringan",
 			Description:     "sekolah mengenah atas",
-		},
+		}
+		listEducation = append(listEducation, education)
+	}
+
+	profile := &profile.ProfileUserDTO{
+		Name:           test,
+		Photo:          test + "@gmail.com.png",
+		Skill:          "Programer Golang",
+		Email:          test + "@gmail.com",
+		PhoneNumber:    "08123123",
+		WorkExperience: listWorkExperience,
+		Education:      listEducation,
 		Ability: []string{
 			"Microsoft Excel",
 			"Microsoft Word",
