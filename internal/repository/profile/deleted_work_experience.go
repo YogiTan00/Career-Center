@@ -13,7 +13,7 @@ func (p ProfileMysqlInteractor) DeletedWorkExperience(ctx context.Context, id st
 	defer cancel()
 
 	query := fmt.Sprintf("DELETE FROM %s WHERE id = ?", profile.GetTableNameWorkExperience())
-	fmt.Println(query)
+
 	_, err := dbq.E(ctx, p.DbConn, query, nil, id)
 
 	if err != nil {
