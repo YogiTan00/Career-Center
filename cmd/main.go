@@ -27,6 +27,8 @@ func main() {
 	r.HandleFunc("/v1/profile/add-education/", handlerProfile.CreateEducation).Methods(http.MethodPost)
 	r.HandleFunc("/v1/profile/update-education/{education_id}", handlerProfile.UpdateEducation).Methods(http.MethodPost)
 	r.HandleFunc("/v1/profile/deleted-education/{education_id}", handlerProfile.DeletedEducation).Methods(http.MethodPost)
+	r.HandleFunc("/v1/profile/update-ability", handlerProfile.UpdateAbility).Methods(http.MethodPost)
+	r.HandleFunc("/v1/profile/update-language", handlerProfile.UpdateLanguage).Methods(http.MethodPost)
 
 	r.HandleFunc("/v1/list-company", handlerCompany.GetListCompany).Methods(http.MethodGet)
 	r.HandleFunc("/v1/company/{company_id}", handlerCompany.GetCompanyById).Methods(http.MethodGet)

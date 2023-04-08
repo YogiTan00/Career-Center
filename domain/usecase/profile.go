@@ -15,4 +15,6 @@ type UseCaseProfile interface {
 	CreateEducation(ctx context.Context, email string, education *profile.EducationDTO) error
 	UpdateEducation(ctx context.Context, id string, education *profile.EducationDTO) error
 	DeletedEducation(ctx context.Context, id string) error
+	UpdateAbility(ctx context.Context, email string, listAbility []string) error
+	UpdateLanguage(ctx context.Context, email string, listLanguage []string) error
 }
