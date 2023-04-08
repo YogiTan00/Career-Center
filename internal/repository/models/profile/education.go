@@ -10,7 +10,7 @@ type EducationModel struct {
 	Major          string    `dbq:"major"`
 	StillEducation bool      `dbq:"still_education"`
 	StartEdu       time.Time `dbq:"start_education"`
-	EndEdu         time.Time `dbq:"end_education""`
+	EndEdu         time.Time `dbq:"end_education"`
 	Description    string    `dbq:"description"`
 }
 
