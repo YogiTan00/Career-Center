@@ -32,7 +32,7 @@ func FilterGeneral(r *http.Request, req *RequestFilter) (*filter.FilterDTO, erro
 	}
 
 	return &filter.FilterDTO{
-		Q:     q,
+		Q:     req.Q,
 		Limit: uint32(req.Limit),
 		Page:  uint32(req.Page),
 	}, nil
