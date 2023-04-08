@@ -12,10 +12,9 @@ type Company struct {
 	address     string
 	logo        string
 	about       *About
-	//posting     []*Posting
-	jobs      []*Jobs
-	createdAt time.Time
-	updatedAt time.Time
+	jobs        []*Jobs
+	createdAt   time.Time
+	updatedAt   time.Time
 }
 
 type About struct {
@@ -31,10 +30,9 @@ type CompanyDTO struct {
 	Address     string
 	Logo        string
 	About       *AboutDTO
-	//Posting     []*PostingDTO
-	Jobs      []*JobsDTO
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Jobs        []*JobsDTO
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
 }
 
 type AboutDTO struct {

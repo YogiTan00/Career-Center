@@ -59,3 +59,8 @@ func ToDate(s string) (time.Time, error) {
 	}
 	return conv, nil
 }
+
+func ToOnlyDateResponse(date time.Time) string {
+	toString := date.Format("2006-01-02")
+	return toString
+}

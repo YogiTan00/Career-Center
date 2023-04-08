@@ -2,7 +2,7 @@ package response
 
 import (
 	"CareerCenter/domain/entity/profile"
-	"time"
+	"CareerCenter/utils"
 )
 
 type ProfileResponse struct {
@@ -17,8 +17,8 @@ type ProfileResponse struct {
 	Language       []string                  `json:"language"`
 	CvResume       string                    `json:"cvResume"`
 	Portofolio     string                    `json:"portofolio"`
-	CreatedAt      time.Time                 `json:"createdAt"`
-	UpdateAt       time.Time                 `json:"updateAt"`
+	CreatedAt      string                    `json:"createdAt"`
+	UpdateAt       string                    `json:"updateAt"`
 }
 
 func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
@@ -30,8 +30,8 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 			Name:            data.Name,
 			StillWorking:    data.StillWorking,
 			DateRange: DateRange{
-				Start: data.DateRange.Start,
-				End:   data.DateRange.End,
+				Start: utils.ToOnlyDateResponse(data.DateRange.Start),
+				End:   utils.ToOnlyDateResponse(data.DateRange.End),
 			},
 			Description: data.Description,
 		}
@@ -47,8 +47,8 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 			Major:          data.Major,
 			SkillEducation: data.StillEducation,
 			DateRange: DateRange{
-				Start: data.DateRange.Start,
-				End:   data.DateRange.End,
+				Start: utils.ToOnlyDateResponse(data.DateRange.Start),
+				End:   utils.ToOnlyDateResponse(data.DateRange.End),
 			},
 			Description: data.Description,
 		}
@@ -67,8 +67,8 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 		Language:       dto.Language,
 		CvResume:       dto.CvResume,
 		Portofolio:     dto.Portofolio,
-		CreatedAt:      dto.CreatedAt,
-		UpdateAt:       dto.UpdatedAt,
+		CreatedAt:      utils.ToOnlyDateResponse(dto.CreatedAt),
+		UpdateAt:       utils.ToOnlyDateResponse(dto.UpdatedAt),
 	}
 }
 
@@ -92,6 +92,6 @@ type EducationResponse struct {
 }
 
 type DateRange struct {
-	Start time.Time
-	End   time.Time
+	Start string
+	End   string
 }

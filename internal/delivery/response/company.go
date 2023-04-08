@@ -2,7 +2,7 @@ package response
 
 import (
 	"CareerCenter/domain/entity"
-	"time"
+	"CareerCenter/utils"
 )
 
 type CompanyResponse struct {
@@ -14,15 +14,21 @@ type CompanyResponse struct {
 }
 
 type CompanyProfileResponse struct {
-	Id          string            `json:"id"`
-	Name        string            `json:"name"`
-	TypeCompany string            `json:"typeCompany"`
-	Address     string            `json:"address"`
-	Logo        string            `json:"logo"`
-	About       *entity.AboutDTO  `json:"about"`
-	Jobs        []*entity.JobsDTO `json:"jobs"`
-	CreatedAt   time.Time         `json:"createdAt"`
-	UpdatedAt   time.Time         `json:"updatedAt"`
+	Id          string               `json:"id"`
+	Name        string               `json:"name"`
+	TypeCompany string               `json:"typeCompany"`
+	Address     string               `json:"address"`
+	Logo        string               `json:"logo"`
+	About       *AboutResponse       `json:"about"`
+	Jobs        []*DetailJobResponse `json:"jobs"`
+	CreatedAt   string               `json:"createdAt"`
+	UpdatedAt   string               `json:"updatedAt"`
+}
+
+type AboutResponse struct {
+	Profile  string `json:"profile"`
+	Website  string `json:"website"`
+	Location string `json:"location"`
 }
 
 func GetCompanyResponse(dto *entity.CompanyDTO) *CompanyResponse {
@@ -45,22 +51,22 @@ func GetListCompanyResponse(dto []*entity.CompanyDTO) []*CompanyResponse {
 }
 
 func GetCompanyProfileResponse(dto *entity.CompanyDTO, dtoJobs []*entity.JobsDTO) *CompanyProfileResponse {
-	jobs := make([]*entity.JobsDTO, 0)
+	jobs := make([]*DetailJobResponse, 0)
 	for _, data := range dtoJobs {
-		job := &entity.JobsDTO{
+		job := &DetailJobResponse{
 			Id:             data.Id,
 			Position:       data.Position,
 			Company:        data.Company,
 			Logo:           data.Logo,
 			Address:        data.Address,
 			Status:         data.Status,
-			SendDate:       data.SendDate,
+			SendDate:       utils.ToOnlyDateResponse(data.SendDate),
 			Qualification:  data.Qualification,
 			JobDescription: data.JobDescription,
 			Category:       data.Category,
 			Description:    data.Description,
-			CreatedAt:      data.CreatedAt,
-			UpdatedAt:      data.UpdatedAt,
+			CreatedAt:      utils.ToOnlyDateResponse(data.CreatedAt),
+			UpdatedAt:      utils.ToOnlyDateResponse(data.UpdatedAt),
 		}
 		jobs = append(jobs, job)
 	}
@@ -70,13 +76,13 @@ func GetCompanyProfileResponse(dto *entity.CompanyDTO, dtoJobs []*entity.JobsDTO
 		TypeCompany: dto.TypeCompany.StringCompany(),
 		Address:     dto.Address,
 		Logo:        dto.Logo,
-		About: &entity.AboutDTO{
+		About: &AboutResponse{
 			Profile:  dto.About.Profile,
 			Website:  dto.About.Website,
 			Location: dto.About.Location,
 		},
 		Jobs:      jobs,
-		CreatedAt: dto.CreatedAt,
-		UpdatedAt: dto.UpdatedAt,
+		CreatedAt: utils.ToOnlyDateResponse(dto.CreatedAt),
+		UpdatedAt: utils.ToOnlyDateResponse(dto.UpdatedAt),
 	}
 }
