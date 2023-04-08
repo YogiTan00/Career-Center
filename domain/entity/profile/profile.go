@@ -50,7 +50,10 @@ func NewProfile(dto *ProfileUserDTO) (*ProfileUser, error) {
 	if err != nil {
 		return nil, err
 	}
-	education := NewListEducation(dto.Education)
+	education, err := NewListEducation(dto.Education)
+	if err != nil {
+		return nil, err
+	}
 	timeNow := time.Now()
 	return &ProfileUser{
 		id:             dto.Id,
@@ -156,7 +159,7 @@ func (data *ProfileUser) GetUpdatedAt() time.Time {
 	return data.updatedAt
 }
 
-func (data *ProfileUserDTO) SetWorkExperiencet(dto []*WorkExperienceDTO) {
+func (data *ProfileUserDTO) SetWorkExperience(dto []*WorkExperienceDTO) {
 	listWorkExperience := make([]*WorkExperienceDTO, 0)
 	for _, dt := range dto {
 		workExperiencet := &WorkExperienceDTO{
@@ -174,4 +177,25 @@ func (data *ProfileUserDTO) SetWorkExperiencet(dto []*WorkExperienceDTO) {
 		listWorkExperience = append(listWorkExperience, workExperiencet)
 	}
 	data.WorkExperience = listWorkExperience
+}
+
+func (data *ProfileUserDTO) SetEducation(dto []*EducationDTO) {
+	listEducation := make([]*EducationDTO, 0)
+	for _, dt := range dto {
+		education := &EducationDTO{
+			Id:             dt.Id,
+			Email:          dt.Email,
+			Level:          dt.Level,
+			Name:           dt.Name,
+			Major:          dt.Major,
+			StillEducation: dt.StillEducation,
+			DateRange: DateRangeEduDTO{
+				Start: dt.DateRange.Start,
+				End:   dt.DateRange.End,
+			},
+			Description: dt.Description,
+		}
+		listEducation = append(listEducation, education)
+	}
+	data.Education = listEducation
 }

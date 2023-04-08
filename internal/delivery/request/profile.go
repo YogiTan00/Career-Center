@@ -48,3 +48,35 @@ func NewUpdateWorkExperience(req *RequestWorkExperience) (*profile.WorkExperienc
 		Description: req.Description,
 	}, nil
 }
+
+type RequestEducation struct {
+	Level          string `json:"level"`
+	Name           string `json:"name"`
+	Major          string `json:"major"`
+	StillEducation bool   `json:"stillEducation"`
+	StartEdu       string `json:"startEducation"`
+	EndEdu         string `json:"endEducation"`
+	Description    string `json:"description"`
+}
+
+func NewUpdateEducation(req *RequestEducation) (*profile.EducationDTO, error) {
+	startEdu, err := utils.ToDate(req.StartEdu)
+	if err != nil {
+		return nil, err
+	}
+	endEdu, err := utils.ToDate(req.EndEdu)
+	if err != nil {
+		return nil, err
+	}
+	return &profile.EducationDTO{
+		Level:          req.Level,
+		Name:           req.Name,
+		Major:          req.Major,
+		StillEducation: req.StillEducation,
+		DateRange: profile.DateRangeEduDTO{
+			Start: startEdu,
+			End:   endEdu,
+		},
+		Description: req.Description,
+	}, nil
+}

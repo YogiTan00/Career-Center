@@ -41,14 +41,16 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 	listEducation := make([]*EducationResponse, 0)
 	for _, data := range dto.Education {
 		education := &EducationResponse{
-			Id:   data.Id,
-			Name: data.Name,
+			Id:             data.Id,
+			Level:          data.Level,
+			Name:           data.Name,
+			Major:          data.Major,
+			SkillEducation: data.StillEducation,
 			DateRange: DateRange{
 				Start: data.DateRange.Start,
 				End:   data.DateRange.End,
 			},
-			SkillExperience: data.SkillExperience,
-			Description:     data.Description,
+			Description: data.Description,
 		}
 		listEducation = append(listEducation, education)
 	}
@@ -80,11 +82,13 @@ type WorkExperienceResponse struct {
 }
 
 type EducationResponse struct {
-	Id              string
-	Name            string
-	DateRange       DateRange
-	SkillExperience string
-	Description     string
+	Id             string
+	Level          string
+	Name           string
+	Major          string
+	SkillEducation bool
+	DateRange      DateRange
+	Description    string
 }
 
 type DateRange struct {
