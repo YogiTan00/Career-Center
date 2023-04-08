@@ -2,7 +2,7 @@ package account
 
 import (
 	"CareerCenter/internal/delivery/request"
-	"CareerCenter/internal/delivery/response"
+	"CareerCenter/utils/helper"
 	"context"
 	"encoding/json"
 	"net/http"
@@ -16,32 +16,19 @@ func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 	)
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
-		result, errMap := response.MapResponse(1, errDecode.Error())
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
 		return
 	}
+
 	buildLogin := request.NewLoginRequest(req)
+
 	token, err := h.UCAccount.Login(ctx, buildLogin.Email, buildLogin.Password)
 	if err != nil {
-		result, errMap := response.MapResponse(1, err.Error())
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		return
 	}
 
 	http.SetCookie(w, token)
-	result, errMap := response.MapResponseInterface(0, "success login", token.Value)
-	if errMap != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error mapping data"))
-	}
-	w.Write(result)
+	helper.ResponseInterface(w, "success login", token.Value, http.StatusInternalServerError)
 	return
 }

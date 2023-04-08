@@ -2,7 +2,6 @@ package profile
 
 import (
 	"CareerCenter/internal/delivery/request"
-	"CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
 	"CareerCenter/utils/helper"
 	"context"
@@ -35,11 +34,6 @@ func (h *ProfileHandler) UpdateAbility(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, errMap := response.MapResponse(0, "success update ability")
-	if errMap != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error mapping data"))
-	}
-	w.Write(result)
+	helper.Response(w, "success update ability", http.StatusInternalServerError)
 	return
 }

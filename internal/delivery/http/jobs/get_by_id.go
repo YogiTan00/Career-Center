@@ -3,6 +3,7 @@ package jobs
 import (
 	"CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
+	"CareerCenter/utils/helper"
 	"context"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -18,32 +19,17 @@ func (h *JobsHandler) GetJobById(w http.ResponseWriter, r *http.Request) {
 
 	email, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
-		result, errMap := response.MapResponse(1, errToken.Error())
-		if errMap != nil {
-			w.WriteHeader(http.StatusUnauthorized)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		return
 	}
 
 	jobs, err := h.UCJobs.GetJobById(ctx, email, jobId)
 	if err != nil {
-		result, errMap := response.MapResponse(1, "cant get detail job")
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		return
 	}
 
 	jobsResponse := response.GetDetailJobResponse(jobs)
-	result, errMap := response.MapResponseInterface(0, "success Get detail job", jobsResponse)
-	if errMap != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error mapping data"))
-	}
-	w.Write(result)
+	helper.ResponseInterface(w, "success Get detail job", jobsResponse, http.StatusInternalServerError)
 	return
 }

@@ -2,7 +2,6 @@ package profile
 
 import (
 	"CareerCenter/internal/delivery/request"
-	"CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
 	"CareerCenter/utils/helper"
 	"context"
@@ -45,11 +44,6 @@ func (h *ProfileHandler) UpdateWorkExperience(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	result, errMap := response.MapResponse(0, "success update work experience")
-	if errMap != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error mapping data"))
-	}
-	w.Write(result)
+	helper.Response(w, "success update work experience", http.StatusInternalServerError)
 	return
 }

@@ -4,6 +4,7 @@ import (
 	"CareerCenter/internal/delivery/request"
 	"CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
+	"CareerCenter/utils/helper"
 	"context"
 	"net/http"
 )
@@ -16,43 +17,23 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 
 	_, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
-		result, errMap := response.MapResponse(1, errToken.Error())
-		if errMap != nil {
-			w.WriteHeader(http.StatusUnauthorized)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		return
 	}
 
 	filter, errFilter := request.FilterGeneral(r, &req)
 	if errFilter != nil {
-		result, errMap := response.MapResponse(1, errFilter.Error())
-		if errMap != nil {
-			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, errFilter, http.StatusBadRequest)
 		return
 	}
 
 	jobs, err := u.UCJobs.GetListJobs(ctx, filter)
 	if err != nil {
-		result, errMap := response.MapResponse(1, "cant get list job")
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		return
 	}
 
 	JobsResponse := response.GetListJobResponse(jobs)
-	result, errMap := response.MapResponseInterface(0, "success Get list job", JobsResponse)
-	if errMap != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error mapping data"))
-	}
-	w.Write(result)
+	helper.ResponseInterface(w, "success Get list job", JobsResponse, http.StatusInternalServerError)
 	return
 }

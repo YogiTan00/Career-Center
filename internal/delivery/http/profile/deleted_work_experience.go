@@ -1,7 +1,6 @@
 package profile
 
 import (
-	"CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
 	"CareerCenter/utils/helper"
 	"context"
@@ -29,11 +28,6 @@ func (h *ProfileHandler) DeletedWorkExperience(w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	result, errMap := response.MapResponse(0, "success deleted work experience")
-	if errMap != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error mapping data"))
-	}
-	w.Write(result)
+	helper.Response(w, "success deleted work experience", http.StatusInternalServerError)
 	return
 }

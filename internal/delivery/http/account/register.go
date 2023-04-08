@@ -2,7 +2,7 @@ package account
 
 import (
 	"CareerCenter/internal/delivery/request"
-	"CareerCenter/internal/delivery/response"
+	"CareerCenter/utils/helper"
 	"context"
 	"encoding/json"
 	"net/http"
@@ -16,12 +16,7 @@ func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
 	)
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
-		result, errMap := response.MapResponse(1, errDecode.Error())
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
 		return
 	}
 
@@ -29,21 +24,10 @@ func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
 
 	errRegisterUseCase := h.UCAccount.Register(ctx, buildRegister)
 	if errRegisterUseCase != nil {
-		result, errMap := response.MapResponse(1, errRegisterUseCase.Error())
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write(result)
+		helper.ResponseErr(w, errRegisterUseCase, http.StatusInternalServerError)
 		return
 	}
 
-	response, errMap := response.MapResponse(0, "Success register")
-	if errMap != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error mapping data"))
-	}
-	w.Write(response)
+	helper.Response(w, "Success register", http.StatusInternalServerError)
 	return
 }

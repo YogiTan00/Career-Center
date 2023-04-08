@@ -1,8 +1,8 @@
 package profile
 
 import (
-	"CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
+	"CareerCenter/utils/helper"
 	"context"
 	"net/http"
 )
@@ -14,42 +14,22 @@ func (h *ProfileHandler) UpdatePhotoProfile(w http.ResponseWriter, r *http.Reque
 
 	email, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
-		result, errMap := response.MapResponse(1, errToken.Error())
-		if errMap != nil {
-			w.WriteHeader(http.StatusUnauthorized)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		return
 	}
 
 	path, errUpload := utils.UploadPhoto(r)
 	if errUpload != nil {
-		result, errMap := response.MapResponse(1, errUpload.Error())
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, errUpload, http.StatusInternalServerError)
 		return
 	}
 
 	err := h.UCProfile.UpdatePhotoProfile(ctx, email, path)
 	if err != nil {
-		result, errMap := response.MapResponse(1, err.Error())
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		return
 	}
 
-	result, errMap := response.MapResponse(0, "success update photo profile")
-	if errMap != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error mapping data"))
-	}
-	w.Write(result)
+	helper.Response(w, "success update photo profile", http.StatusInternalServerError)
 	return
 }

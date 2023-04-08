@@ -2,7 +2,6 @@ package profile
 
 import (
 	"CareerCenter/internal/delivery/request"
-	"CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
 	"CareerCenter/utils/helper"
 	"context"
@@ -23,7 +22,7 @@ func (h *ProfileHandler) UpdateEducation(w http.ResponseWriter, r *http.Request)
 
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
-		helper.ResponseErr(w, errDecode, http.StatusUnauthorized)
+		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
 		return
 	}
 
@@ -45,11 +44,6 @@ func (h *ProfileHandler) UpdateEducation(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	result, errMap := response.MapResponse(0, "success update education")
-	if errMap != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error mapping data"))
-	}
-	w.Write(result)
+	helper.Response(w, "success update education", http.StatusInternalServerError)
 	return
 }

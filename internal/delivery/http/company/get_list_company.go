@@ -4,6 +4,7 @@ import (
 	"CareerCenter/internal/delivery/request"
 	"CareerCenter/internal/delivery/response"
 	"CareerCenter/utils"
+	"CareerCenter/utils/helper"
 	"context"
 	"net/http"
 )
@@ -16,43 +17,23 @@ func (h *CompanyHandler) GetListCompany(w http.ResponseWriter, r *http.Request) 
 
 	_, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
-		result, errMap := response.MapResponse(1, errToken.Error())
-		if errMap != nil {
-			w.WriteHeader(http.StatusUnauthorized)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		return
 	}
 
 	filter, errFilter := request.FilterGeneral(r, &req)
 	if errFilter != nil {
-		result, errMap := response.MapResponse(1, errFilter.Error())
-		if errMap != nil {
-			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, errFilter, http.StatusBadRequest)
 		return
 	}
 
 	company, err := h.UCCompany.GetListCompany(ctx, filter)
 	if err != nil {
-		result, errMap := response.MapResponse(1, "cant get list company")
-		if errMap != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("Error mapping data"))
-		}
-		w.Write(result)
+		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		return
 	}
 
 	companyResponse := response.GetListCompanyResponse(company)
-	result, errMap := response.MapResponseInterface(0, "success Get list company", companyResponse)
-	if errMap != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Error mapping data"))
-	}
-	w.Write(result)
+	helper.ResponseInterface(w, "success Get list company", companyResponse, http.StatusInternalServerError)
 	return
 }
