@@ -1,7 +1,6 @@
 package entity
 
 import (
-	uuid2 "github.com/google/uuid"
 	"time"
 )
 
@@ -35,21 +34,6 @@ type JobsDTO struct {
 	Description    string
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
-}
-
-func NewJobs(dto *JobsDTO) (*Jobs, error) {
-	uuid, err := uuid2.NewUUID()
-	if err != nil {
-		return nil, err
-	}
-	return &Jobs{
-		id:        uuid.String(),
-		position:  dto.Position,
-		company:   dto.Company,
-		logo:      dto.Logo,
-		address:   dto.Address,
-		createdAt: dto.CreatedAt,
-	}, nil
 }
 
 func (g *Jobs) GetId() string {
