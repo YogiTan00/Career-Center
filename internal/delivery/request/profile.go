@@ -2,7 +2,9 @@ package request
 
 import (
 	"CareerCenter/domain/entity/profile"
+	"CareerCenter/domain/valueobject"
 	"CareerCenter/utils"
+	"time"
 )
 
 type RequestUpdateProfile struct {
@@ -29,14 +31,28 @@ type RequestWorkExperience struct {
 }
 
 func NewUpdateWorkExperience(req *RequestWorkExperience) (*profile.WorkExperienceDTO, error) {
-	startWork, err := utils.ToDate(req.StartWork)
-	if err != nil {
-		return nil, err
+	var (
+		startWork time.Time
+		endWork   time.Time
+		err       error
+	)
+	if len(req.StartWork) > 0 {
+		startWork, err = utils.ToDate(req.StartWork)
+		if err != nil {
+			return nil, err
+		}
 	}
-	endWork, err := utils.ToDate(req.EndWork)
-	if err != nil {
-		return nil, err
+	if len(req.EndWork) > 0 {
+		endWork, err = utils.ToDate(req.EndWork)
+		if err != nil {
+			return nil, err
+		}
 	}
+
+	if len(req.EndWork) == 0 {
+		req.StillWorking = true
+	}
+
 	return &profile.WorkExperienceDTO{
 		SkillExperience: req.SkillExperience,
 		Name:            req.Name,
@@ -60,16 +76,28 @@ type RequestEducation struct {
 }
 
 func NewUpdateEducation(req *RequestEducation) (*profile.EducationDTO, error) {
-	startEdu, err := utils.ToDate(req.StartEdu)
-	if err != nil {
-		return nil, err
+	var (
+		startEdu time.Time
+		endEdu   time.Time
+		err      error
+	)
+	if len(req.StartEdu) > 0 && len(req.EndEdu) > 0 {
+		startEdu, err = utils.ToDate(req.StartEdu)
+		if err != nil {
+			return nil, err
+		}
+		endEdu, err = utils.ToDate(req.EndEdu)
+		if err != nil {
+			return nil, err
+		}
 	}
-	endEdu, err := utils.ToDate(req.EndEdu)
-	if err != nil {
-		return nil, err
+
+	if len(req.EndEdu) == 0 {
+		req.StillEducation = true
 	}
+	level := valueobject.NewTypeLevelFromString(req.Level)
 	return &profile.EducationDTO{
-		Level:          req.Level,
+		Level:          level,
 		Name:           req.Name,
 		Major:          req.Major,
 		StillEducation: req.StillEducation,

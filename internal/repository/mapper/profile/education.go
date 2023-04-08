@@ -2,15 +2,17 @@ package profile
 
 import (
 	"CareerCenter/domain/entity/profile"
+	"CareerCenter/domain/valueobject"
 	profile2 "CareerCenter/internal/repository/models/profile"
 	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func ModelEducationToEntity(m *profile2.EducationModel) *profile.EducationDTO {
+	level := valueobject.NewTypeLevelFromString(m.Level)
 	data := &profile.EducationDTO{
 		Id:             m.Id,
 		Email:          m.Email,
-		Level:          m.Level,
+		Level:          level,
 		Name:           m.Name,
 		Major:          m.Major,
 		StillEducation: m.StillEducation,
@@ -27,7 +29,7 @@ func EntityEducationToModel(m *profile.Education) *profile2.EducationModel {
 	data := &profile2.EducationModel{
 		Id:             m.GetId(),
 		Email:          m.GetEmail(),
-		Level:          m.GetLevel(),
+		Level:          m.GetLevel().StringLevel(),
 		Name:           m.GetName(),
 		Major:          m.GetMajor(),
 		StillEducation: m.GetStillEducation(),

@@ -39,6 +39,6 @@ func (h *ProfileHandler) CreateEducation(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	helper.Response(w, "success add work experience", http.StatusInternalServerError)
+	helper.Response(w, "success add education", http.StatusInternalServerError)
 	return
 }

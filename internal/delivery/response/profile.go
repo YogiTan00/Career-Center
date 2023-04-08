@@ -42,7 +42,7 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 	for _, data := range dto.Education {
 		education := &EducationResponse{
 			Id:             data.Id,
-			Level:          data.Level,
+			Level:          data.Level.StringLevel(),
 			Name:           data.Name,
 			Major:          data.Major,
 			SkillEducation: data.StillEducation,

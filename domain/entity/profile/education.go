@@ -1,6 +1,8 @@
 package profile
 
 import (
+	"CareerCenter/domain/valueobject"
+	"CareerCenter/utils/exceptions"
 	"github.com/google/uuid"
 	"time"
 )
@@ -8,7 +10,7 @@ import (
 type Education struct {
 	id             string
 	email          string
-	level          string
+	level          valueobject.TypeLevel
 	name           string
 	major          string
 	stillEducation bool
@@ -23,7 +25,7 @@ type DateRangeEdu struct {
 type EducationDTO struct {
 	Id             string
 	Email          string
-	Level          string
+	Level          valueobject.TypeLevel
 	Name           string
 	Major          string
 	StillEducation bool
@@ -41,10 +43,11 @@ func NewEducation(dto *EducationDTO) (*Education, error) {
 		return nil, err
 	}
 	dateRange := NewEduDateRange(dto.DateRange)
+	level := valueobject.NewTypeLevelFromString(dto.Major)
 	return &Education{
 		id:             dto.Id,
 		email:          dto.Email,
-		level:          dto.Level,
+		level:          level,
 		name:           dto.Name,
 		major:          dto.Major,
 		dateRange:      dateRange,
@@ -76,6 +79,20 @@ func (dto *EducationDTO) Validation() error {
 	if len(dto.Id) <= 0 {
 		dto.Id = uuid.NewString()
 	}
+
+	if dto.DateRange.Start.IsZero() {
+		return exceptions.ErrorStartDate
+	}
+
+	if !dto.DateRange.Start.IsZero() && !dto.DateRange.End.IsZero() {
+		if dto.DateRange.End.Unix() < dto.DateRange.Start.Unix() {
+			return exceptions.ErrorEndDate
+		}
+	}
+
+	if dto.Level.StringLevel() == "" {
+		return exceptions.ErrCustomString("error level education")
+	}
 	return nil
 }
 
@@ -85,7 +102,7 @@ func (data *Education) GetId() string {
 func (data *Education) GetEmail() string {
 	return data.email
 }
-func (data *Education) GetLevel() string {
+func (data *Education) GetLevel() valueobject.TypeLevel {
 	return data.level
 }
 func (data *Education) GetName() string {
