@@ -16,7 +16,13 @@ func (u UseCaseProfileInteractor) GetProfileByEmail(ctx context.Context, email s
 		return nil, err
 	}
 
-	data.SetWorkExperiencet(dataWorkExperience)
+	dataEducation, err := u.repoProfile.GetListEducation(ctx, email)
+	if err != nil {
+		return nil, err
+	}
+
+	data.SetWorkExperience(dataWorkExperience)
+	data.SetEducation(dataEducation)
 
 	return data, nil
 }
