@@ -49,10 +49,6 @@ func NewUpdateWorkExperience(req *RequestWorkExperience) (*profile.WorkExperienc
 		}
 	}
 
-	if len(req.EndWork) == 0 {
-		req.StillWorking = true
-	}
-
 	return &profile.WorkExperienceDTO{
 		SkillExperience: req.SkillExperience,
 		Name:            req.Name,
@@ -92,9 +88,6 @@ func NewUpdateEducation(req *RequestEducation) (*profile.EducationDTO, error) {
 		}
 	}
 
-	if len(req.EndEdu) == 0 {
-		req.StillEducation = true
-	}
 	level := valueobject.NewTypeLevelFromString(req.Level)
 	return &profile.EducationDTO{
 		Level:          level,

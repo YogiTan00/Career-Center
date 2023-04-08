@@ -84,6 +84,10 @@ func (dto *EducationDTO) Validation() error {
 		return exceptions.ErrorStartDate
 	}
 
+	if dto.DateRange.End.IsZero() && dto.StillEducation == false {
+		return exceptions.ErrCustomString("still education cant be false")
+	}
+
 	if !dto.DateRange.Start.IsZero() && !dto.DateRange.End.IsZero() {
 		if dto.DateRange.End.Unix() < dto.DateRange.Start.Unix() {
 			return exceptions.ErrorEndDate
