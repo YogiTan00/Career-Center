@@ -1,6 +1,7 @@
 package profile
 
 import (
+	"CareerCenter/utils/exceptions"
 	"github.com/google/uuid"
 	"time"
 )
@@ -51,7 +52,7 @@ func NewWorkExperience(dto *WorkExperienceDTO) (*WorkExperience, error) {
 }
 
 func NewWorkDateRange(dto DateRangeWorkDTO) DateRangeWork {
-	return DateRangeWork{ //Validation
+	return DateRangeWork{
 		start: dto.Start,
 		end:   dto.End,
 	}
@@ -72,6 +73,20 @@ func NewListWorkExperience(dto []*WorkExperienceDTO) ([]*WorkExperience, error) 
 func (dto *WorkExperienceDTO) Validation() error {
 	if len(dto.Id) <= 0 {
 		dto.Id = uuid.NewString()
+	}
+
+	if dto.DateRange.Start.IsZero() {
+		return exceptions.ErrorStartDate
+	}
+
+	if dto.DateRange.End.IsZero() && dto.StillWorking == false {
+		return exceptions.ErrCustomString("still working cant be false")
+	}
+
+	if !dto.DateRange.Start.IsZero() && !dto.DateRange.End.IsZero() {
+		if dto.DateRange.End.Unix() < dto.DateRange.Start.Unix() {
+			return exceptions.ErrorEndDate
+		}
 	}
 	return nil
 }
