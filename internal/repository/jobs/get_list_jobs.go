@@ -19,7 +19,7 @@ func (j JobsMysqlInteractor) GetListJobs(ctx context.Context, typeSearch *valueo
 	defer cancel()
 	filter := repository.TxQuery(typeSearch, f)
 	stmt := fmt.Sprintf(`SELECT * FROM %s %s`, models.GetTableNameJobs(), filter)
-
+	fmt.Println(stmt)
 	opts := &dbq.Options{
 		SingleResult:   false,
 		ConcreteStruct: models.JobsModel{},
