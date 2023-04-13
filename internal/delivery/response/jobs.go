@@ -11,6 +11,7 @@ type JobsResponse struct {
 	Company   string `json:"company"`
 	Logo      string `json:"logo"`
 	Address   string `json:"address"`
+	Status    bool   `json:"status"`
 	CreatedAt string `json:"createdAt"`
 }
 
@@ -37,6 +38,7 @@ func GetJobResponse(dto *entity.JobsDTO) *JobsResponse {
 		Company:   dto.Company,
 		Logo:      dto.Logo,
 		Address:   dto.Address,
+		Status:    dto.Status,
 		CreatedAt: utils.ToOnlyDateResponse(dto.CreatedAt),
 	}
 }
