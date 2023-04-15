@@ -42,6 +42,16 @@ func RandomString(n int) string {
 	return string(b)
 }
 
+func RandomStringNumber(n int) string {
+	rand.Seed(time.Now().UnixNano())
+	const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	result := make([]byte, n)
+	for i := 0; i < n; i++ {
+		result[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(result)
+}
+
 func SplitTextToArray(s string) []string {
 	listString := strings.Split(s, ",")
 	return listString

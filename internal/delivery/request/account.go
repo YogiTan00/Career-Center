@@ -43,3 +43,7 @@ func NewPassword(req *RequestPassword) *account.UpdatePasswordDTO {
 		ConfirmPassword: req.ConfirmPassword,
 	}
 }
+
+type RequestForgetPassword struct {
+	Email string `json:"email"`
+}
