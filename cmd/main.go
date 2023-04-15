@@ -1,7 +1,7 @@
 package main
 
 import (
-	"CareerCenter/internal/delivery/http/general"
+	"CareerCenter/internal/delivery/http/handler"
 	"github.com/gorilla/mux"
 	"net/http"
 )
@@ -9,9 +9,9 @@ import (
 func main() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", general.ParamHandlerWithoutInput).Methods(http.MethodGet)
-	r.HandleFunc("/v1/photo", general.GetImage).Methods(http.MethodGet)
-	r.HandleFunc("/v1/pdf", general.GetPdf).Methods(http.MethodGet)
+	r.HandleFunc("/", handler.ParamHandlerWithoutInput).Methods(http.MethodGet)
+	r.HandleFunc("/v1/photo", handler.GetImage).Methods(http.MethodGet)
+	r.HandleFunc("/v1/pdf", handler.GetPdf).Methods(http.MethodGet)
 
 	r.HandleFunc("/v1/register", handlerAccount.Register).Methods(http.MethodPost)
 	r.HandleFunc("/v1/login", handlerAccount.Login).Methods(http.MethodPost)
