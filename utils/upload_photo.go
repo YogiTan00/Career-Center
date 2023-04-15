@@ -3,14 +3,13 @@ package utils
 import (
 	"CareerCenter/utils/exceptions"
 	"fmt"
-	"github.com/google/uuid"
 	"io"
 	"net/http"
 	"os"
-	"time"
+	"strings"
 )
 
-func UploadPhoto(r *http.Request) (string, error) {
+func UploadPhoto(email string, r *http.Request) (string, error) {
 	file, header, err := r.FormFile("photo")
 	if err != nil {
 		return "", err
@@ -22,8 +21,8 @@ func UploadPhoto(r *http.Request) (string, error) {
 		return "", exceptions.ErrCustomString("Invalid file type, only PNG is allowed")
 	}
 
-	timeNow := time.Now().Format(fmt.Sprintf(uuid.NewString()))
-	header.Filename = timeNow + ".png"
+	name := strings.Split(email, "@")
+	header.Filename = name[0] + "Photo" + ".png"
 
 	path := "uploads/image/" + header.Filename
 	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0666)
