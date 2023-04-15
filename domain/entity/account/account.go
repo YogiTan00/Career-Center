@@ -64,14 +64,12 @@ func (g *Account) GetEmail() string {
 func (g *Account) GetName() string {
 	return g.name
 }
-
 func (g *Account) GetPassword() string {
 	return g.password
 }
 func (g *Account) GetCreatedAt() time.Time {
 	return g.createdAt
 }
-
 func (g *Account) GetUpdatedAt() time.Time {
 	return g.updatedAt
 }
