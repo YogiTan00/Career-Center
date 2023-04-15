@@ -17,4 +17,6 @@ type UseCaseProfile interface {
 	DeletedEducation(ctx context.Context, id string) error
 	UpdateAbility(ctx context.Context, email string, listAbility []string) error
 	UpdateLanguage(ctx context.Context, email string, listLanguage []string) error
+	UpdateCvResume(ctx context.Context, email string, path string) error
+	UpdatePortofolio(ctx context.Context, email string, path string) error
 }

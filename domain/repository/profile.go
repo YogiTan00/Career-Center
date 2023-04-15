@@ -20,4 +20,6 @@ type RepoProfile interface {
 	DeletedEducation(ctx context.Context, id string) error
 	UpdateAbility(ctx context.Context, email string, ability string) error
 	UpdateLanguage(ctx context.Context, email string, language string) error
+	UpdateCvResume(ctx context.Context, email string, path string) error
+	UpdatePortofolio(ctx context.Context, email string, path string) error
 }
