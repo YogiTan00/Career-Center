@@ -20,7 +20,7 @@ func (u UseCaseAccountInteractor) UpdatePassword(ctx context.Context, email stri
 
 	checkSamePw := utils.CheckPasswordHash(password.NewPassword, data.Password)
 	if checkSamePw != false {
-		return errors.New("can not change with the same password")
+		return errors.New("cannot be changed with the same password")
 	}
 
 	payload, err := account.NewPassword(password)
