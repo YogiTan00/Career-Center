@@ -14,6 +14,20 @@ type UseCaseProfile struct {
 	mock.Mock
 }
 
+// CreateEducation provides a mock function with given fields: ctx, email, education
+func (_m *UseCaseProfile) CreateEducation(ctx context.Context, email string, education *profile.EducationDTO) error {
+	ret := _m.Called(ctx, email, education)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, *profile.EducationDTO) error); ok {
+		r0 = rf(ctx, email, education)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // CreateWorkExperiencet provides a mock function with given fields: ctx, email, workExp
 func (_m *UseCaseProfile) CreateWorkExperiencet(ctx context.Context, email string, workExp *profile.WorkExperienceDTO) error {
 	ret := _m.Called(ctx, email, workExp)
@@ -21,6 +35,20 @@ func (_m *UseCaseProfile) CreateWorkExperiencet(ctx context.Context, email strin
 	var r0 error
 	if rf, ok := ret.Get(0).(func(context.Context, string, *profile.WorkExperienceDTO) error); ok {
 		r0 = rf(ctx, email, workExp)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// DeletedEducation provides a mock function with given fields: ctx, id
+func (_m *UseCaseProfile) DeletedEducation(ctx context.Context, id string) error {
+	ret := _m.Called(ctx, id)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string) error); ok {
+		r0 = rf(ctx, id)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -68,8 +96,78 @@ func (_m *UseCaseProfile) GetProfileByEmail(ctx context.Context, email string) (
 	return r0, r1
 }
 
+// UpdateAbility provides a mock function with given fields: ctx, email, listAbility
+func (_m *UseCaseProfile) UpdateAbility(ctx context.Context, email string, listAbility []string) error {
+	ret := _m.Called(ctx, email, listAbility)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, []string) error); ok {
+		r0 = rf(ctx, email, listAbility)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// UpdateCvResume provides a mock function with given fields: ctx, email, path
+func (_m *UseCaseProfile) UpdateCvResume(ctx context.Context, email string, path string) error {
+	ret := _m.Called(ctx, email, path)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, string) error); ok {
+		r0 = rf(ctx, email, path)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// UpdateEducation provides a mock function with given fields: ctx, id, education
+func (_m *UseCaseProfile) UpdateEducation(ctx context.Context, id string, education *profile.EducationDTO) error {
+	ret := _m.Called(ctx, id, education)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, *profile.EducationDTO) error); ok {
+		r0 = rf(ctx, id, education)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// UpdateLanguage provides a mock function with given fields: ctx, email, listLanguage
+func (_m *UseCaseProfile) UpdateLanguage(ctx context.Context, email string, listLanguage []string) error {
+	ret := _m.Called(ctx, email, listLanguage)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, []string) error); ok {
+		r0 = rf(ctx, email, listLanguage)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // UpdatePhotoProfile provides a mock function with given fields: ctx, email, path
 func (_m *UseCaseProfile) UpdatePhotoProfile(ctx context.Context, email string, path string) error {
+	ret := _m.Called(ctx, email, path)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, string) error); ok {
+		r0 = rf(ctx, email, path)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// UpdatePortofolio provides a mock function with given fields: ctx, email, path
+func (_m *UseCaseProfile) UpdatePortofolio(ctx context.Context, email string, path string) error {
 	ret := _m.Called(ctx, email, path)
 
 	var r0 error

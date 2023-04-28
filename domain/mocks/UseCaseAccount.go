@@ -16,6 +16,20 @@ type UseCaseAccount struct {
 	mock.Mock
 }
 
+// ForgetPassword provides a mock function with given fields: ctx, email
+func (_m *UseCaseAccount) ForgetPassword(ctx context.Context, email string) error {
+	ret := _m.Called(ctx, email)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string) error); ok {
+		r0 = rf(ctx, email)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // Login provides a mock function with given fields: ctx, email, password
 func (_m *UseCaseAccount) Login(ctx context.Context, email string, password string) (*http.Cookie, error) {
 	ret := _m.Called(ctx, email, password)
