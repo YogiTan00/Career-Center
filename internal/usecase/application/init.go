@@ -2,6 +2,7 @@ package application
 
 import (
 	"CareerCenter/domain/repository"
+	"CareerCenter/domain/usecase"
 )
 
 type UseCaseApplicationInteractor struct {
@@ -9,7 +10,7 @@ type UseCaseApplicationInteractor struct {
 	repoProfile     repository.RepoProfile
 }
 
-func NewApplicationUsecase(repoApplication repository.RepoApplication, repoProfile repository.RepoProfile) *UseCaseApplicationInteractor {
+func NewApplicationUsecase(repoApplication repository.RepoApplication, repoProfile repository.RepoProfile) usecase.UseCasApplication {
 	return &UseCaseApplicationInteractor{
 		repoApplication: repoApplication,
 		repoProfile:     repoProfile,

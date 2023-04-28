@@ -2,6 +2,7 @@ package company
 
 import (
 	"CareerCenter/domain/repository"
+	"CareerCenter/domain/usecase"
 )
 
 type UseCaseCompanyInteractor struct {
@@ -9,7 +10,7 @@ type UseCaseCompanyInteractor struct {
 	repoJobs    repository.RepoJobs
 }
 
-func NewCompanyUsecase(repoCompany repository.RepoCompany, repoJobs repository.RepoJobs) *UseCaseCompanyInteractor {
+func NewCompanyUsecase(repoCompany repository.RepoCompany, repoJobs repository.RepoJobs) usecase.UseCaseCompany {
 	return &UseCaseCompanyInteractor{
 		repoCompany: repoCompany,
 		repoJobs:    repoJobs,
