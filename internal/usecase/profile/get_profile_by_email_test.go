@@ -21,10 +21,12 @@ func TestUseCaseProfileInteractor_GetProfileByEmail(t *testing.T) {
 	repoGetProfile.On("GetProfileByEmail", mock.Anything, mock.Anything).
 		Times(1).
 		Return(data, nil)
-
 	repoGetProfile.On("GetListWorkExperience", mock.Anything, mock.Anything).
 		Times(1).
 		Return(data.WorkExperience, nil)
+	repoGetProfile.On("GetListEducation", mock.Anything, mock.Anything).
+		Times(1).
+		Return(data.Education, nil)
 
 	tests := []struct {
 		name    string

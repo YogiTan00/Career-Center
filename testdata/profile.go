@@ -2,6 +2,7 @@ package testdata
 
 import (
 	"CareerCenter/domain/entity/profile"
+	"CareerCenter/domain/valueobject"
 	"CareerCenter/utils"
 	uuid2 "github.com/google/uuid"
 	"time"
@@ -19,8 +20,10 @@ func TestDataProfile(countWorkExperiencet int, countEducation int) *profile.Prof
 	for i := 0; i < countWorkExperiencet; i++ {
 		workExperience := &profile.WorkExperienceDTO{
 			Id:              id.String(),
+			Email:           test + "@gmail.com",
 			SkillExperience: "DKV",
 			Name:            "Toko Super 2013",
+			StillWorking:    false,
 			DateRange: profile.DateRangeWorkDTO{
 				Start: time.Now().AddDate(-2, 0, 0),
 				End:   time.Now().AddDate(-1, 0, 0),
@@ -31,14 +34,17 @@ func TestDataProfile(countWorkExperiencet int, countEducation int) *profile.Prof
 	}
 	for i := 0; i < countEducation; i++ {
 		education := &profile.EducationDTO{
-			Id:   id.String(),
-			Name: "SMA Lulusan 1023",
+			Id:             id.String(),
+			Email:          test + "@gmail.com",
+			Level:          valueobject.TypeLevel{},
+			Name:           "SMA Lulusan 1023",
+			Major:          "IT",
+			StillEducation: false,
 			DateRange: profile.DateRangeEduDTO{
 				Start: time.Now().AddDate(-5, 0, 0),
 				End:   time.Now().AddDate(-2, 0, 0),
 			},
-			SkillExperience: "Jaringan",
-			Description:     "sekolah mengenah atas",
+			Description: "sekolah mengenah atas",
 		}
 		listEducation = append(listEducation, education)
 	}
