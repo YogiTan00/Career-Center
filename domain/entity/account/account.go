@@ -1,6 +1,7 @@
 package account
 
 import (
+	"CareerCenter/domain/valueobject"
 	"CareerCenter/utils"
 	"errors"
 	"github.com/google/uuid"
@@ -12,6 +13,7 @@ type Account struct {
 	email     string
 	name      string
 	password  string
+	role      valueobject.TypeRoles
 	createdAt time.Time
 	updatedAt time.Time
 }
@@ -21,6 +23,7 @@ type AccountDTO struct {
 	Email     string
 	Name      string
 	Password  string
+	Role      valueobject.TypeRoles
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
@@ -35,6 +38,7 @@ func NewAccount(dto *AccountDTO) (*Account, error) {
 		email:     dto.Email,
 		name:      dto.Name,
 		password:  dto.Password,
+		role:      dto.Role,
 		createdAt: dto.CreatedAt,
 		updatedAt: dto.UpdatedAt,
 	}, nil
@@ -52,6 +56,9 @@ func (dto *AccountDTO) Validation() error {
 		dto.UpdatedAt = timeNow
 	}
 
+	if dto.Role.StringRoles() == "" {
+		dto.Role = valueobject.NewTypeRoles(valueobject.MEMBER)
+	}
 	return nil
 }
 
@@ -67,9 +74,22 @@ func (g *Account) GetName() string {
 func (g *Account) GetPassword() string {
 	return g.password
 }
+func (g *Account) GetRole() valueobject.TypeRoles {
+	return g.role
+}
 func (g *Account) GetCreatedAt() time.Time {
 	return g.createdAt
 }
 func (g *Account) GetUpdatedAt() time.Time {
 	return g.updatedAt
+}
+
+type Login struct {
+	Token string
+	Role  string
+}
+
+func (g *Login) SetLogin(token string, role string) {
+	g.Token = token
+	g.Role = role
 }

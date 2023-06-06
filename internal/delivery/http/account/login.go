@@ -22,13 +22,13 @@ func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 	buildLogin := request.NewLoginRequest(req)
 
-	token, err := h.UCAccount.Login(ctx, buildLogin.Email, buildLogin.Password)
+	cookie, result, err := h.UCAccount.Login(ctx, buildLogin)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		return
 	}
 
-	http.SetCookie(w, token)
-	helper.ResponseInterface(w, "success login", token.Value, http.StatusInternalServerError)
+	http.SetCookie(w, cookie)
+	helper.ResponseInterface(w, "success login", result, http.StatusInternalServerError)
 	return
 }

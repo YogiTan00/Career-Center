@@ -1,26 +1,31 @@
 package account
 
 import (
+	"CareerCenter/domain/entity/account"
 	"CareerCenter/utils"
 	"CareerCenter/utils/exceptions"
 	"context"
 	"net/http"
 )
 
-func (r UseCaseAccountInteractor) Login(ctx context.Context, email string, password string) (*http.Cookie, error) {
-	data, err := r.repoAccount.GetByEmail(ctx, email)
+func (r UseCaseAccountInteractor) Login(ctx context.Context, data *account.AccountDTO) (*http.Cookie, *account.Login, error) {
+	ac, err := r.repoAccount.GetByEmail(ctx, data.Email)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
-	checkPw := utils.CheckPasswordHash(password, data.Password)
+	checkPw := utils.CheckPasswordHash(data.Password, ac.Password)
 	if checkPw != true {
-		return nil, exceptions.ErrorWrongEmailorPassword
+		return nil, nil, exceptions.ErrorWrongEmailorPassword
 	}
 
-	token, errToken := utils.GenerateToken(email)
+	cookie, errToken := utils.GenerateToken(data.Email, data.Role.StringRoles())
 	if errToken != nil {
-		return nil, errToken
+		return nil, nil, errToken
 	}
-	return token, nil
+
+	result := &account.Login{}
+	result.SetLogin(cookie.Value, ac.Role.StringRoles())
+
+	return cookie, result, nil
 }

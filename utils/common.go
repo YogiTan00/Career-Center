@@ -2,6 +2,7 @@ package utils
 
 import (
 	"CareerCenter/utils/exceptions"
+	"encoding/json"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"math/rand"
@@ -73,4 +74,9 @@ func ToDate(s string) (time.Time, error) {
 func ToOnlyDateResponse(date time.Time) string {
 	toString := date.Format("2006-01-02")
 	return toString
+}
+
+func PrettyPrint(data interface{}) string {
+	jsonBytes, _ := json.MarshalIndent(data, "", "  ")
+	return string(jsonBytes)
 }

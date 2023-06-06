@@ -26,9 +26,7 @@ func (l AccountMysqlInteractor) GetByEmail(ctx context.Context, email string) (*
 		return nil, exceptions.ErrorWrongEmailorPassword
 	}
 
-	account, errMap := mapper.ModelToEntity(result.(*models.AccountModel))
-	if errMap != nil {
-		return nil, errMap
-	}
+	account := mapper.ModelToEntity(result.(*models.AccountModel))
+
 	return account, nil
 }

@@ -2,19 +2,23 @@ package request
 
 import (
 	"CareerCenter/domain/entity/account"
+	"CareerCenter/domain/valueobject"
 )
 
 type RequestRegister struct {
 	Email    string `json:"email"`
 	Nama     string `json:"name"`
 	Password string `json:"password"`
+	Role     string `json:"role"`
 }
 
 func NewRegisterRequest(req *RequestRegister) *account.AccountDTO {
+	role := valueobject.NewTypeRolesFromString(req.Role)
 	return &account.AccountDTO{
 		Email:    req.Email,
 		Name:     req.Nama,
 		Password: req.Password,
+		Role:     role,
 	}
 }
 
