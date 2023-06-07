@@ -19,7 +19,7 @@ func (r UseCaseAccountInteractor) Login(ctx context.Context, data *account.Accou
 		return nil, nil, exceptions.ErrorWrongEmailorPassword
 	}
 
-	cookie, errToken := utils.GenerateToken(data.Email, data.Role.StringRoles())
+	cookie, errToken := utils.GenerateToken(data.Email, ac.Role.StringRoles())
 	if errToken != nil {
 		return nil, nil, errToken
 	}
