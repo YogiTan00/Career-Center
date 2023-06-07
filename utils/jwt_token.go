@@ -9,11 +9,11 @@ import (
 	"time"
 )
 
-func GenerateToken(userId string, role string) (*http.Cookie, error) {
+func GenerateToken(email string, role string) (*http.Cookie, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	claims := token.Claims.(jwt.MapClaims)
-	claims["user_id"] = userId
+	claims["email"] = email
 	claims["role"] = role
 	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
 	tokenString, err := token.SignedString([]byte("K6ct3EnySXFglJghxQrwLmu6RR403UzT"))
