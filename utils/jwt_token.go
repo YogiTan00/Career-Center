@@ -57,7 +57,7 @@ func ValidateTokenFromHeader(r *http.Request) (string, error) {
 		return "", exceptions.ErrCustomString("invalid token")
 	}
 
-	userId := claims["user_id"].(string)
+	userId := claims["email"].(string)
 
 	return userId, nil
 }
