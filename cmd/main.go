@@ -18,6 +18,7 @@ import (
 	company2 "CareerCenter/internal/usecase/company"
 	jobs2 "CareerCenter/internal/usecase/jobs"
 	profile2 "CareerCenter/internal/usecase/profile"
+	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 )
@@ -81,6 +82,7 @@ func main() {
 
 	r.HandleFunc("/v1/job-aplication", handlerApplication.SendApplication).Methods(http.MethodPost)
 
+	fmt.Print("Career Center Running....")
 	err := http.ListenAndServe(":9091", r)
 	if err != nil {
 		return
