@@ -82,7 +82,7 @@ func main() {
 
 	r.HandleFunc("/v1/job-aplication", handlerApplication.SendApplication).Methods(http.MethodPost)
 
-	fmt.Print("Career Center Running....")
+	fmt.Println("Career Center Running....")
 	err := http.ListenAndServe(":9091", r)
 	if err != nil {
 		return
