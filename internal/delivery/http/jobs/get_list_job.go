@@ -3,6 +3,7 @@ package jobs
 import (
 	"CareerCenter/internal/delivery/request"
 	"CareerCenter/internal/delivery/response"
+	"CareerCenter/logger"
 	"CareerCenter/utils"
 	"CareerCenter/utils/helper"
 	"context"
@@ -13,11 +14,13 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx = context.TODO()
 		req request.RequestFilter
+		log = logger.NewLogger("/v1/list-jobs")
 	)
 
 	_, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
+		log.General("", errToken)
 		return
 	}
 
@@ -30,10 +33,12 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 	jobs, err := u.UCJobs.GetListJobs(ctx, filter)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
+		log.General("", err)
 		return
 	}
 
 	JobsResponse := response.GetListJobResponse(jobs)
 	helper.ResponseInterface(w, "success Get list job", JobsResponse, http.StatusInternalServerError)
+	log.General("success send application", JobsResponse)
 	return
 }

@@ -2,6 +2,7 @@ package account
 
 import (
 	"CareerCenter/internal/delivery/request"
+	"CareerCenter/logger"
 	"CareerCenter/utils/helper"
 	"context"
 	"encoding/json"
@@ -13,19 +14,23 @@ func (h *AccountHandler) ForgetPassword(w http.ResponseWriter, r *http.Request) 
 		ctx     = context.TODO()
 		req     *request.RequestForgetPassword
 		decoder = json.NewDecoder(r.Body)
+		log     = logger.NewLogger("/v1/forget-password")
 	)
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
+		log.General("", errDecode)
 		return
 	}
 
 	err := h.UCAccount.ForgetPassword(ctx, req.Email)
 	if err != nil {
 		helper.ResponseErr(w, errDecode, http.StatusBadRequest)
+		log.General("", err)
 		return
 	}
 
 	helper.Response(w, "success send forget password", http.StatusOK)
+	log.General("success send forget password", nil)
 	return
 }

@@ -1,6 +1,7 @@
 package database
 
 import (
+	"CareerCenter/logger"
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
@@ -12,15 +13,17 @@ func InitMysqlDB() *sql.DB {
 	var (
 		errMysql error
 		dbConn   *sql.DB
+		log      = logger.NewLogger("Init Mysql")
 	)
 
-	dbHost := "localhost"
-	dbPort := "3306"
-	dbUser := "root"
-	dbPass := ""
-	dbName := "career_center"
+	dbHost := "localhost"     //localhost
+	dbPort := "3306"          //3306
+	dbUser := "root"          //kolaborasisalt_kolaborasisalt
+	dbPass := ""              //Ky4F-E*Yb^XT
+	dbName := "career_center" //kolaborasisalt_career_center
 
 	connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbName)
+	log.Info(connection)
 	val := url.Values{}
 	val.Add("parseTime", "1")
 	val.Add("loc", "Asia/Jakarta")

@@ -57,7 +57,7 @@ func (dto *AccountDTO) Validation() error {
 	}
 
 	if dto.Role.StringRoles() == "" {
-		dto.Role = valueobject.NewTypeRoles(valueobject.MEMBER)
+		dto.Role = valueobject.NewTypeRoles(valueobject.ROLE_MEMBER)
 	}
 	return nil
 }

@@ -2,6 +2,7 @@ package profile
 
 import (
 	"CareerCenter/internal/delivery/response"
+	"CareerCenter/logger"
 	"CareerCenter/utils"
 	"CareerCenter/utils/helper"
 	"context"
@@ -11,6 +12,7 @@ import (
 func (h *ProfileHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx = context.TODO()
+		log = logger.NewLogger("/v1/profile")
 	)
 	email, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
@@ -26,5 +28,6 @@ func (h *ProfileHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 
 	profileResponse := response.GetProfileResponse(profile)
 	helper.ResponseInterface(w, "success get profile", profileResponse, http.StatusInternalServerError)
+	log.General("success get profile", profileResponse)
 	return
 }

@@ -7,8 +7,9 @@ import (
 type TypeRolesEnum string
 
 const (
-	MEMBER TypeRolesEnum = "MEMBER"
-	ADMIN  TypeRolesEnum = "ADMIN"
+	ROLE_MEMBER  TypeRolesEnum = "MEMBER"
+	ROLE_ADMIN   TypeRolesEnum = "ADMIN"
+	ROLE_COMPANY TypeRolesEnum = "COMPANY"
 )
 
 type TypeRoles struct {
@@ -26,12 +27,14 @@ func (s TypeRoles) StringRoles() string {
 func NewTypeRolesFromString(s string) TypeRoles {
 	var typeRoles TypeRolesEnum
 	switch strings.ToUpper(s) {
-	case string(MEMBER):
-		typeRoles = MEMBER
-	case string(ADMIN):
-		typeRoles = ADMIN
+	case string(ROLE_MEMBER):
+		typeRoles = ROLE_MEMBER
+	case string(ROLE_ADMIN):
+		typeRoles = ROLE_ADMIN
+	case string(ROLE_COMPANY):
+		typeRoles = ROLE_COMPANY
 	default:
-		typeRoles = MEMBER
+		typeRoles = ROLE_MEMBER
 	}
 	return TypeRoles{value: typeRoles}
 }
