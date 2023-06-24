@@ -49,20 +49,21 @@ var (
 
 func main() {
 	r := mux.NewRouter()
-
+	//Handler General
 	r.HandleFunc("/", handler.ParamHandlerWithoutInput).Methods(http.MethodGet)
 	r.HandleFunc("/v1/photo", handler.GetImage).Methods(http.MethodGet)
 	r.HandleFunc("/v1/pdf", handler.GetPdf).Methods(http.MethodGet)
-
+	//Handler Account
 	r.HandleFunc("/v1/register", handlerAccount.Register).Methods(http.MethodPost)
 	r.HandleFunc("/v1/login", handlerAccount.Login).Methods(http.MethodPost)
 	r.HandleFunc("/v1/change/password", handlerAccount.ChangePassword).Methods(http.MethodPost)
 	r.HandleFunc("/v1/logout", handlerAccount.Logout).Methods(http.MethodPost)
 	r.HandleFunc("/v1/forget-password", handlerAccount.ForgetPassword).Methods(http.MethodPost)
-
+	//Handler Jobs
 	r.HandleFunc("/v1/list-jobs", handlerJobs.GetListJob).Methods(http.MethodGet)
 	r.HandleFunc("/v1/job-detail/{job_id}", handlerJobs.GetJobById).Methods(http.MethodGet)
-
+	r.HandleFunc("/v1/job-aplication", handlerApplication.SendApplication).Methods(http.MethodPost)
+	//Handler Profile
 	r.HandleFunc("/v1/profile", handlerProfile.GetProfile).Methods(http.MethodGet)
 	r.HandleFunc("/v1/profile/update-profile", handlerProfile.UpdateProfile).Methods(http.MethodPost)
 	r.HandleFunc("/v1/profile/update-photo", handlerProfile.UpdatePhotoProfile).Methods(http.MethodPost)
@@ -76,11 +77,11 @@ func main() {
 	r.HandleFunc("/v1/profile/update-language", handlerProfile.UpdateLanguage).Methods(http.MethodPost)
 	r.HandleFunc("/v1/profile/update-cv-resume", handlerProfile.UpdateCvResume).Methods(http.MethodPost)
 	r.HandleFunc("/v1/profile/update-portofolio", handlerProfile.UpdatePortofolio).Methods(http.MethodPost)
-
+	//Handler Company
 	r.HandleFunc("/v1/list-company", handlerCompany.GetListCompany).Methods(http.MethodGet)
 	r.HandleFunc("/v1/company/{company_id}", handlerCompany.GetCompanyById).Methods(http.MethodGet)
-
-	r.HandleFunc("/v1/job-aplication", handlerApplication.SendApplication).Methods(http.MethodPost)
+	//Handler Admin
+	r.HandleFunc("/v1/admin/register", handlerAccount.RegisterAdmin).Methods(http.MethodPost)
 
 	fmt.Println("Career Center Running....")
 	err := http.ListenAndServe(":9091", r)
