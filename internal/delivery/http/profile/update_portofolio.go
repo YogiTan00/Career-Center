@@ -14,21 +14,21 @@ func (h *ProfileHandler) UpdatePortofolio(w http.ResponseWriter, r *http.Request
 		log = logger.NewLogger("/v1/profile/update-portofolio")
 	)
 
-	email, errToken := utils.ValidateTokenFromHeader(r)
+	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		log.General("", errToken)
 		return
 	}
 
-	path, errPdf := utils.UploadPDF(email, string(utils.TYPE_PORTOFOLIO), r)
+	path, errPdf := utils.UploadPDF(user.Email, string(utils.TYPE_PORTOFOLIO), r)
 	if errPdf != nil {
 		helper.ResponseErr(w, errPdf, http.StatusBadRequest)
 		log.General("", errPdf)
 		return
 	}
 
-	err := h.UCProfile.UpdatePortofolio(ctx, email, path)
+	err := h.UCProfile.UpdatePortofolio(ctx, user.Email, path)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.General("", err)

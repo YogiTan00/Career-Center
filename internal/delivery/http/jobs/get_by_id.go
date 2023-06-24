@@ -19,14 +19,14 @@ func (h *JobsHandler) GetJobById(w http.ResponseWriter, r *http.Request) {
 		log   = logger.NewLogger(fmt.Sprintf("/v1/job-detail/%s", jobId))
 	)
 
-	email, errToken := utils.ValidateTokenFromHeader(r)
+	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		log.General("", errToken)
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		return
 	}
 
-	jobs, err := h.UCJobs.GetJobById(ctx, email, jobId)
+	jobs, err := h.UCJobs.GetJobById(ctx, user.Email, jobId)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.General("", err)

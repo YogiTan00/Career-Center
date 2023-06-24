@@ -25,14 +25,14 @@ func (h *ProfileHandler) UpdateAbility(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	email, errToken := utils.ValidateTokenFromHeader(r)
+	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		log.General("", errToken)
 		return
 	}
 
-	err := h.UCProfile.UpdateAbility(ctx, email, req.Ability)
+	err := h.UCProfile.UpdateAbility(ctx, user.Email, req.Ability)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.General("", err)

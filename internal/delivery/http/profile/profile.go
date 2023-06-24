@@ -14,13 +14,13 @@ func (h *ProfileHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 		ctx = context.TODO()
 		log = logger.NewLogger("/v1/profile")
 	)
-	email, errToken := utils.ValidateTokenFromHeader(r)
+	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		return
 	}
 
-	profile, err := h.UCProfile.GetProfileByEmail(ctx, email)
+	profile, err := h.UCProfile.GetProfileByEmail(ctx, user.Email)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		return

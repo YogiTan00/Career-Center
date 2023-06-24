@@ -33,7 +33,7 @@ func (h *AccountHandler) ChangePassword(w http.ResponseWriter, r *http.Request) 
 
 	password := request.NewPassword(req)
 
-	err := h.UCAccount.UpdatePassword(ctx, user, password)
+	err := h.UCAccount.UpdatePassword(ctx, user.Email, password)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.General("", err)

@@ -24,7 +24,7 @@ func (h *ProfileHandler) CreateWorkExperience(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	email, errToken := utils.ValidateTokenFromHeader(r)
+	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		log.General("", errToken)
@@ -38,7 +38,7 @@ func (h *ProfileHandler) CreateWorkExperience(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	err = h.UCProfile.CreateWorkExperiencet(ctx, email, workExperience)
+	err = h.UCProfile.CreateWorkExperiencet(ctx, user.Email, workExperience)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.General("", err)

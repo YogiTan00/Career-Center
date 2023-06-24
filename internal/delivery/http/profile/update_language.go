@@ -25,14 +25,14 @@ func (h *ProfileHandler) UpdateLanguage(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	email, errToken := utils.ValidateTokenFromHeader(r)
+	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		log.General("", errToken)
 		return
 	}
 
-	err := h.UCProfile.UpdateLanguage(ctx, email, req.Language)
+	err := h.UCProfile.UpdateLanguage(ctx, user.Email, req.Language)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.General("", err)

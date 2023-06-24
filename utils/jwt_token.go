@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"CareerCenter/domain/valueobject"
 	"CareerCenter/utils/exceptions"
 	"fmt"
 	"github.com/golang-jwt/jwt/v4"
@@ -8,6 +9,18 @@ import (
 	"strings"
 	"time"
 )
+
+type User struct {
+	Email string
+	Role  string
+}
+
+func (u *User) Admin() bool {
+	if u.Role != string(valueobject.ROLE_ADMIN) {
+		return false
+	}
+	return true
+}
 
 func GenerateToken(email string, role string) (*http.Cookie, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
@@ -33,10 +46,10 @@ func GenerateToken(email string, role string) (*http.Cookie, error) {
 	return cookie, nil
 }
 
-func ValidateTokenFromHeader(r *http.Request) (string, error) {
+func ValidateTokenFromHeader(r *http.Request) (*User, error) {
 	authHeader := r.Header.Get("Authorization")
 	if authHeader == "" {
-		return "", exceptions.ErrCustomString("authorization header is missing")
+		return nil, exceptions.ErrCustomString("authorization header is missing")
 	}
 
 	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
@@ -49,17 +62,20 @@ func ValidateTokenFromHeader(r *http.Request) (string, error) {
 	})
 
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok || !token.Valid {
-		return "", exceptions.ErrCustomString("invalid token")
+		return nil, exceptions.ErrCustomString("invalid token")
 	}
 
-	userId := claims["email"].(string)
+	user := &User{
+		Email: claims["email"].(string),
+		Role:  claims["role"].(string),
+	}
 
-	return userId, nil
+	return user, nil
 }
 
 func RemoveJwtInCookie(w http.ResponseWriter) {

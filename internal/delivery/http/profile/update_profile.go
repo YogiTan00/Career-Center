@@ -24,7 +24,7 @@ func (h *ProfileHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	email, errToken := utils.ValidateTokenFromHeader(r)
+	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		log.General("", errToken)
@@ -33,7 +33,7 @@ func (h *ProfileHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 
 	buildProfile := request.NewUpdateProfileRequest(req)
 
-	err := h.UCProfile.UpdateProfile(ctx, email, buildProfile)
+	err := h.UCProfile.UpdateProfile(ctx, user.Email, buildProfile)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.General("", err)

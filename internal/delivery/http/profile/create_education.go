@@ -24,7 +24,7 @@ func (h *ProfileHandler) CreateEducation(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	email, errToken := utils.ValidateTokenFromHeader(r)
+	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		log.General("", errToken)
@@ -37,7 +37,7 @@ func (h *ProfileHandler) CreateEducation(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	err = h.UCProfile.CreateEducation(ctx, email, education)
+	err = h.UCProfile.CreateEducation(ctx, user.Email, education)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.General("", err)
