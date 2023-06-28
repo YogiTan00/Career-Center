@@ -5,9 +5,10 @@ import (
 	"CareerCenter/domain/mocks"
 	"CareerCenter/testdata"
 	"context"
-	"github.com/stretchr/testify/mock"
 	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/mock"
 )
 
 func TestUseCaseProfileInteractor_GetProfileByEmail(t *testing.T) {

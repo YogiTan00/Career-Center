@@ -5,8 +5,9 @@ import (
 	"CareerCenter/internal/repository/mapper"
 	"CareerCenter/internal/repository/models"
 	"context"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (a ApplicationMysqlInteractor) SendApplication(ctx context.Context, application *entity.Application) error {

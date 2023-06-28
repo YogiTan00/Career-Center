@@ -6,8 +6,9 @@ import (
 	"CareerCenter/internal/repository/models"
 	"context"
 	"fmt"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (a ApplicationMysqlInteractor) GetByEmail(ctx context.Context, email string, companyId string) (*entity.ApplicationDTO, error) {

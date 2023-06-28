@@ -3,8 +3,9 @@ package profile
 import (
 	"CareerCenter/domain/valueobject"
 	"CareerCenter/utils/exceptions"
-	"github.com/google/uuid"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type Education struct {

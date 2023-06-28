@@ -4,8 +4,9 @@ import (
 	"CareerCenter/internal/repository/models/profile"
 	"context"
 	"fmt"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (p ProfileMysqlInteractor) UpdatePhotoProfile(ctx context.Context, email string, path string) error {

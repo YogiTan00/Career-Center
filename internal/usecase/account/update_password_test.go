@@ -9,8 +9,9 @@ import (
 	"CareerCenter/utils"
 	"CareerCenter/utils/exceptions"
 	"context"
-	"github.com/stretchr/testify/mock"
 	"testing"
+
+	"github.com/stretchr/testify/mock"
 )
 
 func TestUseCaseAccountInteractor_UpdatePassword(t *testing.T) {

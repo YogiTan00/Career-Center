@@ -2,8 +2,9 @@ package profile
 
 import (
 	"CareerCenter/utils/exceptions"
-	"github.com/google/uuid"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type WorkExperience struct {

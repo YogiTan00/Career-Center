@@ -4,6 +4,7 @@ import (
 	"CareerCenter/domain/entity/account"
 	"CareerCenter/domain/valueobject"
 	"CareerCenter/internal/repository/models"
+
 	"github.com/rocketlaunchr/dbq/v2"
 )
 

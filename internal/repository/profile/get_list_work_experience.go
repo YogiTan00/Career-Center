@@ -6,8 +6,9 @@ import (
 	profile2 "CareerCenter/internal/repository/models/profile"
 	"context"
 	"fmt"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (p ProfileMysqlInteractor) GetListWorkExperience(ctx context.Context, email string) ([]*profile.WorkExperienceDTO, error) {

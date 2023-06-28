@@ -4,8 +4,9 @@ import (
 	"CareerCenter/internal/repository/models/profile"
 	"context"
 	"fmt"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (p ProfileMysqlInteractor) DeletedWorkExperience(ctx context.Context, id string) error {

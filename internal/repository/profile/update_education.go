@@ -5,8 +5,9 @@ import (
 	profile2 "CareerCenter/internal/repository/models/profile"
 	"context"
 	"fmt"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (p ProfileMysqlInteractor) UpdateEducation(ctx context.Context, id string, education *profile.Education) error {

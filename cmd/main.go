@@ -19,8 +19,9 @@ import (
 	jobs2 "CareerCenter/internal/usecase/jobs"
 	profile2 "CareerCenter/internal/usecase/profile"
 	"fmt"
-	"github.com/gorilla/mux"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 var (

@@ -4,8 +4,9 @@ import (
 	"CareerCenter/domain/entity/profile"
 	"CareerCenter/domain/valueobject"
 	"CareerCenter/utils"
-	uuid2 "github.com/google/uuid"
 	"time"
+
+	uuid2 "github.com/google/uuid"
 )
 
 func TestDataProfile(countWorkExperiencet int, countEducation int) *profile.ProfileUserDTO {

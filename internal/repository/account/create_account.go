@@ -6,8 +6,9 @@ import (
 	"CareerCenter/internal/repository/models"
 	"CareerCenter/utils/exceptions"
 	"context"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (r AccountMysqlInteractor) CreateAccount(ctx context.Context, data *account.Account) error {

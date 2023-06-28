@@ -4,9 +4,10 @@ import (
 	"CareerCenter/domain/entity/profile"
 	"CareerCenter/internal/config/database"
 	"context"
-	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestProfileMysqlInteractor_GetProfileByEmail(t *testing.T) {
