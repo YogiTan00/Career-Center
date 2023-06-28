@@ -19,7 +19,7 @@ func InitMysqlDB() *sql.DB {
 	dbHost := "localhost"     //localhost
 	dbPort := "3306"          //3306
 	dbUser := "root"          //kolaborasisalt_kolaborasisalt
-	dbPass := ""              //Ky4F-E*Yb^XT
+	dbPass := ""              //Ky4F-E*Yb^XT or KolaboraSalt
 	dbName := "career_center" //kolaborasisalt_career_center
 
 	connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbName)
