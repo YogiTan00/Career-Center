@@ -15,7 +15,7 @@ func (h *AccountHandler) ChangePassword(w http.ResponseWriter, r *http.Request) 
 		ctx     = context.TODO()
 		req     *request.RequestPassword
 		decoder = json.NewDecoder(r.Body)
-		log     = logger.NewLogger("/v1/change/password")
+		log     = logger.NewLogger(r.RequestURI)
 	)
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {

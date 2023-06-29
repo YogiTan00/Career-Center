@@ -15,7 +15,7 @@ func (h *ProfileHandler) CreateWorkExperience(w http.ResponseWriter, r *http.Req
 		ctx     = context.TODO()
 		req     *request.RequestWorkExperience
 		decoder = json.NewDecoder(r.Body)
-		log     = logger.NewLogger("/v1/profile/add-work-experience")
+		log     = logger.NewLogger(r.RequestURI)
 	)
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {

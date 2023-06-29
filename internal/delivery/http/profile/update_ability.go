@@ -15,7 +15,7 @@ func (h *ProfileHandler) UpdateAbility(w http.ResponseWriter, r *http.Request) {
 		ctx     = context.TODO()
 		req     *request.RequestAbility
 		decoder = json.NewDecoder(r.Body)
-		log     = logger.NewLogger("/v1/profile/update-ability")
+		log     = logger.NewLogger(r.RequestURI)
 	)
 
 	errDecode := decoder.Decode(&req)

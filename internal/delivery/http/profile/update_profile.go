@@ -15,7 +15,7 @@ func (h *ProfileHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		ctx     = context.TODO()
 		req     *request.RequestUpdateProfile
 		decoder = json.NewDecoder(r.Body)
-		log     = logger.NewLogger("/v1//v1/profile/update-profile")
+		log     = logger.NewLogger(r.RequestURI)
 	)
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {

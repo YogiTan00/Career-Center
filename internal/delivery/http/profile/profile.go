@@ -12,7 +12,7 @@ import (
 func (h *ProfileHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx = context.TODO()
-		log = logger.NewLogger("/v1/profile")
+		log = logger.NewLogger(r.RequestURI)
 	)
 	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
