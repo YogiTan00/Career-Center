@@ -32,7 +32,7 @@ func (r AccountMysqlInteractor) CreateAccount(ctx context.Context, data *account
 		_ = txCommit()
 	})
 
-	if checkErr == true {
+	if checkErr {
 		return exceptions.ErrCustomString("e-mail has been registered")
 	}
 

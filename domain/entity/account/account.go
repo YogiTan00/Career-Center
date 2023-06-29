@@ -53,7 +53,7 @@ func NewAccount(dto *AccountDTO) (*Account, error) {
 
 func (dto *AccountDTO) Validation() error {
 	email := utils.ValitEmail(dto.Email)
-	if email != true {
+	if !email {
 		return errors.New("error format email")
 	}
 

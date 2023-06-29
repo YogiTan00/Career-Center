@@ -93,7 +93,7 @@ func NewProfileByRegister(dto *account.Account) (*ProfileUser, error) {
 func (dto *ProfileUserDTO) Validation() error {
 	if len(dto.Email) > 0 {
 		email := utils.ValitEmail(dto.Email)
-		if email != true {
+		if !email {
 			return exceptions.ErrCustomString("error format email")
 		}
 	}
