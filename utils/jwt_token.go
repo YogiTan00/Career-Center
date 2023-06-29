@@ -4,10 +4,11 @@ import (
 	"CareerCenter/domain/valueobject"
 	"CareerCenter/utils/exceptions"
 	"fmt"
-	"github.com/golang-jwt/jwt/v4"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/golang-jwt/jwt/v4"
 )
 
 type User struct {

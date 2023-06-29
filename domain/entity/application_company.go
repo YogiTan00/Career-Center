@@ -3,8 +3,9 @@ package entity
 import (
 	"CareerCenter/domain/entity/profile"
 	"CareerCenter/utils"
-	uuid2 "github.com/google/uuid"
 	"time"
+
+	uuid2 "github.com/google/uuid"
 )
 
 type Application struct {

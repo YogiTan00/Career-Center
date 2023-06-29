@@ -14,7 +14,7 @@ func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 		ctx     = context.TODO()
 		req     *request.RequestLogin
 		decoder = json.NewDecoder(r.Body)
-		log     = logger.NewLogger("/v1/login")
+		log     = logger.NewLogger(r.RequestURI)
 	)
 
 	errDecode := decoder.Decode(&req)

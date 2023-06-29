@@ -4,8 +4,9 @@ import (
 	"CareerCenter/domain/valueobject"
 	"CareerCenter/utils"
 	"errors"
-	"github.com/google/uuid"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type Account struct {
@@ -52,7 +53,7 @@ func NewAccount(dto *AccountDTO) (*Account, error) {
 
 func (dto *AccountDTO) Validation() error {
 	email := utils.ValitEmail(dto.Email)
-	if email != true {
+	if !email {
 		return errors.New("error format email")
 	}
 

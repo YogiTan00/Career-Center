@@ -8,8 +8,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func (h *ProfileHandler) UpdateEducation(w http.ResponseWriter, r *http.Request) {

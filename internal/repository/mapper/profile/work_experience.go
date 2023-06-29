@@ -3,6 +3,7 @@ package profile
 import (
 	"CareerCenter/domain/entity/profile"
 	profile2 "CareerCenter/internal/repository/models/profile"
+
 	"github.com/rocketlaunchr/dbq/v2"
 )
 

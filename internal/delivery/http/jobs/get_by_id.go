@@ -7,8 +7,9 @@ import (
 	"CareerCenter/utils/helper"
 	"context"
 	"fmt"
-	"github.com/gorilla/mux"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func (h *JobsHandler) GetJobById(w http.ResponseWriter, r *http.Request) {

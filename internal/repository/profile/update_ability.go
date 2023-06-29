@@ -4,8 +4,9 @@ import (
 	"CareerCenter/internal/repository/models/profile"
 	"context"
 	"fmt"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (p ProfileMysqlInteractor) UpdateAbility(ctx context.Context, email string, ability string) error {

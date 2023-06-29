@@ -5,8 +5,9 @@ import (
 	profile2 "CareerCenter/internal/repository/mapper/profile"
 	profile3 "CareerCenter/internal/repository/models/profile"
 	"context"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (p ProfileMysqlInteractor) CreateEducation(ctx context.Context, education *profile.Education) error {

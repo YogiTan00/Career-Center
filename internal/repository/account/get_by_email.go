@@ -7,8 +7,9 @@ import (
 	"CareerCenter/utils/exceptions"
 	"context"
 	"fmt"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (l AccountMysqlInteractor) GetByEmail(ctx context.Context, email string) (*account.AccountDTO, error) {

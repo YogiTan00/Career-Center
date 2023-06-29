@@ -3,6 +3,7 @@ package mapper
 import (
 	"CareerCenter/domain/entity"
 	"CareerCenter/internal/repository/models"
+
 	"github.com/rocketlaunchr/dbq/v2"
 )
 

@@ -15,7 +15,7 @@ func (h *ApplicationHandler) SendApplication(w http.ResponseWriter, r *http.Requ
 		ctx     = context.TODO()
 		req     *request.RequestApplication
 		decoder = json.NewDecoder(r.Body)
-		log     = logger.NewLogger("/v1/job-aplication")
+		log     = logger.NewLogger(r.RequestURI)
 	)
 
 	errDecode := decoder.Decode(&req)

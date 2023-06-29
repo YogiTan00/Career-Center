@@ -11,7 +11,7 @@ import (
 func (h *ProfileHandler) UpdateCvResume(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx = context.TODO()
-		log = logger.NewLogger("/v1/profile/update-cv-resume")
+		log = logger.NewLogger(r.RequestURI)
 	)
 
 	user, errToken := utils.ValidateTokenFromHeader(r)

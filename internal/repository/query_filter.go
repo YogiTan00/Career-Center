@@ -13,7 +13,7 @@ func TxQuery(typeSearch *valueobject.TypeSearch, f *filter.Filter) string {
 		if len(f.GetQ()) > 0 {
 			like := "%" + f.GetQ() + "%"
 			if typeSearch.StringSearch() == string(valueobject.JOBS) {
-				if f.GetStatus() == true {
+				if f.GetStatus() {
 					tx := fmt.Sprintf("WHERE position like '%s' and status = 1", like)
 					result = append(result, tx)
 				} else {
@@ -28,7 +28,7 @@ func TxQuery(typeSearch *valueobject.TypeSearch, f *filter.Filter) string {
 			}
 		}
 		if typeSearch.StringSearch() == string(valueobject.JOBS) {
-			if f.GetStatus() == true {
+			if f.GetStatus() {
 				tx := fmt.Sprintf("WHERE status = 1")
 				result = append(result, tx)
 			}

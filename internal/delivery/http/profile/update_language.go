@@ -15,7 +15,7 @@ func (h *ProfileHandler) UpdateLanguage(w http.ResponseWriter, r *http.Request) 
 		ctx     = context.TODO()
 		req     *request.RequestLanguage
 		decoder = json.NewDecoder(r.Body)
-		log     = logger.NewLogger("/v1/profile/update-language")
+		log     = logger.NewLogger(r.RequestURI)
 	)
 
 	errDecode := decoder.Decode(&req)

@@ -8,7 +8,7 @@ import (
 
 func ParamHandlerWithoutInput(w http.ResponseWriter, r *http.Request) {
 	var (
-		log = logger.NewLogger("/")
+		log = logger.NewLogger(r.RequestURI)
 	)
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "SUCCESS OK")
@@ -17,7 +17,7 @@ func ParamHandlerWithoutInput(w http.ResponseWriter, r *http.Request) {
 
 func GetImage(w http.ResponseWriter, r *http.Request) {
 	var (
-		log = logger.NewLogger("/v1/photo")
+		log = logger.NewLogger(r.RequestURI)
 	)
 	filename := "uploads/image/" + r.URL.Query().Get("filename")
 	http.ServeFile(w, r, filename)
@@ -26,7 +26,7 @@ func GetImage(w http.ResponseWriter, r *http.Request) {
 
 func GetPdf(w http.ResponseWriter, r *http.Request) {
 	var (
-		log = logger.NewLogger("/v1/pdf")
+		log = logger.NewLogger(r.RequestURI)
 	)
 	filename := "uploads/pdf/" + r.URL.Query().Get("filename")
 	http.ServeFile(w, r, filename)

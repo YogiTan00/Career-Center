@@ -7,8 +7,9 @@ import (
 	"CareerCenter/utils/helper"
 	"context"
 	"fmt"
-	"github.com/gorilla/mux"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func (h *CompanyHandler) GetCompanyById(w http.ResponseWriter, r *http.Request) {

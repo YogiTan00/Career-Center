@@ -15,7 +15,7 @@ func (r UseCaseAccountInteractor) Login(ctx context.Context, data *account.Accou
 	}
 
 	checkPw := utils.CheckPasswordHash(data.Password, ac.Password)
-	if checkPw != true {
+	if !checkPw {
 		return nil, nil, exceptions.ErrorWrongEmailorPassword
 	}
 

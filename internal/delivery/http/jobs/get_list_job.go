@@ -14,7 +14,7 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx = context.TODO()
 		req request.RequestFilter
-		log = logger.NewLogger("/v1/list-jobs")
+		log = logger.NewLogger(r.RequestURI)
 	)
 
 	_, errToken := utils.ValidateTokenFromHeader(r)

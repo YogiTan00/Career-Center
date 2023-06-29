@@ -4,9 +4,10 @@ import (
 	"CareerCenter/logger"
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"net/url"
 	"time"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func InitMysqlDB() *sql.DB {

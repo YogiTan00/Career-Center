@@ -2,8 +2,9 @@ package profile
 
 import (
 	"CareerCenter/utils/exceptions"
-	"github.com/google/uuid"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type WorkExperience struct {
@@ -79,7 +80,7 @@ func (dto *WorkExperienceDTO) Validation() error {
 		return exceptions.ErrorStartDate
 	}
 
-	if dto.DateRange.End.IsZero() && dto.StillWorking == false {
+	if dto.DateRange.End.IsZero() && !dto.StillWorking {
 		return exceptions.ErrCustomString("still working cant be false")
 	}
 

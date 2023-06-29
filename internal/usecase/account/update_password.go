@@ -14,12 +14,12 @@ func (u UseCaseAccountInteractor) UpdatePassword(ctx context.Context, email stri
 	}
 
 	checkPw := utils.CheckPasswordHash(password.OldPassword, data.Password)
-	if checkPw != true {
+	if !checkPw {
 		return errors.New("wrong password")
 	}
 
 	checkSamePw := utils.CheckPasswordHash(password.NewPassword, data.Password)
-	if checkSamePw != false {
+	if checkSamePw {
 		return errors.New("cannot be changed with the same password")
 	}
 

@@ -3,12 +3,13 @@ package utils
 import (
 	"CareerCenter/utils/exceptions"
 	"encoding/json"
-	"github.com/google/uuid"
-	"golang.org/x/crypto/bcrypt"
 	"math/rand"
 	"net/mail"
 	"strings"
 	"time"
+
+	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func ValitEmail(email string) bool {
