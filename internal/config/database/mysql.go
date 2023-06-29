@@ -3,10 +3,12 @@ package database
 import (
 	"CareerCenter/logger"
 	"database/sql"
+	"errors"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"net/url"
 	"time"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func InitMysqlDB() *sql.DB {
@@ -33,6 +35,15 @@ func InitMysqlDB() *sql.DB {
 
 	if errMysql != nil {
 		panic(errMysql)
+	}
+
+	errDbConn := dbConn.Ping()
+	if errDbConn != nil {
+		if errors.Unwrap(errDbConn) != nil {
+			log.Error(errors.Unwrap(errDbConn).Error())
+		} else {
+			log.Error(errDbConn.Error())
+		}
 	}
 
 	dbConn.SetMaxOpenConns(300)
