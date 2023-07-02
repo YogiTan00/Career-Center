@@ -5,7 +5,7 @@ import (
 	account3 "CareerCenter/internal/delivery/http/account"
 	application3 "CareerCenter/internal/delivery/http/application"
 	company3 "CareerCenter/internal/delivery/http/company"
-	"CareerCenter/internal/delivery/http/handler"
+	handlerGenral "CareerCenter/internal/delivery/http/handler"
 	jobs3 "CareerCenter/internal/delivery/http/jobs"
 	profile3 "CareerCenter/internal/delivery/http/profile"
 	"CareerCenter/internal/repository/account"
@@ -19,6 +19,7 @@ import (
 	jobs2 "CareerCenter/internal/usecase/jobs"
 	profile2 "CareerCenter/internal/usecase/profile"
 	"fmt"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"net/http"
 )
@@ -50,9 +51,9 @@ var (
 func main() {
 	r := mux.NewRouter()
 	//Handler General
-	r.HandleFunc("/", handler.ParamHandlerWithoutInput).Methods(http.MethodGet)
-	r.HandleFunc("/v1/photo", handler.GetImage).Methods(http.MethodGet)
-	r.HandleFunc("/v1/pdf", handler.GetPdf).Methods(http.MethodGet)
+	r.HandleFunc("/", handlerGenral.ParamHandlerWithoutInput).Methods(http.MethodGet)
+	r.HandleFunc("/v1/photo", handlerGenral.GetImage).Methods(http.MethodGet)
+	r.HandleFunc("/v1/pdf", handlerGenral.GetPdf).Methods(http.MethodGet)
 	//Handler Account
 	r.HandleFunc("/v1/register", handlerAccount.Register).Methods(http.MethodPost)
 	r.HandleFunc("/v1/login", handlerAccount.Login).Methods(http.MethodPost)
@@ -84,7 +85,13 @@ func main() {
 	r.HandleFunc("/v1/admin/register", handlerAccount.RegisterAdmin).Methods(http.MethodPost)
 
 	fmt.Println("Career Center Running....")
-	err := http.ListenAndServe(":9091", r)
+	originsOk := handlers.AllowedOrigins([]string{"*"})
+	headersOk := handlers.AllowedHeaders([]string{"Content-Type", "Accept=Language", "Authorization", "X-Requested-With", "Ciam-Type",
+		"X-Device", "X-App-Version", "Channel", "Device-Brand", "promo-config"})
+	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
+	credsOk := handlers.AllowCredentials()
+
+	err := http.ListenAndServe(":9091", handlers.CORS(originsOk, headersOk, methodsOk, credsOk)(r))
 	if err != nil {
 		return
 	}
