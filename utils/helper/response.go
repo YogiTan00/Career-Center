@@ -6,6 +6,7 @@ import (
 )
 
 func Response(w http.ResponseWriter, msg string, statusCode int) {
+	w.Header().Set("Content-Type", "application/json")
 	result, errMap := response.MapResponse(0, msg)
 	if errMap != nil {
 		w.WriteHeader(statusCode)
@@ -15,6 +16,7 @@ func Response(w http.ResponseWriter, msg string, statusCode int) {
 }
 
 func ResponseInterface(w http.ResponseWriter, msg string, data interface{}, statusCode int) {
+	w.Header().Set("Content-Type", "application/json")
 	result, errMap := response.MapResponseInterface(0, msg, data)
 	if errMap != nil {
 		w.WriteHeader(statusCode)
@@ -24,6 +26,7 @@ func ResponseInterface(w http.ResponseWriter, msg string, data interface{}, stat
 }
 
 func ResponseErr(w http.ResponseWriter, err error, statusCode int) {
+	w.Header().Set("Content-Type", "application/json")
 	result, errMap := response.MapResponse(1, err.Error())
 	if errMap != nil {
 		w.WriteHeader(statusCode)

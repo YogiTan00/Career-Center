@@ -16,11 +16,11 @@ func InitMysqlDB() *sql.DB {
 		log      = logger.NewLogger("Init Mysql")
 	)
 
-	dbHost := "localhost"     //localhost
-	dbPort := "3306"          //3306
-	dbUser := "root"          //kolaborasisalt_kolaborasisalt
-	dbPass := ""              //Ky4F-E*Yb^XT or KolaboraSalt
-	dbName := "career_center" //kolaborasisalt_career_center
+	dbHost := "localhost"                     //localhost
+	dbPort := "3306"                          //3306
+	dbUser := "kolaborasisalt_kolaborasisalt" //kolaborasisalt_kolaborasisalt
+	dbPass := "Ky4F-E*Yb^XT"                  //Ky4F-E*Yb^XT or KolaboraSalt
+	dbName := "kolaborasisalt_career_center"  //kolaborasisalt_career_center
 
 	connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbName)
 	log.Info(connection)
