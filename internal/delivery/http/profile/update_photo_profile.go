@@ -35,7 +35,7 @@ func (h *ProfileHandler) UpdatePhotoProfile(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	helper.Response(w, "success update photo profile", http.StatusInternalServerError)
+	helper.Response(w, "success update photo profile", http.StatusOK)
 	log.General("success update photo profile", nil)
 	return
 }

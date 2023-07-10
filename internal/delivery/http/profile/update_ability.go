@@ -39,7 +39,7 @@ func (h *ProfileHandler) UpdateAbility(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	helper.Response(w, "success update ability", http.StatusInternalServerError)
+	helper.Response(w, "success update ability", http.StatusOK)
 	log.General("success update ability", nil)
 	return
 }

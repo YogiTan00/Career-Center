@@ -50,7 +50,7 @@ func (h *ProfileHandler) UpdateWorkExperience(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	helper.Response(w, "success update work experience", http.StatusInternalServerError)
+	helper.Response(w, "success update work experience", http.StatusOK)
 	log.General("success update work experience", nil)
 	return
 }

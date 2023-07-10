@@ -39,7 +39,7 @@ func (h *ApplicationHandler) SendApplication(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	helper.Response(w, "success send application", http.StatusInternalServerError)
+	helper.Response(w, "success send application", http.StatusOK)
 	log.General("success send application", nil)
 	return
 }

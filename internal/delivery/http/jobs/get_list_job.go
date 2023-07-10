@@ -38,7 +38,7 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 	}
 
 	JobsResponse := response.GetListJobResponse(jobs)
-	helper.ResponseInterface(w, "success Get list job", JobsResponse, http.StatusInternalServerError)
+	helper.ResponseInterface(w, "success Get list job", JobsResponse, http.StatusOK)
 	log.General("success send application", JobsResponse)
 	return
 }

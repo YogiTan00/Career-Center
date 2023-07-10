@@ -40,7 +40,7 @@ func (h *AccountHandler) ChangePassword(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	helper.Response(w, "success change password", http.StatusInternalServerError)
+	helper.Response(w, "success change password", http.StatusOK)
 	log.General("success change password", nil)
 	return
 }

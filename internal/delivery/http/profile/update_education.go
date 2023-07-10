@@ -50,7 +50,7 @@ func (h *ProfileHandler) UpdateEducation(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	helper.Response(w, "success update education", http.StatusInternalServerError)
+	helper.Response(w, "success update education", http.StatusOK)
 	log.General("success update education", nil)
 	return
 }

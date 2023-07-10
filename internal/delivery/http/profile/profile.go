@@ -27,7 +27,7 @@ func (h *ProfileHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	profileResponse := response.GetProfileResponse(profile)
-	helper.ResponseInterface(w, "success get profile", profileResponse, http.StatusInternalServerError)
+	helper.ResponseInterface(w, "success get profile", profileResponse, http.StatusOK)
 	log.General("success get profile", profileResponse)
 	return
 }

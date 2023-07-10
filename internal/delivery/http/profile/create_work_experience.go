@@ -45,7 +45,7 @@ func (h *ProfileHandler) CreateWorkExperience(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	helper.Response(w, "success add work experience", http.StatusInternalServerError)
+	helper.Response(w, "success add work experience", http.StatusOK)
 	log.General("success add work experience", nil)
 	return
 }

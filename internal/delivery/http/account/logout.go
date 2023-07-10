@@ -18,7 +18,7 @@ func (h *AccountHandler) Logout(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utils.RemoveJwtInCookie(w)
-	helper.Response(w, "success logout", http.StatusInternalServerError)
+	helper.Response(w, "success logout", http.StatusOK)
 	log.General("success logout", nil)
 	return
 }

@@ -32,7 +32,7 @@ func (h *ProfileHandler) DeletedEducation(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	helper.Response(w, "success deleted education", http.StatusInternalServerError)
+	helper.Response(w, "success deleted education", http.StatusOK)
 	log.General("success deleted education", nil)
 	return
 }

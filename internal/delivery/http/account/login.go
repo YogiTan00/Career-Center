@@ -34,7 +34,7 @@ func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.SetCookie(w, cookie)
-	helper.ResponseInterface(w, "success login", result, http.StatusInternalServerError)
+	helper.ResponseInterface(w, "success login", result, http.StatusOK)
 	log.General("success login", result)
 	return
 }

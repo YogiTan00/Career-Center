@@ -32,7 +32,7 @@ func (h *ProfileHandler) DeletedWorkExperience(w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	helper.Response(w, "success deleted work experience", http.StatusInternalServerError)
+	helper.Response(w, "success deleted work experience", http.StatusOK)
 	log.General("success deleted work experience", nil)
 	return
 }

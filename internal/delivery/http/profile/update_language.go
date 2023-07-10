@@ -39,7 +39,7 @@ func (h *ProfileHandler) UpdateLanguage(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	helper.Response(w, "success update language", http.StatusInternalServerError)
+	helper.Response(w, "success update language", http.StatusOK)
 	log.General("success update language", nil)
 	return
 }

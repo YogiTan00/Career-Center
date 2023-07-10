@@ -21,6 +21,7 @@ func GetImage(w http.ResponseWriter, r *http.Request) {
 	)
 	filename := "uploads/image/" + r.URL.Query().Get("filename")
 	http.ServeFile(w, r, filename)
+	w.WriteHeader(http.StatusOK)
 	log.General("get image", filename)
 }
 
@@ -30,5 +31,6 @@ func GetPdf(w http.ResponseWriter, r *http.Request) {
 	)
 	filename := "uploads/pdf/" + r.URL.Query().Get("filename")
 	http.ServeFile(w, r, filename)
+	w.WriteHeader(http.StatusOK)
 	log.General("get pdf", filename)
 }

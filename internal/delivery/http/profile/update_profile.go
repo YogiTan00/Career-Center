@@ -40,7 +40,7 @@ func (h *ProfileHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	helper.Response(w, "success update profile", http.StatusInternalServerError)
+	helper.Response(w, "success update profile", http.StatusOK)
 	log.General("success update profile", nil)
 	return
 }

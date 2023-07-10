@@ -35,7 +35,7 @@ func (h *ProfileHandler) UpdateCvResume(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	helper.Response(w, "success update cv or resume", http.StatusInternalServerError)
+	helper.Response(w, "success update cv or resume", http.StatusOK)
 	log.General("success update cv or resume", nil)
 	return
 }

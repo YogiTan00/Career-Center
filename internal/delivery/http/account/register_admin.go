@@ -47,7 +47,7 @@ func (h *AccountHandler) RegisterAdmin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	helper.Response(w, "success register", http.StatusInternalServerError)
+	helper.Response(w, "success register", http.StatusOK)
 	log.General("Success register", errRegisterUseCase)
 	return
 }

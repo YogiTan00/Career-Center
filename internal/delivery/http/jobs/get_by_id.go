@@ -34,7 +34,7 @@ func (h *JobsHandler) GetJobById(w http.ResponseWriter, r *http.Request) {
 	}
 
 	jobsResponse := response.GetDetailJobResponse(jobs)
-	helper.ResponseInterface(w, "success get detail job", jobsResponse, http.StatusInternalServerError)
+	helper.ResponseInterface(w, "success get detail job", jobsResponse, http.StatusOK)
 	log.General("success Get detail job", jobsResponse)
 	return
 }
