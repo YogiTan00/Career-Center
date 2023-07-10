@@ -60,7 +60,7 @@ func GetCompanyProfileResponse(dto *entity.CompanyDTO, dtoJobs []*entity.JobsDTO
 			Logo:           data.Logo,
 			Address:        data.Address,
 			Status:         data.Status,
-			SendDate:       utils.ToOnlyDateResponse(data.SendDate),
+			ApplyDate:      utils.ToOnlyDateResponse(data.SendDate),
 			Qualification:  data.Qualification,
 			JobDescription: data.JobDescription,
 			Category:       data.Category,
