@@ -11,12 +11,12 @@ import (
 	"net/http"
 )
 
-func (h *AccountHandler) RegisterAdmin(w http.ResponseWriter, r *http.Request) {
+func (h *AccountHandler) ChangeRoleByAdmin(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx     = context.TODO()
 		req     *request.RequestRegister
 		decoder = json.NewDecoder(r.Body)
-		log     = logger.NewLogger("/v1/admin/register")
+		log     = logger.NewLogger("/v1/admin/change-role")
 	)
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
@@ -38,16 +38,16 @@ func (h *AccountHandler) RegisterAdmin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	buildRegister := request.NewRegisterByAdminRequest(req)
+	requestDate := request.NewChangeRoleByAdminRequest(req)
 
-	errRegisterUseCase := h.UCAccount.RegisterAdmin(ctx, user.Role, buildRegister)
+	errRegisterUseCase := h.UCAccount.ChangeRoleByAdmin(ctx, requestDate)
 	if errRegisterUseCase != nil {
 		helper.ResponseErr(w, errRegisterUseCase, http.StatusInternalServerError)
 		log.General("", errRegisterUseCase)
 		return
 	}
 
-	helper.Response(w, "success register", http.StatusOK)
+	helper.Response(w, "success change role", http.StatusOK)
 	log.General("Success register", errRegisterUseCase)
 	return
 }

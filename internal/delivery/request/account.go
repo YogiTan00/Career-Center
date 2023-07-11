@@ -20,13 +20,11 @@ func NewRegisterRequest(req *RequestRegister) *account.AccountDTO {
 	}
 }
 
-func NewRegisterByAdminRequest(req *RequestRegister) *account.AccountDTO {
-	role := valueobject.NewTypeRolesFromString(req.Role)
+func NewChangeRoleByAdminRequest(req *RequestRegister) *account.AccountDTO {
+	role := valueobject.NewTypeRolesFromStringPointer(req.Role)
 	return &account.AccountDTO{
-		Email:    req.Email,
-		Name:     req.Nama,
-		Password: req.Password,
-		Role:     role,
+		Email: req.Email,
+		Role:  *role,
 	}
 }
 

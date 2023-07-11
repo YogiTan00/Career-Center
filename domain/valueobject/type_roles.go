@@ -38,3 +38,16 @@ func NewTypeRolesFromString(s string) TypeRoles {
 	}
 	return TypeRoles{value: typeRoles}
 }
+
+func NewTypeRolesFromStringPointer(s string) *TypeRoles {
+	var typeRoles TypeRolesEnum
+	switch strings.ToUpper(s) {
+	case string(ROLE_MEMBER):
+		typeRoles = ROLE_MEMBER
+	case string(ROLE_ADMIN):
+		typeRoles = ROLE_ADMIN
+	case string(ROLE_COMPANY):
+		typeRoles = ROLE_COMPANY
+	}
+	return &TypeRoles{value: typeRoles}
+}

@@ -3,6 +3,7 @@ package account
 import (
 	"CareerCenter/domain/valueobject"
 	"CareerCenter/utils"
+	"CareerCenter/utils/exceptions"
 	"errors"
 	"github.com/google/uuid"
 	"time"
@@ -37,6 +38,11 @@ func NewAccount(dto *AccountDTO) (*Account, error) {
 	if err != nil {
 		return nil, err
 	}
+	timeNow := time.Now()
+	if dto.CreatedAt.IsZero() && dto.UpdatedAt.IsZero() {
+		dto.CreatedAt = timeNow
+		dto.UpdatedAt = timeNow
+	}
 	return &Account{
 		id:         uuid.NewString(),
 		email:      dto.Email,
@@ -54,12 +60,6 @@ func (dto *AccountDTO) Validation() error {
 	email := utils.ValitEmail(dto.Email)
 	if email != true {
 		return errors.New("error format email")
-	}
-
-	timeNow := time.Now()
-	if dto.CreatedAt.IsZero() && dto.UpdatedAt.IsZero() {
-		dto.CreatedAt = timeNow
-		dto.UpdatedAt = timeNow
 	}
 
 	if dto.Role.StringRoles() == "" {
@@ -108,4 +108,27 @@ type Login struct {
 func (g *Login) SetLogin(token string, role string) {
 	g.Token = token
 	g.Role = role
+}
+
+func NewRole(dto *AccountDTO) (*Account, error) {
+	err := dto.ValidationRole()
+	if err != nil {
+		return nil, err
+	}
+	return &Account{
+		email: dto.Email,
+		role:  dto.Role,
+	}, nil
+}
+
+func (dto *AccountDTO) ValidationRole() error {
+	email := utils.ValitEmail(dto.Email)
+	if email != true {
+		return errors.New("error format email")
+	}
+
+	if dto.Role.StringRoles() == "" {
+		return exceptions.ErrCustomString("role not found")
+	}
+	return nil
 }

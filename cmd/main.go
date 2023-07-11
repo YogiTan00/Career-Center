@@ -82,7 +82,7 @@ func main() {
 	r.HandleFunc("/v1/list-company", handlerCompany.GetListCompany).Methods(http.MethodGet)
 	r.HandleFunc("/v1/company/{company_id}", handlerCompany.GetCompanyById).Methods(http.MethodGet)
 	//Handler Admin
-	r.HandleFunc("/v1/admin/register", handlerAccount.RegisterAdmin).Methods(http.MethodPost)
+	r.HandleFunc("/v1/admin/change-role", handlerAccount.ChangeRoleByAdmin).Methods(http.MethodPut)
 
 	fmt.Println("Career Center Running....")
 	originsOk := handlers.AllowedOrigins([]string{"*"})
