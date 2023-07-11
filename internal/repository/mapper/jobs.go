@@ -5,20 +5,21 @@ import (
 	"CareerCenter/internal/repository/models"
 )
 
-func EntityToModelJobs(m *entity.Jobs) *models.JobsModel {
-	return &models.JobsModel{
-		Id:        m.GetId(),
-		Position:  m.GetPosition(),
-		Company:   m.GetCompany(),
-		Logo:      m.GetLogo(),
-		Address:   m.GetAddress(),
-		CreatedAt: m.GetCreatedAt(),
-	}
-}
+//func EntityToModelJobs(m *entity.Jobs) *models.JobsModel {
+//	return &models.JobsModel{
+//		Id:        m.GetId(),
+//		Position:  m.GetPosition(),
+//		Company:   m.GetCompany(),
+//		Logo:      m.GetLogo(),
+//		Address:   m.GetAddress(),
+//		CreatedAt: m.GetCreatedAt(),
+//	}
+//}
 
 func ModelToEntityJobs(m *models.JobsModel) *entity.JobsDTO {
 	return &entity.JobsDTO{
 		Id:             m.Id,
+		CompanyId:      m.CompanyId,
 		Position:       m.Position,
 		Company:        m.Company,
 		Logo:           m.Logo,

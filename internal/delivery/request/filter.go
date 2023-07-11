@@ -11,12 +11,14 @@ type RequestFilter struct {
 	Limit  int    `json:"limit"`
 	Page   int    `json:"page"`
 	Status bool   `json:"status"`
+	Order  string `json:"order"`
 }
 
 func FilterGeneral(r *http.Request, req *RequestFilter) (*filter.FilterDTO, error) {
 	var err error
-	q := r.URL.Query().Get("q")
-	req.Q = q
+	req.Q = r.URL.Query().Get("q")
+	req.Order = r.URL.Query().Get("order")
+
 	status := r.URL.Query().Get("status")
 	if len(status) > 0 {
 		req.Status, err = strconv.ParseBool(status)
@@ -44,5 +46,6 @@ func FilterGeneral(r *http.Request, req *RequestFilter) (*filter.FilterDTO, erro
 		Limit:  uint32(req.Limit),
 		Page:   uint32(req.Page),
 		Status: req.Status,
+		Order:  req.Order,
 	}, nil
 }

@@ -68,6 +68,20 @@ func (_m *RepoAccount) UpdatePassword(ctx context.Context, email string, passwor
 	return r0
 }
 
+// UpdateRole provides a mock function with given fields: ctx, data
+func (_m *RepoAccount) UpdateRole(ctx context.Context, data *account.Account) error {
+	ret := _m.Called(ctx, data)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, *account.Account) error); ok {
+		r0 = rf(ctx, data)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 type mockConstructorTestingTNewRepoAccount interface {
 	mock.TestingT
 	Cleanup(func())

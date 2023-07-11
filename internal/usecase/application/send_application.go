@@ -5,12 +5,12 @@ import (
 	"context"
 )
 
-func (u UseCaseApplicationInteractor) SendApplication(ctx context.Context, email string, companyId string) error {
+func (u UseCaseApplicationInteractor) SendApplication(ctx context.Context, email string, apply *entity.ApplicationRequest) error {
 	data, err := u.repoProfile.GetProfileByEmail(ctx, email)
 	if err != nil {
 		return err
 	}
-	toApplication, err := entity.NewApplicationFromProfile(data, companyId)
+	toApplication, err := entity.NewApplicationFromProfile(data, apply)
 	if err != nil {
 		return err
 	}

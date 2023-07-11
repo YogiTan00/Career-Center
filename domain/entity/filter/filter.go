@@ -2,16 +2,18 @@ package filter
 
 type Filter struct {
 	q      string
-	limit  uint32
 	page   uint32
+	limit  uint32
 	status bool
+	order  string
 }
 
 type FilterDTO struct {
 	Q      string
-	Limit  uint32
 	Page   uint32
+	Limit  uint32
 	Status bool
+	Order  string
 }
 
 func NewFilter(dto *FilterDTO) *Filter {
@@ -24,9 +26,10 @@ func NewFilter(dto *FilterDTO) *Filter {
 	page := (dto.Page - 1) * dto.Limit
 	return &Filter{
 		q:      dto.Q,
-		limit:  dto.Limit,
 		page:   page,
+		limit:  dto.Limit,
 		status: dto.Status,
+		order:  dto.Order,
 	}
 }
 
@@ -44,4 +47,8 @@ func (data *Filter) GetPage() uint32 {
 
 func (data *Filter) GetStatus() bool {
 	return data.status
+}
+
+func (data *Filter) GetOrder() string {
+	return data.order
 }

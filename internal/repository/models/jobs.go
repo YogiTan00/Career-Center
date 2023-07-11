@@ -6,6 +6,7 @@ import (
 
 type JobsModel struct {
 	Id             string    `dbq:"id"`
+	CompanyId      string    `dbq:"company_id"`
 	Position       string    `dbq:"position"`
 	Company        string    `dbq:"company"`
 	Logo           string    `dbq:"logo"`

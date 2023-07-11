@@ -16,6 +16,20 @@ type UseCaseAccount struct {
 	mock.Mock
 }
 
+// ChangeRoleByAdmin provides a mock function with given fields: ctx, data
+func (_m *UseCaseAccount) ChangeRoleByAdmin(ctx context.Context, data *account.AccountDTO) error {
+	ret := _m.Called(ctx, data)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, *account.AccountDTO) error); ok {
+		r0 = rf(ctx, data)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // ForgetPassword provides a mock function with given fields: ctx, email
 func (_m *UseCaseAccount) ForgetPassword(ctx context.Context, email string) error {
 	ret := _m.Called(ctx, email)
@@ -30,30 +44,39 @@ func (_m *UseCaseAccount) ForgetPassword(ctx context.Context, email string) erro
 	return r0
 }
 
-// Login provides a mock function with given fields: ctx, email, password
-func (_m *UseCaseAccount) Login(ctx context.Context, email string, password string) (*http.Cookie, error) {
-	ret := _m.Called(ctx, email, password)
+// Login provides a mock function with given fields: ctx, data
+func (_m *UseCaseAccount) Login(ctx context.Context, data *account.AccountDTO) (*http.Cookie, *account.Login, error) {
+	ret := _m.Called(ctx, data)
 
 	var r0 *http.Cookie
-	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, string, string) (*http.Cookie, error)); ok {
-		return rf(ctx, email, password)
+	var r1 *account.Login
+	var r2 error
+	if rf, ok := ret.Get(0).(func(context.Context, *account.AccountDTO) (*http.Cookie, *account.Login, error)); ok {
+		return rf(ctx, data)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, string, string) *http.Cookie); ok {
-		r0 = rf(ctx, email, password)
+	if rf, ok := ret.Get(0).(func(context.Context, *account.AccountDTO) *http.Cookie); ok {
+		r0 = rf(ctx, data)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*http.Cookie)
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, string, string) error); ok {
-		r1 = rf(ctx, email, password)
+	if rf, ok := ret.Get(1).(func(context.Context, *account.AccountDTO) *account.Login); ok {
+		r1 = rf(ctx, data)
 	} else {
-		r1 = ret.Error(1)
+		if ret.Get(1) != nil {
+			r1 = ret.Get(1).(*account.Login)
+		}
 	}
 
-	return r0, r1
+	if rf, ok := ret.Get(2).(func(context.Context, *account.AccountDTO) error); ok {
+		r2 = rf(ctx, data)
+	} else {
+		r2 = ret.Error(2)
+	}
+
+	return r0, r1, r2
 }
 
 // Register provides a mock function with given fields: ctx, data

@@ -41,7 +41,17 @@ func TxQuery(typeSearch *valueobject.TypeSearch, f *filter.Filter) string {
 			tx := fmt.Sprintf("OFFSET %d", f.GetPage())
 			result = append(result, tx)
 		}
+		if len(f.GetOrder()) > 0 {
+			if f.GetOrder() == "asc" || f.GetOrder() == "desc" {
+				tx := fmt.Sprintf("ORDER BY created_at %s", f.GetOrder())
+				result = append(result, tx)
+			} else {
+				tx := fmt.Sprintf("ORDER BY created_at desc")
+				result = append(result, tx)
+			}
+		}
 	}
 	tx := strings.Join(result, " ")
+	fmt.Println("Query :", tx)
 	return tx
 }

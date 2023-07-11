@@ -16,6 +16,12 @@ type CustomReponseSingleInterface struct {
 	Data   interface{}
 }
 
+type CustomReponseSingleInterfaceWithCount struct {
+	Status *Status
+	Data   interface{}
+	Count  int
+}
+
 func MapResponse(code int, message string) ([]byte, error) {
 	httpResponse := &CustomReponseSingle{
 		Status: &Status{
@@ -39,6 +45,24 @@ func MapResponseInterface(code int, message string, data interface{}) ([]byte, e
 			Message: message,
 		},
 		Data: data,
+	}
+
+	respJson, err := json.Marshal(httpResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return respJson, nil
+}
+
+func MapResponseInterfaceWithCount(code int, message string, data interface{}, count int) ([]byte, error) {
+	httpResponse := &CustomReponseSingleInterfaceWithCount{
+		Status: &Status{
+			Code:    code,
+			Message: message,
+		},
+		Data:  data,
+		Count: count,
 	}
 
 	respJson, err := json.Marshal(httpResponse)

@@ -7,6 +7,6 @@ import (
 )
 
 type UseCaseJobs interface {
-	GetListJobs(ctx context.Context, f *filter.FilterDTO) ([]*entity.JobsDTO, error)
+	GetListJobs(ctx context.Context, f *filter.FilterDTO) ([]*entity.JobsDTO, int, error)
 	GetJobById(ctx context.Context, email string, id string) (*entity.JobsDTO, error)
 }

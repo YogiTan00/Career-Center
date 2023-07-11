@@ -30,7 +30,7 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jobs, err := u.UCJobs.GetListJobs(ctx, filter)
+	jobs, count, err := u.UCJobs.GetListJobs(ctx, filter)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.General("", err)
@@ -38,7 +38,7 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 	}
 
 	JobsResponse := response.GetListJobResponse(jobs)
-	helper.ResponseInterface(w, "success Get list job", JobsResponse, http.StatusOK)
+	helper.ResponseInterfaceWithCount(w, "success get list job", JobsResponse, count, http.StatusOK)
 	log.General("success send application", JobsResponse)
 	return
 }

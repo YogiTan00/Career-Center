@@ -5,6 +5,7 @@ import "time"
 type ApplicationModel struct {
 	Id          string    `dbq:"id"`
 	CompanyId   string    `dbq:"company_id"`
+	JobId       string    `dbq:"job_id"`
 	Email       string    `dbq:"email"`
 	Name        string    `dbq:"name"`
 	Skill       string    `dbq:"skill"`
@@ -23,6 +24,7 @@ func TableApplication() []string {
 	return []string{
 		"id",
 		"company_id",
+		"job_id",
 		"email",
 		"name",
 		"skill",

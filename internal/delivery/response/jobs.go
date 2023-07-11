@@ -6,17 +6,20 @@ import (
 )
 
 type JobsResponse struct {
-	Id        string `json:"id"`
-	Position  string `json:"position"`
-	Company   string `json:"company"`
-	Logo      string `json:"logo"`
-	Address   string `json:"address"`
-	Status    bool   `json:"status"`
-	CreatedAt string `json:"createdAt"`
+	Id        string   `json:"id"`
+	CompanyId string   `json:"companyId"`
+	Position  string   `json:"position"`
+	Company   string   `json:"company"`
+	Logo      string   `json:"logo"`
+	Address   string   `json:"address"`
+	Status    bool     `json:"status"`
+	CreatedAt string   `json:"createdAt"`
+	Applicant []string `json:"applicant"`
 }
 
 type DetailJobResponse struct {
 	Id             string `json:"id"`
+	CompanyId      string `json:"companyId"`
 	Position       string `json:"position"`
 	Company        string `json:"company"`
 	Logo           string `json:"logo"`
@@ -34,12 +37,14 @@ type DetailJobResponse struct {
 func GetJobResponse(dto *entity.JobsDTO) *JobsResponse {
 	return &JobsResponse{
 		Id:        dto.Id,
+		CompanyId: dto.CompanyId,
 		Position:  dto.Position,
 		Company:   dto.Company,
 		Logo:      dto.Logo,
 		Address:   dto.Address,
 		Status:    dto.Status,
 		CreatedAt: utils.ToOnlyDateResponse(dto.CreatedAt),
+		Applicant: dto.Applicant,
 	}
 }
 
@@ -55,6 +60,7 @@ func GetListJobResponse(dto []*entity.JobsDTO) []*JobsResponse {
 func GetDetailJobResponse(dto *entity.JobsDTO) *DetailJobResponse {
 	return &DetailJobResponse{
 		Id:             dto.Id,
+		CompanyId:      dto.CompanyId,
 		Position:       dto.Position,
 		Company:        dto.Company,
 		Logo:           dto.Logo,

@@ -8,7 +8,6 @@ import (
 	"CareerCenter/internal/repository/mapper"
 	"CareerCenter/internal/repository/models"
 	"context"
-	"errors"
 	"fmt"
 	"github.com/rocketlaunchr/dbq/v2"
 	"time"
@@ -17,8 +16,8 @@ import (
 func (j JobsMysqlInteractor) GetListJobs(ctx context.Context, typeSearch *valueobject.TypeSearch, f *filter.Filter) ([]*entity.JobsDTO, error) {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
-	filter := repository.TxQuery(typeSearch, f)
-	stmt := fmt.Sprintf(`SELECT * FROM %s %s`, models.GetTableNameJobs(), filter)
+	fil := repository.TxQuery(typeSearch, f)
+	stmt := fmt.Sprintf(`SELECT * FROM %s %s`, models.GetTableNameJobs(), fil)
 
 	opts := &dbq.Options{
 		SingleResult:   false,
@@ -32,8 +31,5 @@ func (j JobsMysqlInteractor) GetListJobs(ctx context.Context, typeSearch *valueo
 	}
 
 	jobs := mapper.ModelToEntityListJobs(result.([]*models.JobsModel))
-	if jobs == nil {
-		return nil, errors.New("err mapper")
-	}
 	return jobs, nil
 }

@@ -3,6 +3,7 @@
 package mocks
 
 import (
+	entity "CareerCenter/domain/entity"
 	context "context"
 
 	mock "github.com/stretchr/testify/mock"
@@ -13,13 +14,13 @@ type UseCasApplication struct {
 	mock.Mock
 }
 
-// SendApplication provides a mock function with given fields: ctx, email, companyId
-func (_m *UseCasApplication) SendApplication(ctx context.Context, email string, companyId string) error {
-	ret := _m.Called(ctx, email, companyId)
+// SendApplication provides a mock function with given fields: ctx, email, apply
+func (_m *UseCasApplication) SendApplication(ctx context.Context, email string, apply *entity.ApplicationRequest) error {
+	ret := _m.Called(ctx, email, apply)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, string, string) error); ok {
-		r0 = rf(ctx, email, companyId)
+	if rf, ok := ret.Get(0).(func(context.Context, string, *entity.ApplicationRequest) error); ok {
+		r0 = rf(ctx, email, apply)
 	} else {
 		r0 = ret.Error(0)
 	}

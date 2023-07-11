@@ -40,6 +40,32 @@ func (_m *RepoApplication) GetByEmail(ctx context.Context, email string, company
 	return r0, r1
 }
 
+// GetByJob provides a mock function with given fields: ctx
+func (_m *RepoApplication) GetListApplication(ctx context.Context) ([]*entity.ApplicationDTO, error) {
+	ret := _m.Called(ctx)
+
+	var r0 []*entity.ApplicationDTO
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context) ([]*entity.ApplicationDTO, error)); ok {
+		return rf(ctx)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context) []*entity.ApplicationDTO); ok {
+		r0 = rf(ctx)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]*entity.ApplicationDTO)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context) error); ok {
+		r1 = rf(ctx)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // SendApplication provides a mock function with given fields: ctx, application
 func (_m *RepoApplication) SendApplication(ctx context.Context, application *entity.Application) error {
 	ret := _m.Called(ctx, application)

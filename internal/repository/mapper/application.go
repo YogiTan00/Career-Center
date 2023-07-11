@@ -10,6 +10,7 @@ func EntityApplicationToModel(m *entity.Application) *models.ApplicationModel {
 	return &models.ApplicationModel{
 		Id:          m.GetId(),
 		CompanyId:   m.GetCompanyId(),
+		JobId:       m.GetJobId(),
 		Email:       m.GetEmail(),
 		Name:        m.GetName(),
 		Skill:       m.GetSkill(),
@@ -25,6 +26,7 @@ func ModelApplicationToEntity(m *models.ApplicationModel) *entity.ApplicationDTO
 	data := &entity.ApplicationDTO{
 		Id:          m.Id,
 		CompanyId:   m.CompanyId,
+		JobId:       m.JobId,
 		Email:       m.Email,
 		Name:        m.Name,
 		Skill:       m.Skill,
@@ -44,4 +46,13 @@ func EntityApplicationToInterface(data *entity.Application) []interface{} {
 func DomainApplicationToInterface(domain *entity.Application) (dbqStruct []interface{}) {
 	dbqStruct = append(dbqStruct, EntityApplicationToInterface(domain))
 	return
+}
+
+func ModelApplicationListToEntity(m []*models.ApplicationModel) []*entity.ApplicationDTO {
+	listApplicant := make([]*entity.ApplicationDTO, 0)
+	for _, data := range m {
+		apply := ModelApplicationToEntity(data)
+		listApplicant = append(listApplicant, apply)
+	}
+	return listApplicant
 }

@@ -6,6 +6,7 @@ import (
 
 type Jobs struct {
 	id             string
+	companyId      string
 	position       string
 	company        string
 	logo           string
@@ -22,6 +23,7 @@ type Jobs struct {
 
 type JobsDTO struct {
 	Id             string
+	CompanyId      string
 	Position       string
 	Company        string
 	Logo           string
@@ -34,10 +36,15 @@ type JobsDTO struct {
 	Description    string
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
+	Applicant      []string
 }
 
 func (g *Jobs) GetId() string {
 	return g.id
+}
+
+func (g *Jobs) GetCompanyId() string {
+	return g.companyId
 }
 
 func (g *Jobs) GetPosition() string {
@@ -58,4 +65,8 @@ func (g *Jobs) GetAddress() string {
 
 func (g *Jobs) GetCreatedAt() time.Time {
 	return g.createdAt
+}
+
+func (g *Jobs) GetApplicant() []string {
+	return g.GetApplicant()
 }

@@ -32,7 +32,9 @@ func (h *ApplicationHandler) SendApplication(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	err := h.UCApplication.SendApplication(ctx, user.Email, req.CompanyId)
+	application := request.NewApplicationRequest(req)
+
+	err := h.UCApplication.SendApplication(ctx, user.Email, application)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.General("", err)
