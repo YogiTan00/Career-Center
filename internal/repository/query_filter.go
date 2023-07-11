@@ -52,6 +52,5 @@ func TxQuery(typeSearch *valueobject.TypeSearch, f *filter.Filter) string {
 		}
 	}
 	tx := strings.Join(result, " ")
-	fmt.Println("Query :", tx)
 	return tx
 }
