@@ -3,23 +3,23 @@ package response
 import "encoding/json"
 
 type Status struct {
-	Code    int
-	Message string
+	Code    int    `json:"code"`
+	Message string `json:"message"`
 }
 
 type CustomReponseSingle struct {
-	Status *Status
+	Status *Status `json:"status"`
 }
 
 type CustomReponseSingleInterface struct {
-	Status *Status
-	Data   interface{}
+	Status *Status     `json:"status"`
+	Data   interface{} `json:"data"`
 }
 
 type CustomReponseSingleInterfaceWithCount struct {
-	Status *Status
-	Data   interface{}
-	Count  int
+	Status *Status     `json:"status"`
+	Data   interface{} `json:"data"`
+	Count  int         `json:"count"`
 }
 
 func MapResponse(code int, message string) ([]byte, error) {
