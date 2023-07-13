@@ -3,10 +3,12 @@ package profile
 import (
 	"CareerCenter/domain/entity/profile"
 	"CareerCenter/internal/config/database"
+	"CareerCenter/package/cfg"
 	"context"
-	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestProfileMysqlInteractor_GetProfileByEmail(t *testing.T) {
@@ -15,7 +17,7 @@ func TestProfileMysqlInteractor_GetProfileByEmail(t *testing.T) {
 		email string
 	}
 	var (
-		mysSqlConn  = database.InitMysqlDB()
+		mysSqlConn  = database.InitMysqlDB(cfg.Config{})
 		ctx         = context.TODO()
 		repoProfile = NewProfileMysqlInteractor(mysSqlConn)
 	)
