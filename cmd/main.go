@@ -39,7 +39,7 @@ var (
 	handlerJobs = jobs3.NewUseCaseJobsHandler(useCaseJobs)
 
 	repoProfile    = profile.NewProfileMysqlInteractor(mysqlConn)
-	useCaseProfile = profile2.NewProfileUsecase(repoProfile)
+	useCaseProfile = profile2.NewProfileUsecase(repoProfile, configEnv)
 	handlerProfile = profile3.NewUseCaseProfileHandler(useCaseProfile, configEnv)
 
 	repoApplication    = application.NewApplicationMysqlInteractor(mysqlConn)
