@@ -23,7 +23,6 @@ func (u UseCaseJobsInteractor) GetJobById(ctx context.Context, email string, id 
 
 	if check != nil {
 		data.Status = true
-		data.SendDate = check.UpdatedAt
 	}
 
 	return data, nil

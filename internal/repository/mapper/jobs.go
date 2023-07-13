@@ -3,18 +3,25 @@ package mapper
 import (
 	"CareerCenter/domain/entity"
 	"CareerCenter/internal/repository/models"
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
-//func EntityToModelJobs(m *entity.Jobs) *models.JobsModel {
-//	return &models.JobsModel{
-//		Id:        m.GetId(),
-//		Position:  m.GetPosition(),
-//		Company:   m.GetCompany(),
-//		Logo:      m.GetLogo(),
-//		Address:   m.GetAddress(),
-//		CreatedAt: m.GetCreatedAt(),
-//	}
-//}
+func EntityToModelJobs(m *entity.Jobs) *models.JobsModel {
+	return &models.JobsModel{
+		Id:             m.GetId(),
+		CompanyId:      m.GetCompanyId(),
+		Position:       m.GetPosition(),
+		Company:        m.GetCompany(),
+		Logo:           m.GetLogo(),
+		Address:        m.GetAddress(),
+		Status:         m.GetStatus(),
+		Qualification:  m.GetQualificationi(),
+		JobDescription: m.GetJobDescription(),
+		CreatedAt:      m.GetCreatedAt(),
+		UpdatedAt:      m.GetUpdateAt(),
+		DeletedAt:      m.GetDeletedAt(),
+	}
+}
 
 func ModelToEntityJobs(m *models.JobsModel) *entity.JobsDTO {
 	return &entity.JobsDTO{
@@ -25,11 +32,8 @@ func ModelToEntityJobs(m *models.JobsModel) *entity.JobsDTO {
 		Logo:           m.Logo,
 		Address:        m.Address,
 		Status:         m.Status,
-		SendDate:       m.SendDate,
 		Qualification:  m.Qualification,
 		JobDescription: m.JobDescription,
-		Category:       m.Category,
-		Description:    m.Description,
 		CreatedAt:      m.CreatedAt,
 		UpdatedAt:      m.UpdatedAt,
 	}
@@ -42,4 +46,13 @@ func ModelToEntityListJobs(m []*models.JobsModel) []*entity.JobsDTO {
 		listJobs = append(listJobs, jobs)
 	}
 	return listJobs
+}
+
+func EntityJobToInterface(data *entity.Jobs) []interface{} {
+	return dbq.Struct(EntityToModelJobs(data))
+}
+
+func DomainJobToInterface(domain *entity.Jobs) (dbqStruct []interface{}) {
+	dbqStruct = append(dbqStruct, EntityJobToInterface(domain))
+	return
 }

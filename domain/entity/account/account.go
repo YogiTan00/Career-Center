@@ -101,8 +101,8 @@ func (g *Account) SetRegisterBy(email string) {
 }
 
 type Login struct {
-	Token string
-	Role  string
+	Token string `json:"token"`
+	Role  string `json:"role"`
 }
 
 func (g *Login) SetLogin(token string, role string) {
