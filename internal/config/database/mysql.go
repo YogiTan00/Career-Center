@@ -2,25 +2,27 @@ package database
 
 import (
 	"CareerCenter/logger"
+	"CareerCenter/package/cfg"
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"net/url"
 	"time"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
-func InitMysqlDB() *sql.DB {
+func InitMysqlDB(config cfg.Config) *sql.DB {
 	var (
 		errMysql error
 		dbConn   *sql.DB
 		log      = logger.NewLogger("Init Mysql")
 	)
 
-	dbHost := "localhost"     //localhost
-	dbPort := "3306"          //3306
-	dbUser := "root"          //kolaborasisalt_kolaborasisalt
-	dbPass := ""              //Ky4F-E*Yb^XT or KolaboraSalt
-	dbName := "career_center" //kolaborasisalt_career_center
+	dbHost := config.DB_HOST //localhost
+	dbPort := config.DB_PORT //3306
+	dbUser := config.DB_USER //kolaborasisalt_kolaborasisalt
+	dbPass := config.DB_PASS //Ky4F-E*Yb^XT or KolaboraSalt
+	dbName := config.DB_NAME //kolaborasisalt_career_center
 
 	connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbName)
 	log.Info(connection)
