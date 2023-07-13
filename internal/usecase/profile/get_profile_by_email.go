@@ -13,6 +13,7 @@ func (u UseCaseProfileInteractor) GetProfileByEmail(ctx context.Context, email s
 
 	// update path
 	data.SetCvName(u.cfg)
+	data.SetPortfolioName(u.cfg)
 
 	dataWorkExperience, err := u.repoProfile.GetListWorkExperience(ctx, email)
 	if err != nil {

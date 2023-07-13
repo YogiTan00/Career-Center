@@ -206,3 +206,8 @@ func (data *ProfileUserDTO) SetCvName(cfg config.Config) {
 	path := strings.Split(data.CvResume, "/")
 	data.CvResume = path[4]
 }
+
+func (data *ProfileUserDTO) SetPortfolioName(cfg config.Config) {
+	path := strings.Split(data.Portofolio, "/")
+	data.Portofolio = path[4]
+}
