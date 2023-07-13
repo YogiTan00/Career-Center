@@ -20,9 +20,10 @@ import (
 	"CareerCenter/pkg/config"
 	"CareerCenter/pkg/config/database"
 	"fmt"
+	"net/http"
+
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"net/http"
 )
 
 var (
@@ -39,7 +40,7 @@ var (
 
 	repoProfile    = profile.NewProfileMysqlInteractor(mysqlConn)
 	useCaseProfile = profile2.NewProfileUsecase(repoProfile)
-	handlerProfile = profile3.NewUseCaseProfileHandler(useCaseProfile)
+	handlerProfile = profile3.NewUseCaseProfileHandler(useCaseProfile, configEnv)
 
 	repoApplication    = application.NewApplicationMysqlInteractor(mysqlConn)
 	useCaseApplication = application2.NewApplicationUsecase(repoApplication, repoProfile)

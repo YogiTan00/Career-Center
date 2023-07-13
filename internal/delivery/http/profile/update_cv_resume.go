@@ -21,7 +21,7 @@ func (h *ProfileHandler) UpdateCvResume(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	path, errPdf := utils.UploadPDF(user.Email, string(utils.TYPE_CV_RESUME), r)
+	path, errPdf := utils.UploadPDF(user.Email, string(utils.TYPE_CV_RESUME), r, h.cfg)
 	if errPdf != nil {
 		helper.ResponseErr(w, errPdf, http.StatusBadRequest)
 		log.General("", errPdf)
