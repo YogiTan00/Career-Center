@@ -1,6 +1,8 @@
 package entity
 
 import (
+	"CareerCenter/utils/exceptions"
+	"github.com/google/uuid"
 	"time"
 )
 
@@ -12,13 +14,12 @@ type Jobs struct {
 	logo           string
 	address        string
 	status         bool
-	sendDate       time.Time
 	qualification  string
 	jobDescription string
-	category       string
-	description    string
 	createdAt      time.Time
 	updatedAt      time.Time
+	deletedAt      time.Time
+	applicant      []string
 }
 
 type JobsDTO struct {
@@ -29,14 +30,53 @@ type JobsDTO struct {
 	Logo           string
 	Address        string
 	Status         bool
-	SendDate       time.Time
 	Qualification  string
 	JobDescription string
-	Category       string
-	Description    string
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
+	deletedAt      time.Time
 	Applicant      []string
+}
+
+func NewJobs(dto *JobsDTO) (*Jobs, error) {
+	timeNow := time.Now()
+	err := dto.Validation()
+	if err != nil {
+		return nil, err
+	}
+	return &Jobs{
+		id:             uuid.New().String(),
+		companyId:      dto.CompanyId,
+		position:       dto.Position,
+		company:        dto.Company,
+		logo:           dto.Logo,
+		address:        dto.Address,
+		status:         dto.Status,
+		qualification:  dto.Qualification,
+		jobDescription: dto.JobDescription,
+		createdAt:      timeNow,
+		updatedAt:      timeNow,
+	}, nil
+}
+
+func (dto *JobsDTO) Validation() error {
+	if dto.CompanyId == "" {
+		return exceptions.ErrIsRequire("company")
+	}
+	if dto.Position == "" {
+		return exceptions.ErrIsRequire("position")
+	}
+	if dto.Address == "" {
+		return exceptions.ErrIsRequire("address")
+	}
+	if dto.Qualification == "" {
+		return exceptions.ErrIsRequire("qualification")
+	}
+	if dto.JobDescription == "" {
+		return exceptions.ErrIsRequire("job description")
+	}
+
+	return nil
 }
 
 func (g *Jobs) GetId() string {
@@ -63,10 +103,30 @@ func (g *Jobs) GetAddress() string {
 	return g.address
 }
 
+func (g *Jobs) GetStatus() bool {
+	return g.status
+}
+
+func (g *Jobs) GetQualificationi() string {
+	return g.qualification
+}
+
+func (g *Jobs) GetJobDescription() string {
+	return g.jobDescription
+}
+
 func (g *Jobs) GetCreatedAt() time.Time {
 	return g.createdAt
 }
 
+func (g *Jobs) GetUpdateAt() time.Time {
+	return g.updatedAt
+}
+
+func (g *Jobs) GetDeletedAt() time.Time {
+	return g.deletedAt
+}
+
 func (g *Jobs) GetApplicant() []string {
-	return g.GetApplicant()
+	return g.applicant
 }

@@ -2,6 +2,7 @@ package exceptions
 
 import (
 	"errors"
+	"fmt"
 )
 
 var (
@@ -13,4 +14,9 @@ var (
 
 func ErrCustomString(s string) error {
 	return errors.New(s)
+}
+
+func ErrIsRequire(msg string) error {
+	msg = fmt.Sprintf("%s is required", msg)
+	return errors.New(msg)
 }
