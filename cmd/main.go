@@ -1,7 +1,6 @@
 package main
 
 import (
-	"CareerCenter/internal/config/database"
 	account3 "CareerCenter/internal/delivery/http/account"
 	application3 "CareerCenter/internal/delivery/http/application"
 	company3 "CareerCenter/internal/delivery/http/company"
@@ -18,32 +17,17 @@ import (
 	company2 "CareerCenter/internal/usecase/company"
 	jobs2 "CareerCenter/internal/usecase/jobs"
 	profile2 "CareerCenter/internal/usecase/profile"
-	"CareerCenter/package/cfg"
+	"CareerCenter/pkg/config"
+	"CareerCenter/pkg/config/database"
 	"fmt"
-	"log"
-	"net/http"
-	"os"
-
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
+	"net/http"
 )
 
 var (
-	config = cfg.Config{
-		ADDRESS:              goDotEnvVariable("ADDRESS"),
-		DB_HOST:              goDotEnvVariable("DB_HOST"),
-		DB_PORT:              goDotEnvVariable("DB_PORT"),
-		DB_USER:              goDotEnvVariable("DB_USER"),
-		DB_PASS:              goDotEnvVariable("DB_PASS"),
-		DB_NAME:              goDotEnvVariable("DB_NAME"),
-		CONFIG_SMTP_HOST:     goDotEnvVariable("CONFIG_SMTP_HOST"),
-		CONFIG_SMTP_PORT:     goDotEnvVariable("CONFIG_SMTP_PORT"),
-		CONFIG_SENDER_NAME:   goDotEnvVariable("CONFIG_SENDER_NAME"),
-		CONFIG_AUTH_EMAIL:    goDotEnvVariable("CONFIG_AUTH_EMAIL"),
-		CONFIG_AUTH_PASSWORD: goDotEnvVariable("CONFIG_AUTH_PASSWORD"),
-	}
-	mysqlConn = database.InitMysqlDB(config)
+	configEnv = config.ConfigEnv()
+	mysqlConn = database.InitMysqlDB(configEnv)
 
 	repoAccount    = account.NewAccountMysqlInteractor(mysqlConn)
 	useCaseAccount = account2.NewAccountUsecase(repoAccount, repoProfile)
@@ -65,15 +49,6 @@ var (
 	useCaseCompany = company2.NewCompanyUsecase(repoCompany, repoJobs)
 	handlerCompany = company3.NewUseCaseCompanyHandler(useCaseCompany)
 )
-
-func goDotEnvVariable(key string) string {
-	// load .env file
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
-	return os.Getenv(key)
-}
 
 func main() {
 	r := mux.NewRouter()

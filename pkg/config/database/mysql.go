@@ -2,7 +2,7 @@ package database
 
 import (
 	"CareerCenter/logger"
-	"CareerCenter/package/cfg"
+	"CareerCenter/pkg/config"
 	"database/sql"
 	"fmt"
 	"net/url"
@@ -11,7 +11,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func InitMysqlDB(config cfg.Config) *sql.DB {
+func InitMysqlDB(config config.Config) *sql.DB {
 	var (
 		errMysql error
 		dbConn   *sql.DB

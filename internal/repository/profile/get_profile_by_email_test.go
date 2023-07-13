@@ -2,8 +2,8 @@ package profile
 
 import (
 	"CareerCenter/domain/entity/profile"
-	"CareerCenter/internal/config/database"
-	"CareerCenter/package/cfg"
+	"CareerCenter/pkg/config"
+	"CareerCenter/pkg/config/database"
 	"context"
 	"reflect"
 	"testing"
@@ -17,7 +17,7 @@ func TestProfileMysqlInteractor_GetProfileByEmail(t *testing.T) {
 		email string
 	}
 	var (
-		mysSqlConn  = database.InitMysqlDB(cfg.Config{})
+		mysSqlConn  = database.InitMysqlDB(config.Config{})
 		ctx         = context.TODO()
 		repoProfile = NewProfileMysqlInteractor(mysSqlConn)
 	)
