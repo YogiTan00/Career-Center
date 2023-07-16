@@ -10,4 +10,5 @@ type UseCaseJobs interface {
 	GetListJobs(ctx context.Context, f *filter.FilterDTO) ([]*entity.JobsDTO, int, error)
 	GetJobById(ctx context.Context, email string, id string) (*entity.JobsDTO, error)
 	CreateJob(ctx context.Context, dto *entity.JobsDTO) error
+	UpdateJob(ctx context.Context, id string, dto *entity.JobsDTO) error
 }

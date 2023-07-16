@@ -63,7 +63,7 @@ func ResponseErr(w http.ResponseWriter, err error, statusCode int) {
 			return
 		}
 	}
-	http.Error(w, err.Error(), statusCode)
+	http.Error(w, "", statusCode)
 	_, err = w.Write(result)
 	if err != nil {
 		return

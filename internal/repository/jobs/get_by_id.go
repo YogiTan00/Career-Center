@@ -20,7 +20,10 @@ func (j JobsMysqlInteractor) GetJobById(ctx context.Context, id string) (*entity
 		ConcreteStruct: models.JobsModel{},
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
-	result := dbq.MustQ(ctx, j.DbConn, stmt, opts, id)
+	result, err := dbq.Q(ctx, j.DbConn, stmt, opts, id)
+	if err != nil {
+		return nil, err
+	}
 	if result == nil {
 		return nil, nil
 	}

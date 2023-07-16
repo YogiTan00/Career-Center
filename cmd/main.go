@@ -88,6 +88,7 @@ func main() {
 	//Handler Admin
 	r.HandleFunc("/v1/admin/change-role", handlerAccount.ChangeRoleByAdmin).Methods(http.MethodPut)
 	r.HandleFunc("/v1/admin/job", handlerJobs.CreateJob).Methods(http.MethodPost)
+	r.HandleFunc("/v1/admin/update/{job_id}", handlerJobs.UpdateJob).Methods(http.MethodPut)
 
 	fmt.Println("Career Center Running....")
 	originsOk := handlers.AllowedOrigins([]string{"*"})

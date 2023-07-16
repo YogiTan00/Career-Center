@@ -13,6 +13,7 @@ type RequestJob struct {
 	Status         bool   `json:"status"`
 	Qualification  string `json:"qualification"`
 	JobDescription string `json:"jobDescription"`
+	Category       string `json:"category"`
 }
 
 func NewJobRequest(req *RequestJob) *entity.JobsDTO {
@@ -25,5 +26,6 @@ func NewJobRequest(req *RequestJob) *entity.JobsDTO {
 		Status:         req.Status,
 		Qualification:  req.Qualification,
 		JobDescription: req.JobDescription,
+		Category:       req.Category,
 	}
 }

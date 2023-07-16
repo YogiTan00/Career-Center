@@ -16,6 +16,7 @@ type Jobs struct {
 	status         bool
 	qualification  string
 	jobDescription string
+	category       string
 	createdAt      time.Time
 	updatedAt      time.Time
 	deletedAt      time.Time
@@ -32,9 +33,10 @@ type JobsDTO struct {
 	Status         bool
 	Qualification  string
 	JobDescription string
+	Category       string
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
-	deletedAt      time.Time
+	DeletedAt      time.Time
 	Applicant      int
 }
 
@@ -54,6 +56,7 @@ func NewJobs(dto *JobsDTO) (*Jobs, error) {
 		status:         dto.Status,
 		qualification:  dto.Qualification,
 		jobDescription: dto.JobDescription,
+		category:       dto.Category,
 		createdAt:      timeNow,
 		updatedAt:      timeNow,
 	}, nil
@@ -77,6 +80,52 @@ func (dto *JobsDTO) Validation() error {
 	}
 
 	return nil
+}
+
+func (dto *JobsDTO) SetUpdate(data *JobsDTO) *Jobs {
+	//if len(data.CompanyId) > 0 {
+	//	dto.CompanyId = data.CompanyId
+	//}
+	//if len(data.Position) > 0 {
+	//	dto.Position = data.Position
+	//}
+	//if len(data.Company) > 0 {
+	//	dto.Company = data.Company
+	//}
+	//if len(data.Logo) > 0 {
+	//	dto.Logo = data.Logo
+	//}
+	//if len(data.Address) > 0 {
+	//	dto.Address = data.Address
+	//}
+	//if data.Status == true {
+	//	dto.Status = data.Status
+	//}
+	//if len(data.Qualification) > 0 {
+	//	dto.Qualification = data.Qualification
+	//}
+	//if len(data.JobDescription) > 0 {
+	//	dto.JobDescription = data.JobDescription
+	//}
+	//if len(data.Category) > 0 {
+	//	dto.Category = data.Category
+	//}
+	timeNow := time.Now()
+	return &Jobs{
+		id:             dto.Id,
+		companyId:      data.CompanyId,
+		position:       data.Position,
+		company:        data.Company,
+		logo:           data.Logo,
+		address:        data.Address,
+		status:         data.Status,
+		qualification:  data.Qualification,
+		jobDescription: data.JobDescription,
+		category:       data.Category,
+		createdAt:      dto.CreatedAt,
+		updatedAt:      timeNow,
+		deletedAt:      dto.DeletedAt,
+	}
 }
 
 func (g *Jobs) GetId() string {
@@ -113,6 +162,10 @@ func (g *Jobs) GetQualificationi() string {
 
 func (g *Jobs) GetJobDescription() string {
 	return g.jobDescription
+}
+
+func (g *Jobs) GetCategory() string {
+	return g.category
 }
 
 func (g *Jobs) GetCreatedAt() time.Time {
