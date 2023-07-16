@@ -12,7 +12,7 @@ func ParamHandlerWithoutInput(w http.ResponseWriter, r *http.Request) {
 	)
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "SUCCESS OK")
-	log.General("SUCCESS OK", nil)
+	log.InfoWithData("SUCCESS OK", nil)
 }
 
 func GetImage(w http.ResponseWriter, r *http.Request) {
@@ -22,7 +22,7 @@ func GetImage(w http.ResponseWriter, r *http.Request) {
 	filename := "uploads/image/" + r.URL.Query().Get("filename")
 	http.ServeFile(w, r, filename)
 	w.WriteHeader(http.StatusOK)
-	log.General("get image", filename)
+	log.InfoWithData("get image", filename)
 }
 
 func GetPdf(w http.ResponseWriter, r *http.Request) {
@@ -32,5 +32,5 @@ func GetPdf(w http.ResponseWriter, r *http.Request) {
 	filename := "uploads/pdf/" + r.URL.Query().Get("filename")
 	http.ServeFile(w, r, filename)
 	w.WriteHeader(http.StatusOK)
-	log.General("get pdf", filename)
+	log.InfoWithData("get pdf", filename)
 }

@@ -17,17 +17,19 @@ func (h *ProfileHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
+		log.Error(errToken)
 		return
 	}
 
 	profile, err := h.UCProfile.GetProfileByEmail(ctx, user.Email)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
+		log.Error(err)
 		return
 	}
 
 	profileResponse := response.GetProfileResponse(profile)
 	helper.ResponseInterface(w, "success get profile", profileResponse, http.StatusOK)
-	log.General("success get profile", profileResponse)
+	log.InfoWithData("success get profile", profileResponse)
 	return
 }

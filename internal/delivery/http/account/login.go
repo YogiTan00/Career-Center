@@ -20,7 +20,7 @@ func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
-		log.General("", errDecode)
+		log.Error(errDecode)
 		return
 	}
 
@@ -29,12 +29,12 @@ func (h *AccountHandler) Login(w http.ResponseWriter, r *http.Request) {
 	cookie, result, err := h.UCAccount.Login(ctx, buildLogin)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	http.SetCookie(w, cookie)
 	helper.ResponseInterface(w, "success login", result, http.StatusOK)
-	log.General("success login", result)
+	log.InfoWithData("success login", result)
 	return
 }

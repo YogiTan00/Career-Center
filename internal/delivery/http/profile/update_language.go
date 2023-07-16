@@ -21,25 +21,25 @@ func (h *ProfileHandler) UpdateLanguage(w http.ResponseWriter, r *http.Request) 
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
-		log.General("", errDecode)
+		log.Error(errDecode)
 		return
 	}
 
 	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
 	err := h.UCProfile.UpdateLanguage(ctx, user.Email, req.Language)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	helper.Response(w, "success update language", http.StatusOK)
-	log.General("success update language", nil)
+	log.InfoWithData("success update language", nil)
 	return
 }

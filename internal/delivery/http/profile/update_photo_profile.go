@@ -17,25 +17,25 @@ func (h *ProfileHandler) UpdatePhotoProfile(w http.ResponseWriter, r *http.Reque
 	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
 	path, errUpload := utils.UploadPhoto(user.Email, r)
 	if errUpload != nil {
 		helper.ResponseErr(w, errUpload, http.StatusBadRequest)
-		log.General("", errUpload)
+		log.Error(errUpload)
 		return
 	}
 
 	err := h.UCProfile.UpdatePhotoProfile(ctx, user.Email, path)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	helper.Response(w, "success update photo profile", http.StatusOK)
-	log.General("success update photo profile", nil)
+	log.InfoWithData("success update photo profile", nil)
 	return
 }

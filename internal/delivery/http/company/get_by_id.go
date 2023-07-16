@@ -22,19 +22,19 @@ func (h *CompanyHandler) GetCompanyById(w http.ResponseWriter, r *http.Request) 
 	_, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
 	company, jobs, err := h.UCCompany.GetCompanyById(ctx, companyId)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	companyResponse := response.GetCompanyProfileResponse(company, jobs)
 	helper.ResponseInterface(w, "success get profile company", companyResponse, http.StatusOK)
-	log.General("success Get profile compan", nil)
+	log.InfoWithData("success Get profile compan", nil)
 	return
 }

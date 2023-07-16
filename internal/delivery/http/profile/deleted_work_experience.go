@@ -21,18 +21,18 @@ func (h *ProfileHandler) DeletedWorkExperience(w http.ResponseWriter, r *http.Re
 	_, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
 	err := h.UCProfile.DeletedWorkExperience(ctx, workExperienceId)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	helper.Response(w, "success deleted work experience", http.StatusOK)
-	log.General("success deleted work experience", nil)
+	log.InfoWithData("success deleted work experience", nil)
 	return
 }

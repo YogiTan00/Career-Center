@@ -25,32 +25,32 @@ func (h *ProfileHandler) UpdateEducation(w http.ResponseWriter, r *http.Request)
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
-		log.General("", errDecode)
+		log.Error(errDecode)
 		return
 	}
 
 	_, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
 	workExperience, err := request.NewUpdateEducation(req)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusBadRequest)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	err = h.UCProfile.UpdateEducation(ctx, workExperienceId, workExperience)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	helper.Response(w, "success update education", http.StatusOK)
-	log.General("success update education", nil)
+	log.InfoWithData("success update education", nil)
 	return
 }

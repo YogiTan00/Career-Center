@@ -19,18 +19,18 @@ func (h *AccountHandler) ForgetPassword(w http.ResponseWriter, r *http.Request) 
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
-		log.General("", errDecode)
+		log.Error(errDecode)
 		return
 	}
 
 	err := h.UCAccount.ForgetPassword(ctx, req.Email)
 	if err != nil {
 		helper.ResponseErr(w, errDecode, http.StatusBadRequest)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	helper.Response(w, "success send forget password", http.StatusOK)
-	log.General("success send forget password", nil)
+	log.InfoWithData("success send forget password", nil)
 	return
 }

@@ -21,7 +21,7 @@ func (h *JobsHandler) GetJobById(w http.ResponseWriter, r *http.Request) {
 
 	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
-		log.General("", errToken)
+		log.Error(errToken)
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
 		return
 	}
@@ -29,12 +29,12 @@ func (h *JobsHandler) GetJobById(w http.ResponseWriter, r *http.Request) {
 	jobs, err := h.UCJobs.GetJobById(ctx, user.Email, jobId)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	jobsResponse := response.GetDetailJobResponse(jobs)
 	helper.ResponseInterface(w, "success get detail job", jobsResponse, http.StatusOK)
-	log.General("success Get detail job", jobsResponse)
+	log.InfoWithData("success Get detail job", jobsResponse)
 	return
 }

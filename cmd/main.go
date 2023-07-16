@@ -69,6 +69,7 @@ func main() {
 	r.HandleFunc("/v1/job-aplication", handlerApplication.SendApplication).Methods(http.MethodPost)
 	//Handler Profile
 	r.HandleFunc("/v1/profile", handlerProfile.GetProfile).Methods(http.MethodGet)
+	r.HandleFunc("/v1/profile/{email}", handlerProfile.GetProfileByEmail).Methods(http.MethodGet)
 	r.HandleFunc("/v1/profile/update-profile", handlerProfile.UpdateProfile).Methods(http.MethodPost)
 	r.HandleFunc("/v1/profile/update-photo", handlerProfile.UpdatePhotoProfile).Methods(http.MethodPost)
 	r.HandleFunc("/v1/profile/add-work-experience", handlerProfile.CreateWorkExperience).Methods(http.MethodPost)

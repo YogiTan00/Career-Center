@@ -20,25 +20,21 @@ func NewLogger(endPoint string) *Logger {
 }
 
 func (l *Logger) Info(message string) {
-	l.log.Println("[INFO]", message)
+	l.log.Println(utils.Color("blue", "[INFO]"), message)
+	l.log.Println(utils.Color("green", "[EndPoint]"), l.endPoint)
 }
 
-func (l *Logger) Error(message string) {
-	l.log.Println("[ERROR]", message)
+func (l *Logger) Error(err error) {
+	l.log.Println(utils.Color("red", "[ERROR]"), err)
+	l.log.Println(utils.Color("green", "[EndPoint]"), l.endPoint)
 }
 
-func (l *Logger) General(message string, data any) {
-	//If message nil only can handle error
-	if message != "" {
-		l.log.Println(utils.Color("blue", "[INFO]"), strings.Title(message))
-		if l.endPoint != "" {
-			l.log.Println(utils.Color("green", "[EndPoint]"), l.endPoint)
-		}
-		if data != nil {
-			l.log.Println(utils.Color("yellow", "[Data]"), data)
-		}
-	} else {
-		l.log.Println(utils.Color("red", "[INFO]"), strings.Title(data.(error).Error()))
+func (l *Logger) InfoWithData(message string, data any) {
+	l.log.Println(utils.Color("blue", "[INFO]"), strings.Title(message))
+	if l.endPoint != "" {
 		l.log.Println(utils.Color("green", "[EndPoint]"), l.endPoint)
+	}
+	if data != nil {
+		l.log.Println(utils.Color("yellow", "[Data]"), data)
 	}
 }

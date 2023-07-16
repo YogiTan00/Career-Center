@@ -19,7 +19,7 @@ func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
-		log.General("", errDecode)
+		log.Error(errDecode)
 		return
 	}
 
@@ -28,11 +28,11 @@ func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
 	errRegisterUseCase := h.UCAccount.Register(ctx, buildRegister)
 	if errRegisterUseCase != nil {
 		helper.ResponseErr(w, errRegisterUseCase, http.StatusInternalServerError)
-		log.General("", errRegisterUseCase)
+		log.Error(errRegisterUseCase)
 		return
 	}
 
 	helper.Response(w, "success register", http.StatusOK)
-	log.General("Success register", errRegisterUseCase)
+	log.InfoWithData("Success register", errRegisterUseCase)
 	return
 }

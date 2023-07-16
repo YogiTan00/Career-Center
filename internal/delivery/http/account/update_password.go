@@ -20,14 +20,14 @@ func (h *AccountHandler) ChangePassword(w http.ResponseWriter, r *http.Request) 
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
-		log.General("", errDecode)
+		log.Error(errDecode)
 		return
 	}
 
 	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
@@ -36,11 +36,11 @@ func (h *AccountHandler) ChangePassword(w http.ResponseWriter, r *http.Request) 
 	err := h.UCAccount.UpdatePassword(ctx, user.Email, password)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	helper.Response(w, "success change password", http.StatusOK)
-	log.General("success change password", nil)
+	log.InfoWithData("success change password", nil)
 	return
 }

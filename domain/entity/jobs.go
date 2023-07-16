@@ -19,7 +19,7 @@ type Jobs struct {
 	createdAt      time.Time
 	updatedAt      time.Time
 	deletedAt      time.Time
-	applicant      []string
+	applicant      int
 }
 
 type JobsDTO struct {
@@ -35,7 +35,7 @@ type JobsDTO struct {
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
 	deletedAt      time.Time
-	Applicant      []string
+	Applicant      int
 }
 
 func NewJobs(dto *JobsDTO) (*Jobs, error) {
@@ -127,6 +127,6 @@ func (g *Jobs) GetDeletedAt() time.Time {
 	return g.deletedAt
 }
 
-func (g *Jobs) GetApplicant() []string {
+func (g *Jobs) GetApplicant() int {
 	return g.applicant
 }
