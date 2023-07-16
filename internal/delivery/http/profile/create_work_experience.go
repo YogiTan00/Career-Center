@@ -20,32 +20,32 @@ func (h *ProfileHandler) CreateWorkExperience(w http.ResponseWriter, r *http.Req
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
-		log.General("", errDecode)
+		log.Error(errDecode)
 		return
 	}
 
 	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
 	workExperience, err := request.NewUpdateWorkExperience(req)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusBadRequest)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	err = h.UCProfile.CreateWorkExperiencet(ctx, user.Email, workExperience)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	helper.Response(w, "success add work experience", http.StatusOK)
-	log.General("success add work experience", nil)
+	log.InfoWithData("success add work experience", nil)
 	return
 }

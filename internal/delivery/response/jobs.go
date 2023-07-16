@@ -6,15 +6,15 @@ import (
 )
 
 type JobsResponse struct {
-	Id        string   `json:"id"`
-	CompanyId string   `json:"companyId"`
-	Position  string   `json:"position"`
-	Company   string   `json:"company"`
-	Logo      string   `json:"logo"`
-	Address   string   `json:"address"`
-	Status    bool     `json:"status"`
-	CreatedAt string   `json:"createdAt"`
-	Applicant []string `json:"applicant"`
+	Id        string `json:"id"`
+	CompanyId string `json:"companyId"`
+	Position  string `json:"position"`
+	Company   string `json:"company"`
+	Logo      string `json:"logo"`
+	Address   string `json:"address"`
+	Status    bool   `json:"status"`
+	CreatedAt string `json:"createdAt"`
+	Applicant int    `json:"applicant"`
 }
 
 type DetailJobResponse struct {

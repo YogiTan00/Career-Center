@@ -19,7 +19,7 @@ func (h *JobsHandler) CreateJob(w http.ResponseWriter, r *http.Request) {
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
-		log.General("", errDecode)
+		log.Error(errDecode)
 		return
 	}
 
@@ -28,11 +28,11 @@ func (h *JobsHandler) CreateJob(w http.ResponseWriter, r *http.Request) {
 	errRegisterUseCase := h.UCJobs.CreateJob(ctx, buildCreateJob)
 	if errRegisterUseCase != nil {
 		helper.ResponseErr(w, errRegisterUseCase, http.StatusInternalServerError)
-		log.General("", errRegisterUseCase)
+		log.Error(errRegisterUseCase)
 		return
 	}
 
 	helper.Response(w, "success create job", http.StatusOK)
-	log.General("Success create job", errRegisterUseCase)
+	log.InfoWithData("Success create job", errRegisterUseCase)
 	return
 }

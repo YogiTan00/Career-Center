@@ -21,12 +21,14 @@ func (u UseCaseJobsInteractor) GetListJobs(ctx context.Context, f *filter.Filter
 		return nil, 0, err
 	}
 
+	count := 0
 	for _, job := range data {
 		for _, apply := range applicant {
 			if job.Id == apply.JobId {
-				job.Applicant = append(job.Applicant, apply.Email)
+				count = count + 1
 			}
 		}
+		job.Applicant = count
 	}
 
 	return data, len(data), nil

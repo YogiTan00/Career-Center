@@ -9,12 +9,12 @@ import (
 	"time"
 )
 
-func (j JobsMysqlInteractor) CreateJob(ctx context.Context, dto *entity.Jobs) error {
+func (j JobsMysqlInteractor) CreateJob(ctx context.Context, data *entity.Jobs) error {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
 	err := dbq.Tx(ctx, j.DbConn, func(tx interface{}, Q dbq.QFn, E dbq.EFn, txCommit dbq.TxCommit) {
-		postModelStruct := mapper.DomainJobToInterface(dto)
+		postModelStruct := mapper.DomainJobToInterface(data)
 
 		stmt := dbq.INSERTStmt(models.GetTableNameJobs(), models.TableJob(), len(postModelStruct), dbq.MySQL)
 

@@ -58,7 +58,7 @@ func ResponseErr(w http.ResponseWriter, err error, statusCode int) {
 	result, errMap := response.MapResponse(1, err.Error())
 	if errMap != nil {
 		w.WriteHeader(statusCode)
-		_, err := w.Write([]byte("Error mapping data"))
+		_, err = w.Write([]byte("Error mapping data"))
 		if err != nil {
 			return
 		}

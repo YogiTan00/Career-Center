@@ -20,7 +20,7 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 	_, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
@@ -33,12 +33,12 @@ func (u *JobsHandler) GetListJob(w http.ResponseWriter, r *http.Request) {
 	jobs, count, err := u.UCJobs.GetListJobs(ctx, filter)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	JobsResponse := response.GetListJobResponse(jobs)
 	helper.ResponseInterfaceWithCount(w, "success get list job", JobsResponse, count, http.StatusOK)
-	log.General("success send application", JobsResponse)
+	log.InfoWithData("success send application", JobsResponse)
 	return
 }

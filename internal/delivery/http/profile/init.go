@@ -1,11 +1,15 @@
 package profile
 
-import "CareerCenter/domain/usecase"
+import (
+	"CareerCenter/domain/usecase"
+	"CareerCenter/pkg/config"
+)
 
 type ProfileHandler struct {
 	UCProfile usecase.UseCaseProfile
+	cfg       config.Config
 }
 
-func NewUseCaseProfileHandler(UCProfile usecase.UseCaseProfile) *ProfileHandler {
-	return &ProfileHandler{UCProfile: UCProfile}
+func NewUseCaseProfileHandler(UCProfile usecase.UseCaseProfile, cfg config.Config) *ProfileHandler {
+	return &ProfileHandler{UCProfile: UCProfile, cfg: cfg}
 }

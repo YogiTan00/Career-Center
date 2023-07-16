@@ -16,14 +16,5 @@ func (u UseCaseJobsInteractor) GetJobById(ctx context.Context, email string, id 
 		return nil, err
 	}
 
-	check, err := u.repoApplication.GetByEmail(ctx, email, id)
-	if err != nil {
-		return nil, err
-	}
-
-	if check != nil {
-		data.Status = true
-	}
-
 	return data, nil
 }

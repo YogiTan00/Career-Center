@@ -21,20 +21,20 @@ func (h *AccountHandler) ChangeRoleByAdmin(w http.ResponseWriter, r *http.Reques
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
-		log.General("", errDecode)
+		log.Error(errDecode)
 		return
 	}
 
 	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
 	if !user.Admin() {
 		helper.ResponseErr(w, exceptions.Unauthorized, http.StatusUnauthorized)
-		log.General("", exceptions.Unauthorized)
+		log.Error(exceptions.Unauthorized)
 		return
 	}
 
@@ -43,11 +43,11 @@ func (h *AccountHandler) ChangeRoleByAdmin(w http.ResponseWriter, r *http.Reques
 	errRegisterUseCase := h.UCAccount.ChangeRoleByAdmin(ctx, requestDate)
 	if errRegisterUseCase != nil {
 		helper.ResponseErr(w, errRegisterUseCase, http.StatusInternalServerError)
-		log.General("", errRegisterUseCase)
+		log.Error(errRegisterUseCase)
 		return
 	}
 
 	helper.Response(w, "success change role", http.StatusOK)
-	log.General("Success register", errRegisterUseCase)
+	log.InfoWithData("Success register", errRegisterUseCase)
 	return
 }

@@ -21,18 +21,18 @@ func (h *ProfileHandler) DeletedEducation(w http.ResponseWriter, r *http.Request
 	_, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
 	err := h.UCProfile.DeletedEducation(ctx, workExperienceId)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	helper.Response(w, "success deleted education", http.StatusOK)
-	log.General("success deleted education", nil)
+	log.InfoWithData("success deleted education", nil)
 	return
 }

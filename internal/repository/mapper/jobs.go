@@ -17,6 +17,7 @@ func EntityToModelJobs(m *entity.Jobs) *models.JobsModel {
 		Status:         m.GetStatus(),
 		Qualification:  m.GetQualificationi(),
 		JobDescription: m.GetJobDescription(),
+		Category:       m.GetCategory(),
 		CreatedAt:      m.GetCreatedAt(),
 		UpdatedAt:      m.GetUpdateAt(),
 		DeletedAt:      m.GetDeletedAt(),
@@ -34,6 +35,7 @@ func ModelToEntityJobs(m *models.JobsModel) *entity.JobsDTO {
 		Status:         m.Status,
 		Qualification:  m.Qualification,
 		JobDescription: m.JobDescription,
+		Category:       m.Category,
 		CreatedAt:      m.CreatedAt,
 		UpdatedAt:      m.UpdatedAt,
 	}

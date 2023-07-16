@@ -14,6 +14,7 @@ type JobsModel struct {
 	Status         bool      `dbq:"status"`
 	Qualification  string    `dbq:"qualification"`
 	JobDescription string    `dbq:"job_description"`
+	Category       string    `dbq:"category"`
 	CreatedAt      time.Time `dbq:"created_at"`
 	UpdatedAt      time.Time `dbq:"updated_at"`
 	DeletedAt      time.Time `dbq:"deleted_at"`
@@ -34,6 +35,7 @@ func TableJob() []string {
 		"status",
 		"qualification",
 		"job_description",
+		"category",
 		"created_at",
 		"updated_at",
 		"deleted_at",

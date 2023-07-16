@@ -2,8 +2,10 @@ package profile
 
 import (
 	"CareerCenter/domain/entity/account"
+	"CareerCenter/pkg/config"
 	"CareerCenter/utils"
 	"CareerCenter/utils/exceptions"
+	"strings"
 	"time"
 )
 
@@ -198,4 +200,14 @@ func (data *ProfileUserDTO) SetEducation(dto []*EducationDTO) {
 		listEducation = append(listEducation, education)
 	}
 	data.Education = listEducation
+}
+
+func (data *ProfileUserDTO) SetCvName(cfg config.Config) {
+	path := strings.Split(data.CvResume, "/")
+	data.CvResume = path[4]
+}
+
+func (data *ProfileUserDTO) SetPortfolioName(cfg config.Config) {
+	path := strings.Split(data.Portofolio, "/")
+	data.Portofolio = path[4]
 }

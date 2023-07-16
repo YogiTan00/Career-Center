@@ -21,14 +21,14 @@ func (h *ApplicationHandler) SendApplication(w http.ResponseWriter, r *http.Requ
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
-		log.General("", errDecode)
+		log.Error(errDecode)
 		return
 	}
 
 	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
@@ -37,11 +37,11 @@ func (h *ApplicationHandler) SendApplication(w http.ResponseWriter, r *http.Requ
 	err := h.UCApplication.SendApplication(ctx, user.Email, application)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	helper.Response(w, "success send application", http.StatusOK)
-	log.General("success send application", nil)
+	log.InfoWithData("success send application", nil)
 	return
 }

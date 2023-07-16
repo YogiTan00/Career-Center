@@ -3,6 +3,7 @@ package utils
 import (
 	"CareerCenter/utils/exceptions"
 	"encoding/json"
+	"fmt"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"math/rand"
@@ -76,9 +77,9 @@ func ToOnlyDateResponse(date time.Time) string {
 	return toString
 }
 
-func PrettyPrint(data interface{}) string {
+func PrettyPrint(data interface{}) {
 	jsonBytes, _ := json.MarshalIndent(data, "", "  ")
-	return string(jsonBytes)
+	fmt.Println(string(jsonBytes))
 }
 
 func Color(color string, message string) string {

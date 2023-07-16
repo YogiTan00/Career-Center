@@ -20,9 +20,10 @@ import (
 	"CareerCenter/pkg/config"
 	"CareerCenter/pkg/config/database"
 	"fmt"
+	"net/http"
+
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"net/http"
 )
 
 var (
@@ -38,8 +39,8 @@ var (
 	handlerJobs = jobs3.NewUseCaseJobsHandler(useCaseJobs)
 
 	repoProfile    = profile.NewProfileMysqlInteractor(mysqlConn)
-	useCaseProfile = profile2.NewProfileUsecase(repoProfile)
-	handlerProfile = profile3.NewUseCaseProfileHandler(useCaseProfile)
+	useCaseProfile = profile2.NewProfileUsecase(repoProfile, configEnv)
+	handlerProfile = profile3.NewUseCaseProfileHandler(useCaseProfile, configEnv)
 
 	repoApplication    = application.NewApplicationMysqlInteractor(mysqlConn)
 	useCaseApplication = application2.NewApplicationUsecase(repoApplication, repoProfile)
@@ -68,6 +69,7 @@ func main() {
 	r.HandleFunc("/v1/job-aplication", handlerApplication.SendApplication).Methods(http.MethodPost)
 	//Handler Profile
 	r.HandleFunc("/v1/profile", handlerProfile.GetProfile).Methods(http.MethodGet)
+	r.HandleFunc("/v1/profile/{email}", handlerProfile.GetProfileByEmail).Methods(http.MethodGet)
 	r.HandleFunc("/v1/profile/update-profile", handlerProfile.UpdateProfile).Methods(http.MethodPost)
 	r.HandleFunc("/v1/profile/update-photo", handlerProfile.UpdatePhotoProfile).Methods(http.MethodPost)
 	r.HandleFunc("/v1/profile/add-work-experience", handlerProfile.CreateWorkExperience).Methods(http.MethodPost)
@@ -86,6 +88,7 @@ func main() {
 	//Handler Admin
 	r.HandleFunc("/v1/admin/change-role", handlerAccount.ChangeRoleByAdmin).Methods(http.MethodPut)
 	r.HandleFunc("/v1/admin/job", handlerJobs.CreateJob).Methods(http.MethodPost)
+	r.HandleFunc("/v1/admin/update/{job_id}", handlerJobs.UpdateJob).Methods(http.MethodPut)
 
 	fmt.Println("Career Center Running....")
 	originsOk := handlers.AllowedOrigins([]string{"*"})

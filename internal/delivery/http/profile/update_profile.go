@@ -20,14 +20,14 @@ func (h *ProfileHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
-		log.General("", errDecode)
+		log.Error(errDecode)
 		return
 	}
 
 	user, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
@@ -36,11 +36,11 @@ func (h *ProfileHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	err := h.UCProfile.UpdateProfile(ctx, user.Email, buildProfile)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	helper.Response(w, "success update profile", http.StatusOK)
-	log.General("success update profile", nil)
+	log.InfoWithData("success update profile", nil)
 	return
 }

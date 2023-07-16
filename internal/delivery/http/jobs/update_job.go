@@ -1,4 +1,4 @@
-package account
+package jobs
 
 import (
 	"CareerCenter/internal/delivery/request"
@@ -6,15 +6,18 @@ import (
 	"CareerCenter/utils/helper"
 	"context"
 	"encoding/json"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
-func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
+func (h *JobsHandler) UpdateJob(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx     = context.TODO()
-		req     *request.RequestRegister
+		vars    = mux.Vars(r)
+		id      = vars["job_id"]
+		req     *request.RequestJob
 		decoder = json.NewDecoder(r.Body)
-		log     = logger.NewLogger("/v1/register")
+		log     = logger.NewLogger("/v1/admin/update/{job_id}")
 	)
 	errDecode := decoder.Decode(&req)
 	if errDecode != nil {
@@ -23,16 +26,16 @@ func (h *AccountHandler) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	buildRegister := request.NewRegisterRequest(req)
+	buildUpdateJob := request.NewJobRequest(req)
 
-	errRegisterUseCase := h.UCAccount.Register(ctx, buildRegister)
+	errRegisterUseCase := h.UCJobs.UpdateJob(ctx, id, buildUpdateJob)
 	if errRegisterUseCase != nil {
 		helper.ResponseErr(w, errRegisterUseCase, http.StatusInternalServerError)
 		log.Error(errRegisterUseCase)
 		return
 	}
 
-	helper.Response(w, "success register", http.StatusOK)
-	log.InfoWithData("Success register", errRegisterUseCase)
+	helper.Response(w, "success update job", http.StatusOK)
+	log.InfoWithData("Success update job", errRegisterUseCase)
 	return
 }

@@ -20,26 +20,26 @@ func (h *CompanyHandler) GetListCompany(w http.ResponseWriter, r *http.Request) 
 	_, errToken := utils.ValidateTokenFromHeader(r)
 	if errToken != nil {
 		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
-		log.General("", errToken)
+		log.Error(errToken)
 		return
 	}
 
 	filter, errFilter := request.FilterGeneral(r, &req)
 	if errFilter != nil {
 		helper.ResponseErr(w, errFilter, http.StatusBadRequest)
-		log.General("", errFilter)
+		log.Error(errFilter)
 		return
 	}
 
 	company, err := h.UCCompany.GetListCompany(ctx, filter)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
-		log.General("", err)
+		log.Error(err)
 		return
 	}
 
 	companyResponse := response.GetListCompanyResponse(company)
 	helper.ResponseInterface(w, "success get list company", companyResponse, http.StatusOK)
-	log.General("success login", companyResponse)
+	log.InfoWithData("success login", companyResponse)
 	return
 }
