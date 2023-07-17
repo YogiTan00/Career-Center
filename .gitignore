@@ -16,3 +16,4 @@ vendor/
 config.json
 .env
 /donor/upload
+/uploads

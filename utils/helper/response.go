@@ -69,3 +69,20 @@ func ResponseErr(w http.ResponseWriter, err error, statusCode int) {
 		return
 	}
 }
+
+func ResponseErrWithData(w http.ResponseWriter, err error, statusCode int, data interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	result, errMap := response.MapResponseInterface(1, err.Error(), data)
+	if errMap != nil {
+		w.WriteHeader(statusCode)
+		_, err = w.Write([]byte("Error mapping data"))
+		if err != nil {
+			return
+		}
+	}
+	http.Error(w, "", statusCode)
+	_, err = w.Write(result)
+	if err != nil {
+		return
+	}
+}
