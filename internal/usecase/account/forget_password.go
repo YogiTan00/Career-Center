@@ -3,48 +3,58 @@ package account
 import (
 	"CareerCenter/utils"
 	"context"
+	"crypto/rand"
 	"fmt"
+
+	"gopkg.in/gomail.v2"
 )
 
-func (u UseCaseAccountInteractor) ForgetPassword(ctx context.Context, email string) error {
-	to := email // Replace with the recipient's email address
-	subject := "Password Reset"
-	body := "Click the following link to reset your password: http://example.com/reset?token=abcd1234"
+const otpChars = "1234567890"
 
-	err := utils.SendEmail(to, subject, body)
+func (u UseCaseAccountInteractor) ForgetPassword(ctx context.Context, email string) error {
+	otp, errOtp := GenerateOTP(6)
+	if errOtp != nil {
+		return errOtp
+	}
+	// get user by mail
+	user, err := u.repoAccount.GetByEmail(ctx, email)
 	if err != nil {
-		fmt.Println("Failed to send email:", err)
+		return err
+	}
+	// update code verifikasi
+	errOtpUpdate := u.repoAccount.UpdateOTP(ctx, email, otp)
+	if errOtpUpdate != nil {
+		return errOtpUpdate
+	}
+
+	// send email after change password
+	bodyContent := "Ini adalah kode verifikasi Anda: " + otp + ", Mohon pastikan Anda tidak pernah memberitahukan kode ini pada siapa pun. Terima kasih telah menggunakan layanan kami."
+	mailer := gomail.NewMessage()
+	mailer.SetHeader("From", u.cfg.CONFIG_AUTH_EMAIL)
+	mailer.SetHeader("To", user.Email)
+	mailer.SetHeader("Subject", "Kode Verifikasi")
+	mailer.SetBody("text/html", bodyContent)
+
+	errSend := utils.SendEmail(mailer, u.cfg)
+	if errSend != nil {
+		fmt.Println("Failed to send email:", errSend)
 	} else {
 		fmt.Println("Email sent successfully")
 	}
 	return nil
 }
 
-//func (u UseCaseAccountInteractor) ForgetPassword(ctx context.Context, email string) error {
-//	pw := utils.RandomStringNumber(10)
-//	token := fmt.Sprintf("%s-%d", email, time.Now().Unix())
-//
-//	from := "CareerCenter@gmail.com"
-//	password := "careercenter"
-//	to := []string{email}
-//
-//	url := fmt.Sprintf("http://localhost:8080/ganti-password?token=%s", token)
-//	message := fmt.Sprintf("Klik tautan ini untuk mengganti password Anda: %s", url)
-//
-//	auth := smtp.PlainAuth("", from, password, "smtp.gmail.com")
-//	err := smtp.SendMail("smtp.gmail.com:587", auth, from, to, []byte(message))
-//
-//	if err != nil {
-//		return err
-//	}
-//
-//	savePw, err := utils.HashPassword(pw)
-//	if err != nil {
-//		return err
-//	}
-//	err = u.repoAccount.UpdatePassword(ctx, email, savePw)
-//	if err != nil {
-//		return err
-//	}
-//	return nil
-//}
+func GenerateOTP(length int) (string, error) {
+	buffer := make([]byte, length)
+	_, err := rand.Read(buffer)
+	if err != nil {
+		return "", err
+	}
+
+	otpCharsLength := len(otpChars)
+	for i := 0; i < length; i++ {
+		buffer[i] = otpChars[int(buffer[i])%otpCharsLength]
+	}
+
+	return string(buffer), nil
+}

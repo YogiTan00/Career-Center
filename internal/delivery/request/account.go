@@ -57,3 +57,8 @@ func NewPassword(req *RequestPassword) *account.UpdatePasswordDTO {
 type RequestForgetPassword struct {
 	Email string `json:"email"`
 }
+
+type RequestSubmitOtp struct {
+	Email string `json:"email"`
+	Otp   string `json:"otp"`
+}

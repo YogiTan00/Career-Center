@@ -40,7 +40,7 @@ func (_m *RepoApplication) GetByEmail(ctx context.Context, email string, company
 	return r0, r1
 }
 
-// GetByJob provides a mock function with given fields: ctx
+// GetListApplication provides a mock function with given fields: ctx
 func (_m *RepoApplication) GetListApplication(ctx context.Context) ([]*entity.ApplicationDTO, error) {
 	ret := _m.Called(ctx)
 

@@ -4,6 +4,7 @@ import (
 	"CareerCenter/domain/entity/account"
 	"CareerCenter/domain/valueobject"
 	"CareerCenter/internal/repository/models"
+
 	"github.com/rocketlaunchr/dbq/v2"
 )
 
@@ -22,10 +23,12 @@ func EntityToModel(m *account.Account) *models.AccountModel {
 func ModelToEntity(m *models.AccountModel) *account.AccountDTO {
 	role := valueobject.NewTypeRolesFromString(m.Role)
 	data := &account.AccountDTO{
-		Email:    m.Email,
-		Name:     m.Nama,
-		Password: m.Password,
-		Role:     role,
+		Email:      m.Email,
+		Name:       m.Nama,
+		Password:   m.Password,
+		Role:       role,
+		CodeOtp:    m.CodeOtp,
+		ExpiredOtp: m.ExpiredOtp,
 	}
 	return data
 }

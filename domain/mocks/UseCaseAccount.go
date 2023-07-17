@@ -93,6 +93,20 @@ func (_m *UseCaseAccount) Register(ctx context.Context, data *account.AccountDTO
 	return r0
 }
 
+// SubmitOtp provides a mock function with given fields: ctx, email, otp
+func (_m *UseCaseAccount) SubmitOtp(ctx context.Context, email string, otp string) error {
+	ret := _m.Called(ctx, email, otp)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, string) error); ok {
+		r0 = rf(ctx, email, otp)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // UpdatePassword provides a mock function with given fields: ctx, email, password
 func (_m *UseCaseAccount) UpdatePassword(ctx context.Context, email string, password *account.UpdatePasswordDTO) error {
 	ret := _m.Called(ctx, email, password)

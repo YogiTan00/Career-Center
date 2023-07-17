@@ -5,18 +5,21 @@ import (
 	"CareerCenter/domain/mocks"
 	"CareerCenter/domain/repository"
 	"CareerCenter/internal/usecase/account"
+	"CareerCenter/pkg/config"
 	"CareerCenter/testdata"
 	"CareerCenter/utils"
 	"CareerCenter/utils/exceptions"
 	"context"
-	"github.com/stretchr/testify/mock"
 	"testing"
+
+	"github.com/stretchr/testify/mock"
 )
 
 func TestUseCaseAccountInteractor_UpdatePassword(t *testing.T) {
 	type fields struct {
 		repoAccount repository.RepoAccount
 		repoProfile repository.RepoProfile
+		cfg         config.Config
 	}
 	type args struct {
 		ctx      context.Context
@@ -77,6 +80,7 @@ func TestUseCaseAccountInteractor_UpdatePassword(t *testing.T) {
 			fields: fields{
 				repoAccount: repoAccount,
 				repoProfile: nil,
+				cfg:         config.Config{},
 			},
 			args: args{
 				ctx:      ctx,
@@ -90,6 +94,7 @@ func TestUseCaseAccountInteractor_UpdatePassword(t *testing.T) {
 			fields: fields{
 				repoAccount: repoAccountErrEmail,
 				repoProfile: nil,
+				cfg:         config.Config{},
 			},
 			args: args{
 				ctx:      ctx,
@@ -103,6 +108,7 @@ func TestUseCaseAccountInteractor_UpdatePassword(t *testing.T) {
 			fields: fields{
 				repoAccount: repoAccount,
 				repoProfile: nil,
+				cfg:         config.Config{},
 			},
 			args: args{
 				ctx:      ctx,
@@ -116,6 +122,7 @@ func TestUseCaseAccountInteractor_UpdatePassword(t *testing.T) {
 			fields: fields{
 				repoAccount: repoAccount,
 				repoProfile: nil,
+				cfg:         config.Config{},
 			},
 			args: args{
 				ctx:      ctx,
@@ -129,6 +136,7 @@ func TestUseCaseAccountInteractor_UpdatePassword(t *testing.T) {
 			fields: fields{
 				repoAccount: repoAccount,
 				repoProfile: nil,
+				cfg:         config.Config{},
 			},
 			args: args{
 				ctx:      ctx,
@@ -142,6 +150,7 @@ func TestUseCaseAccountInteractor_UpdatePassword(t *testing.T) {
 			fields: fields{
 				repoAccount: repoAccount,
 				repoProfile: nil,
+				cfg:         config.Config{},
 			},
 			args: args{
 				ctx:      ctx,
@@ -155,6 +164,7 @@ func TestUseCaseAccountInteractor_UpdatePassword(t *testing.T) {
 			fields: fields{
 				repoAccount: repoAccountErrUpdate,
 				repoProfile: nil,
+				cfg:         config.Config{},
 			},
 			args: args{
 				ctx:      ctx,
@@ -169,6 +179,7 @@ func TestUseCaseAccountInteractor_UpdatePassword(t *testing.T) {
 			u := account.NewAccountUsecase(
 				tt.fields.repoAccount,
 				tt.fields.repoProfile,
+				tt.fields.cfg,
 			)
 			if err := u.UpdatePassword(tt.args.ctx, tt.args.email, tt.args.password); (err != nil) != tt.wantErr {
 				t.Errorf("UpdatePassword() error = %v, wantErr %v", err, tt.wantErr)

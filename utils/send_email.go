@@ -1,27 +1,27 @@
 package utils
 
 import (
-	"fmt"
-	"net/smtp"
+	"CareerCenter/pkg/config"
+	"log"
+	"strconv"
+
+	"gopkg.in/gomail.v2"
 )
 
-func SendEmail(to, subject, body string) error {
-	from := "your-email@example.com"  // Replace with your email address
-	password := "your-email-password" // Replace with your email password
+func SendEmail(mailer *gomail.Message, cfg config.Config) error {
+	port, _ := strconv.Atoi(cfg.CONFIG_SMTP_PORT)
+	dialer := gomail.NewDialer(
+		cfg.CONFIG_SMTP_HOST,
+		port,
+		cfg.CONFIG_AUTH_EMAIL,
+		cfg.CONFIG_AUTH_PASSWORD,
+	)
 
-	smtpHost := "smtp.example.com" // Replace with your SMTP server address
-	smtpPort := "587"              // Replace with your SMTP server port
+	errMail := dialer.DialAndSend(mailer)
 
-	auth := smtp.PlainAuth("", from, password, smtpHost)
-
-	msg := []byte(fmt.Sprintf("To: %s\r\n"+
-		"Subject: %s\r\n"+
-		"\r\n"+
-		"%s\r\n", to, subject, body))
-
-	err := smtp.SendMail(fmt.Sprintf("%s:%s", smtpHost, smtpPort), auth, from, []string{to}, msg)
-	if err != nil {
-		return err
+	if errMail != nil {
+		log.Fatal(errMail.Error())
+		return errMail
 	}
 
 	return nil
