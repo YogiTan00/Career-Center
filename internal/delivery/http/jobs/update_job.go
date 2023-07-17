@@ -28,14 +28,14 @@ func (h *JobsHandler) UpdateJob(w http.ResponseWriter, r *http.Request) {
 
 	buildUpdateJob := request.NewJobRequest(req)
 
-	errRegisterUseCase := h.UCJobs.UpdateJob(ctx, id, buildUpdateJob)
-	if errRegisterUseCase != nil {
-		helper.ResponseErr(w, errRegisterUseCase, http.StatusInternalServerError)
-		log.Error(errRegisterUseCase)
+	errUpdateUseCase := h.UCJobs.UpdateJob(ctx, id, buildUpdateJob)
+	if errUpdateUseCase != nil {
+		helper.ResponseErr(w, errUpdateUseCase, http.StatusInternalServerError)
+		log.Error(errUpdateUseCase)
 		return
 	}
 
 	helper.Response(w, "success update job", http.StatusOK)
-	log.InfoWithData("Success update job", errRegisterUseCase)
+	log.InfoWithData("Success update job", errUpdateUseCase)
 	return
 }
