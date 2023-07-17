@@ -13,4 +13,5 @@ type RepoJobs interface {
 	GetJobByCompanyId(ctx context.Context, id string) ([]*entity.JobsDTO, error)
 	CreateJob(ctx context.Context, data *entity.Jobs) error
 	UpdateJobById(ctx context.Context, data *entity.Jobs) error
+	DeleteJobById(ctx context.Context, id string) error
 }
