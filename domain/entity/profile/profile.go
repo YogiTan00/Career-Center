@@ -203,11 +203,15 @@ func (data *ProfileUserDTO) SetEducation(dto []*EducationDTO) {
 }
 
 func (data *ProfileUserDTO) SetCvName(cfg config.Config) {
-	path := strings.Split(data.CvResume, "/")
-	data.CvResume = path[4]
+	if data.CvResume != "" {
+		path := strings.Split(data.CvResume, "/")
+		data.CvResume = path[4]
+	}
 }
 
 func (data *ProfileUserDTO) SetPortfolioName(cfg config.Config) {
-	path := strings.Split(data.Portofolio, "/")
-	data.Portofolio = path[4]
+	if data.Portofolio != "" {
+		path := strings.Split(data.Portofolio, "/")
+		data.Portofolio = path[4]
+	}
 }
