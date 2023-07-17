@@ -25,10 +25,12 @@ type DetailJobResponse struct {
 	Logo           string `json:"logo"`
 	Address        string `json:"address"`
 	Status         bool   `json:"status"`
+	ApplyDate      string `json:"applyDate"`
 	Qualification  string `json:"qualification"`
 	JobDescription string `json:"jobDescription"`
 	CreatedAt      string `json:"createdAt"`
 	UpdatedAt      string `json:"updatedAt"`
+	Applicant      int    `json:"applicant"`
 }
 
 func GetJobResponse(dto *entity.JobsDTO) *JobsResponse {
@@ -63,9 +65,11 @@ func GetDetailJobResponse(dto *entity.JobsDTO) *DetailJobResponse {
 		Logo:           dto.Logo,
 		Address:        dto.Address,
 		Status:         dto.Status,
+		ApplyDate:      utils.ToOnlyDateResponse(dto.ApplyDate),
 		Qualification:  dto.Qualification,
 		JobDescription: dto.JobDescription,
 		CreatedAt:      utils.ToOnlyDateResponse(dto.CreatedAt),
 		UpdatedAt:      utils.ToOnlyDateResponse(dto.UpdatedAt),
+		Applicant:      dto.Applicant,
 	}
 }

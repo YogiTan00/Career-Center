@@ -7,6 +7,7 @@ import (
 
 type RepoApplication interface {
 	SendApplication(ctx context.Context, application *entity.Application) error
-	GetByEmail(ctx context.Context, email string, companyId string) (*entity.ApplicationDTO, error)
+	GetByEmail(ctx context.Context, email string) (*entity.ApplicationDTO, error)
 	GetListApplication(ctx context.Context) ([]*entity.ApplicationDTO, error)
+	GetByJobId(ctx context.Context, id string) ([]*entity.ApplicationDTO, error)
 }
