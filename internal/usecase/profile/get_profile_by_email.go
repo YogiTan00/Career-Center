@@ -11,6 +11,10 @@ func (u UseCaseProfileInteractor) GetProfileByEmail(ctx context.Context, email s
 		return nil, err
 	}
 
+	if data == nil {
+		return nil, nil
+	}
+
 	// update path
 	data.SetCvName(u.cfg)
 	data.SetPortfolioName(u.cfg)

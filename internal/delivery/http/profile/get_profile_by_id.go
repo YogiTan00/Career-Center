@@ -6,8 +6,10 @@ import (
 	"CareerCenter/utils"
 	"CareerCenter/utils/helper"
 	"context"
-	"github.com/gorilla/mux"
+	"errors"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func (h *ProfileHandler) GetProfileByEmail(w http.ResponseWriter, r *http.Request) {
@@ -25,6 +27,11 @@ func (h *ProfileHandler) GetProfileByEmail(w http.ResponseWriter, r *http.Reques
 	}
 
 	profile, err := h.UCProfile.GetProfileByEmail(ctx, email)
+	if profile == nil {
+		helper.ResponseErrWithData(w, errors.New("data not found"), http.StatusBadRequest, nil)
+		log.Error(err)
+		return
+	}
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.Error(err)
