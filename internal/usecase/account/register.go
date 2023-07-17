@@ -29,14 +29,16 @@ func (u UseCaseAccountInteractor) Register(ctx context.Context, data *account.Ac
 		return err
 	}
 
-	dataProfile, err := profile.NewProfileByRegister(register)
-	if err != nil {
-		return err
-	}
+	if err == nil {
+		dataProfile, err := profile.NewProfileByRegister(register)
+		if err != nil {
+			return err
+		}
 
-	err = u.repoProfile.CreateProfile(ctx, dataProfile)
-	if err != nil {
-		return err
+		err = u.repoProfile.CreateProfile(ctx, dataProfile)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
