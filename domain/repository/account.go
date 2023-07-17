@@ -10,4 +10,6 @@ type RepoAccount interface {
 	GetByEmail(ctx context.Context, email string) (*account.AccountDTO, error)
 	UpdatePassword(ctx context.Context, email string, password string) error
 	UpdateRole(ctx context.Context, data *account.Account) error
+	UpdateOTP(ctx context.Context, email string, otp string) error
+	RemoveOTP(ctx context.Context, email string) error
 }

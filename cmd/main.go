@@ -31,7 +31,7 @@ var (
 	mysqlConn = database.InitMysqlDB(configEnv)
 
 	repoAccount    = account.NewAccountMysqlInteractor(mysqlConn)
-	useCaseAccount = account2.NewAccountUsecase(repoAccount, repoProfile)
+	useCaseAccount = account2.NewAccountUsecase(repoAccount, repoProfile, configEnv)
 	handlerAccount = account3.NewUseCaseAccountHandler(useCaseAccount)
 
 	repoJobs    = jobs.NewJobsMysqlInteractor(mysqlConn)
@@ -63,6 +63,7 @@ func main() {
 	r.HandleFunc("/v1/change/password", handlerAccount.ChangePassword).Methods(http.MethodPost)
 	r.HandleFunc("/v1/logout", handlerAccount.Logout).Methods(http.MethodPost)
 	r.HandleFunc("/v1/forget-password", handlerAccount.ForgetPassword).Methods(http.MethodPost)
+	r.HandleFunc("/v1/otp/submit", handlerAccount.SubmitOtp).Methods(http.MethodPost)
 	//Handler Jobs
 	r.HandleFunc("/v1/list-jobs", handlerJobs.GetListJob).Methods(http.MethodGet)
 	r.HandleFunc("/v1/job-detail/{job_id}", handlerJobs.GetJobById).Methods(http.MethodGet)

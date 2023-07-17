@@ -15,6 +15,20 @@ type UseCaseJobs struct {
 	mock.Mock
 }
 
+// CreateJob provides a mock function with given fields: ctx, dto
+func (_m *UseCaseJobs) CreateJob(ctx context.Context, dto *entity.JobsDTO) error {
+	ret := _m.Called(ctx, dto)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, *entity.JobsDTO) error); ok {
+		r0 = rf(ctx, dto)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // GetJobById provides a mock function with given fields: ctx, email, id
 func (_m *UseCaseJobs) GetJobById(ctx context.Context, email string, id string) (*entity.JobsDTO, error) {
 	ret := _m.Called(ctx, email, id)
@@ -42,12 +56,13 @@ func (_m *UseCaseJobs) GetJobById(ctx context.Context, email string, id string) 
 }
 
 // GetListJobs provides a mock function with given fields: ctx, f
-func (_m *UseCaseJobs) GetListJobs(ctx context.Context, f *filter.FilterDTO) ([]*entity.JobsDTO, error) {
+func (_m *UseCaseJobs) GetListJobs(ctx context.Context, f *filter.FilterDTO) ([]*entity.JobsDTO, int, error) {
 	ret := _m.Called(ctx, f)
 
 	var r0 []*entity.JobsDTO
-	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, *filter.FilterDTO) ([]*entity.JobsDTO, error)); ok {
+	var r1 int
+	var r2 error
+	if rf, ok := ret.Get(0).(func(context.Context, *filter.FilterDTO) ([]*entity.JobsDTO, int, error)); ok {
 		return rf(ctx, f)
 	}
 	if rf, ok := ret.Get(0).(func(context.Context, *filter.FilterDTO) []*entity.JobsDTO); ok {
@@ -58,13 +73,33 @@ func (_m *UseCaseJobs) GetListJobs(ctx context.Context, f *filter.FilterDTO) ([]
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, *filter.FilterDTO) error); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, *filter.FilterDTO) int); ok {
 		r1 = rf(ctx, f)
 	} else {
-		r1 = ret.Error(1)
+		r1 = ret.Get(1).(int)
 	}
 
-	return r0, r1
+	if rf, ok := ret.Get(2).(func(context.Context, *filter.FilterDTO) error); ok {
+		r2 = rf(ctx, f)
+	} else {
+		r2 = ret.Error(2)
+	}
+
+	return r0, r1, r2
+}
+
+// UpdateJob provides a mock function with given fields: ctx, id, dto
+func (_m *UseCaseJobs) UpdateJob(ctx context.Context, id string, dto *entity.JobsDTO) error {
+	ret := _m.Called(ctx, id, dto)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, *entity.JobsDTO) error); ok {
+		r0 = rf(ctx, id, dto)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
 }
 
 type mockConstructorTestingTNewUseCaseJobs interface {

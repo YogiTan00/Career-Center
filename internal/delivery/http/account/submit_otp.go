@@ -9,10 +9,10 @@ import (
 	"net/http"
 )
 
-func (h *AccountHandler) ForgetPassword(w http.ResponseWriter, r *http.Request) {
+func (h *AccountHandler) SubmitOtp(w http.ResponseWriter, r *http.Request) {
 	var (
 		ctx     = context.TODO()
-		req     *request.RequestForgetPassword
+		req     *request.RequestSubmitOtp
 		decoder = json.NewDecoder(r.Body)
 		log     = logger.NewLogger("/v1/forget-password")
 	)
@@ -23,14 +23,14 @@ func (h *AccountHandler) ForgetPassword(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	err := h.UCAccount.ForgetPassword(ctx, req.Email)
+	err := h.UCAccount.SubmitOtp(ctx, req.Email, req.Otp)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusBadRequest)
 		log.Error(err)
 		return
 	}
 
-	helper.Response(w, "success send forget password", http.StatusOK)
-	log.InfoWithData("success send forget password", nil)
+	helper.Response(w, "success submit code verification", http.StatusOK)
+	log.InfoWithData("success submit code verification", nil)
 	return
 }

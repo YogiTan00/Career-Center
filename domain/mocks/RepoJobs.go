@@ -17,6 +17,20 @@ type RepoJobs struct {
 	mock.Mock
 }
 
+// CreateJob provides a mock function with given fields: ctx, data
+func (_m *RepoJobs) CreateJob(ctx context.Context, data *entity.Jobs) error {
+	ret := _m.Called(ctx, data)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, *entity.Jobs) error); ok {
+		r0 = rf(ctx, data)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // GetJobByCompanyId provides a mock function with given fields: ctx, id
 func (_m *RepoJobs) GetJobByCompanyId(ctx context.Context, id string) ([]*entity.JobsDTO, error) {
 	ret := _m.Called(ctx, id)
@@ -93,6 +107,20 @@ func (_m *RepoJobs) GetListJobs(ctx context.Context, typeSearch *valueobject.Typ
 	}
 
 	return r0, r1
+}
+
+// UpdateJobById provides a mock function with given fields: ctx, data
+func (_m *RepoJobs) UpdateJobById(ctx context.Context, data *entity.Jobs) error {
+	ret := _m.Called(ctx, data)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, *entity.Jobs) error); ok {
+		r0 = rf(ctx, data)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
 }
 
 type mockConstructorTestingTNewRepoJobs interface {

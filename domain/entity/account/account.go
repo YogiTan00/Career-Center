@@ -5,8 +5,9 @@ import (
 	"CareerCenter/utils"
 	"CareerCenter/utils/exceptions"
 	"errors"
-	"github.com/google/uuid"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type Account struct {
@@ -27,6 +28,8 @@ type AccountDTO struct {
 	Name       string
 	Password   string
 	Role       valueobject.TypeRoles
+	CodeOtp    string
+	ExpiredOtp time.Time
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 	DeletedAt  time.Time
