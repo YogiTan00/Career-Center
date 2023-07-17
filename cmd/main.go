@@ -66,6 +66,7 @@ func main() {
 	r.HandleFunc("/v1/otp/submit", handlerAccount.SubmitOtp).Methods(http.MethodPost)
 	//Handler Jobs
 	r.HandleFunc("/v1/list-jobs", handlerJobs.GetListJob).Methods(http.MethodGet)
+	r.HandleFunc("/v1/my-application", handlerJobs.GetListJobByEmail).Methods(http.MethodGet)
 	r.HandleFunc("/v1/job-detail/{job_id}", handlerJobs.GetJobById).Methods(http.MethodGet)
 	r.HandleFunc("/v1/job-aplication", handlerApplication.SendApplication).Methods(http.MethodPost)
 	//Handler Profile

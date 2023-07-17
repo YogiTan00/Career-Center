@@ -13,4 +13,5 @@ type UseCaseJobs interface {
 	CreateJob(ctx context.Context, dto *entity.JobsDTO) error
 	UpdateJob(ctx context.Context, id string, dto *entity.JobsDTO) error
 	DeleteJob(ctx context.Context, id string) error
+	GetListByEmail(ctx context.Context, user *utils.User) ([]*entity.JobsDTO, int, error)
 }
