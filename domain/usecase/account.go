@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"CareerCenter/domain/entity/account"
+	"CareerCenter/internal/delivery/request"
 	"context"
 	"net/http"
 )
@@ -15,4 +16,5 @@ type UseCaseAccount interface {
 	UpdatePassword(ctx context.Context, email string, password *account.UpdatePasswordDTO) error
 	ForgetPassword(ctx context.Context, email string) error
 	SubmitOtp(ctx context.Context, email string, otp string) error
+	ForgetPasswordUpdate(ctx context.Context, req *request.RequestForgetPasswordUpdate) error
 }

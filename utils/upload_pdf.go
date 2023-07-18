@@ -24,7 +24,6 @@ func UploadPDF(email string, typePdf string, r *http.Request, cfg config.Config)
 		return "", err
 	}
 	defer file.Close()
-
 	// Destination
 	ext := filepath.Ext(header.Filename)
 	// Mendapatkan ekstensi file
@@ -36,6 +35,7 @@ func UploadPDF(email string, typePdf string, r *http.Request, cfg config.Config)
 	filename := name[0] + typePdf + ext
 
 	path := cfg.PATH_FILE_UPLOAD + filename
+
 	pathMeta := cfg.PATH_FILE_UPLOAD_META + filename
 	dst, err := os.Create(path)
 	if err != nil {
