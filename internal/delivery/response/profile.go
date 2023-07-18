@@ -59,11 +59,22 @@ func GetProfileResponse(dto *profile.ProfileUserDTO, cfg config.Config) *Profile
 			listEducation = append(listEducation, education)
 		}
 
+		var urlPhotos, urlCvResume, urlPortofolio string
+		if dto.Photo != "" {
+			urlPhotos = cfg.DOMAIN + cfg.PATH_IMAGE_UPLOAD_META + dto.Photo
+		}
+		if dto.CvResume != "" {
+			urlCvResume = cfg.DOMAIN + cfg.PATH_FILE_UPLOAD_META + dto.CvResume
+		}
+		if dto.Portofolio != "" {
+			urlPortofolio = cfg.DOMAIN + cfg.PATH_FILE_UPLOAD_META + dto.Portofolio
+		}
+
 		return &ProfileResponse{
 			Email:          dto.Email,
 			Name:           dto.Name,
 			Photo:          dto.Photo,
-			UrlPhotos:      cfg.DOMAIN + cfg.PATH_IMAGE_UPLOAD_META + dto.Photo,
+			UrlPhotos:      urlPhotos,
 			Skill:          dto.Skill,
 			PhoneNumber:    dto.PhoneNumber,
 			WorkExperience: listWorkExperiencet,
@@ -71,9 +82,9 @@ func GetProfileResponse(dto *profile.ProfileUserDTO, cfg config.Config) *Profile
 			Ability:        dto.Ability,
 			Language:       dto.Language,
 			CvResume:       dto.CvResume,
-			UrlCvResume:    cfg.DOMAIN + cfg.PATH_FILE_UPLOAD_META + dto.CvResume,
+			UrlCvResume:    urlCvResume,
 			Portofolio:     dto.Portofolio,
-			UrlPortofolio:  cfg.DOMAIN + cfg.PATH_FILE_UPLOAD_META + dto.Portofolio,
+			UrlPortofolio:  urlPortofolio,
 			CreatedAt:      dto.CreatedAt.String(),
 			UpdateAt:       dto.UpdatedAt.String(),
 		}

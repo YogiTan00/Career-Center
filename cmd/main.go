@@ -63,7 +63,7 @@ func main() {
 	r.HandleFunc("/v1/change/password", handlerAccount.ChangePassword).Methods(http.MethodPost)
 	r.HandleFunc("/v1/logout", handlerAccount.Logout).Methods(http.MethodPost)
 	r.HandleFunc("/v1/forget-password", handlerAccount.ForgetPassword).Methods(http.MethodPost)
-	r.HandleFunc("/v1/forget-password/update", handlerAccount.ForgetPasswordUpdate).Methods(http.MethodPost)
+	r.HandleFunc("/v1/update/forget-password", handlerAccount.ForgetPasswordUpdate).Methods(http.MethodPost)
 	r.HandleFunc("/v1/otp/submit", handlerAccount.SubmitOtp).Methods(http.MethodPost)
 	//Handler Jobs
 	r.HandleFunc("/v1/list-jobs", handlerJobs.GetListJob).Methods(http.MethodGet)
