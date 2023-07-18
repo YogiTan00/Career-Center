@@ -125,3 +125,8 @@ func (dto *AccountDTO) ValidationRole() error {
 	}
 	return nil
 }
+
+type CodeOTP struct {
+	Code    string
+	Expired time.Time
+}
