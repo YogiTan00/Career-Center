@@ -24,7 +24,7 @@ func UploadPhoto(email string, r *http.Request, cfg config.Config) (string, erro
 	name := strings.Split(email, "@")
 	header.Filename = name[0] + "Photo" + ".png"
 	path := cfg.PATH_IMAGE_UPLOAD + header.Filename
-	pathMeta := cfg.PATH_IMAGE_UPLOAD_META + header.Filename
+	// pathMeta := cfg.PATH_IMAGE_UPLOAD_META + header.Filename
 
 	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
@@ -37,5 +37,5 @@ func UploadPhoto(email string, r *http.Request, cfg config.Config) (string, erro
 		return "", err
 	}
 
-	return pathMeta, nil
+	return header.Filename, nil
 }
