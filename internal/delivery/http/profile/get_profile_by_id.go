@@ -38,7 +38,7 @@ func (h *ProfileHandler) GetProfileByEmail(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	profileResponse := response.GetProfileResponse(profile)
+	profileResponse := response.GetProfileResponse(profile, h.cfg)
 	helper.ResponseInterface(w, "success get profile by email", profileResponse, http.StatusOK)
 	log.InfoWithData("success get profile by email", profileResponse)
 	return

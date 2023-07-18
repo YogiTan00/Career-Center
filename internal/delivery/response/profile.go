@@ -2,12 +2,14 @@ package response
 
 import (
 	"CareerCenter/domain/entity/profile"
+	"CareerCenter/pkg/config"
 )
 
 type ProfileResponse struct {
 	Email          string                   `json:"email"`
 	Name           string                   `json:"name"`
 	Photo          string                   `json:"photo"`
+	UrlPhotos      string                   `json:"urlPhoto"`
 	Skill          string                   `json:"skill"`
 	PhoneNumber    string                   `json:"phoneNumber"`
 	WorkExperience []WorkExperienceResponse `json:"workExperience"`
@@ -15,12 +17,14 @@ type ProfileResponse struct {
 	Ability        []string                 `json:"ability"`
 	Language       []string                 `json:"language"`
 	CvResume       string                   `json:"cvResume"`
+	UrlCvResume    string                   `json:"urlCvResume"`
 	Portofolio     string                   `json:"portofolio"`
+	UrlPortofolio  string                   `json:"urlPortofolio"`
 	CreatedAt      string                   `json:"createdAt"`
 	UpdateAt       string                   `json:"updateAt"`
 }
 
-func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
+func GetProfileResponse(dto *profile.ProfileUserDTO, cfg config.Config) *ProfileResponse {
 	if dto != nil {
 		listWorkExperiencet := make([]WorkExperienceResponse, 0)
 		for _, data := range dto.WorkExperience {
@@ -59,6 +63,7 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 			Email:          dto.Email,
 			Name:           dto.Name,
 			Photo:          dto.Photo,
+			UrlPhotos:      cfg.DOMAIN + cfg.PATH_IMAGE_UPLOAD_META + dto.Photo,
 			Skill:          dto.Skill,
 			PhoneNumber:    dto.PhoneNumber,
 			WorkExperience: listWorkExperiencet,
@@ -66,7 +71,9 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 			Ability:        dto.Ability,
 			Language:       dto.Language,
 			CvResume:       dto.CvResume,
+			UrlCvResume:    cfg.DOMAIN + cfg.PATH_FILE_UPLOAD_META + dto.CvResume,
 			Portofolio:     dto.Portofolio,
+			UrlPortofolio:  cfg.DOMAIN + cfg.PATH_FILE_UPLOAD_META + dto.Portofolio,
 			CreatedAt:      dto.CreatedAt.String(),
 			UpdateAt:       dto.UpdatedAt.String(),
 		}

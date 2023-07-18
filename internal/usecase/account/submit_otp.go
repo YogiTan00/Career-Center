@@ -14,14 +14,14 @@ func (u UseCaseAccountInteractor) SubmitOtp(ctx context.Context, email string, o
 	}
 
 	currentTime := time.Now()
-	// check otp expired or no
-	if currentTime.Unix() > user.Expired.Unix() {
-		return errors.New("the verification code expired")
-	}
-
 	// check otp match or no
 	if user.Code != otp {
 		return errors.New("the verification code does not match")
+	}
+
+	// check otp expired or no
+	if currentTime.Unix() > user.Expired.Unix() {
+		return errors.New("the verification code expired")
 	}
 
 	// remove otp
