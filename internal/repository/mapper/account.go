@@ -4,7 +4,6 @@ import (
 	"CareerCenter/domain/entity/account"
 	"CareerCenter/domain/valueobject"
 	"CareerCenter/internal/repository/models"
-
 	"github.com/rocketlaunchr/dbq/v2"
 )
 
@@ -38,4 +37,11 @@ func EntityToInterface(data *account.Account) []interface{} {
 func DomainToInterface(domain *account.Account) (dbqStruct []interface{}) {
 	dbqStruct = append(dbqStruct, EntityToInterface(domain))
 	return
+}
+
+func ModelOTPToEntity(otp *models.CodeOTP) *account.CodeOTP {
+	return &account.CodeOTP{
+		Code:    otp.Code,
+		Expired: otp.Expired,
+	}
 }

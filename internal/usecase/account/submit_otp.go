@@ -8,7 +8,7 @@ import (
 
 func (u UseCaseAccountInteractor) SubmitOtp(ctx context.Context, email string, otp string) error {
 	// get user by mail
-	user, err := u.repoAccount.GetByEmail(ctx, email)
+	user, err := u.repoAccount.GetOTP(ctx, email)
 	if err != nil {
 		return err
 	}
@@ -16,13 +16,13 @@ func (u UseCaseAccountInteractor) SubmitOtp(ctx context.Context, email string, o
 	currentTime := time.Now()
 	formattedTime := currentTime.Format("2006-01-02 15:04:05")
 	// check otp expired or no
-	if formattedTime > user.ExpiredOtp.Format("2006-01-02 15:04:05") {
-		return errors.New("The verification code expired")
+	if formattedTime > user.Expired.Format("2006-01-02 15:04:05") {
+		return errors.New("the verification code expired")
 	}
 
 	// check otp match or no
-	if user.CodeOtp != otp {
-		return errors.New("The verification code does not match")
+	if user.Code != otp {
+		return errors.New("the verification code does not match")
 	}
 
 	// remove otp

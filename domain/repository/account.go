@@ -12,4 +12,5 @@ type RepoAccount interface {
 	UpdateRole(ctx context.Context, data *account.Account) error
 	UpdateOTP(ctx context.Context, email string, otp string) error
 	RemoveOTP(ctx context.Context, email string) error
+	GetOTP(ctx context.Context, email string) (*account.CodeOTP, error)
 }

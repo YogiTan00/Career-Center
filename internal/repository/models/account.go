@@ -29,3 +29,8 @@ func TableAccount() []string {
 		"updated_at",
 	}
 }
+
+type CodeOTP struct {
+	Code    string    `dbq:"code_otp"`
+	Expired time.Time `dbq:"expired_otp"`
+}
