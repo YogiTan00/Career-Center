@@ -12,6 +12,8 @@ type EducationModel struct {
 	StartEdu       time.Time `dbq:"start_education"`
 	EndEdu         time.Time `dbq:"end_education"`
 	Description    string    `dbq:"description"`
+	CreatedAt      time.Time `dbq:"created_at"`
+	UpdatedAt      time.Time `dbq:"updated_at"`
 }
 
 func GetTableNameEducation() string {
@@ -29,5 +31,7 @@ func TableEducation() []string {
 		"start_education",
 		"end_education",
 		"description",
+		"created_at",
+		"updated_at",
 	}
 }

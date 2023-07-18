@@ -16,8 +16,13 @@ func (r AccountMysqlInteractor) GetOTP(ctx context.Context, email string) (*acco
 	defer cancel()
 
 	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ?`, models.GetTableNameAccount())
+	opts := &dbq.Options{
+		SingleResult:   true,
+		ConcreteStruct: models.CodeOTP{},
+		DecoderConfig:  dbq.StdTimeConversionConfig(),
+	}
 
-	result := dbq.MustQ(ctx, r.DbConn, stmt, nil, email)
+	result := dbq.MustQ(ctx, r.DbConn, stmt, opts, email)
 	if result == nil {
 		return nil, exceptions.ErrorWrongEmailorPassword
 	}

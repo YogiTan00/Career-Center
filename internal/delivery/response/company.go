@@ -2,7 +2,6 @@ package response
 
 import (
 	"CareerCenter/domain/entity"
-	"CareerCenter/utils"
 )
 
 type CompanyResponse struct {
@@ -62,8 +61,8 @@ func GetCompanyProfileResponse(dto *entity.CompanyDTO, dtoJobs []*entity.JobsDTO
 			Status:         data.Status,
 			Qualification:  data.Qualification,
 			JobDescription: data.JobDescription,
-			CreatedAt:      utils.ToOnlyDateResponse(data.CreatedAt),
-			UpdatedAt:      utils.ToOnlyDateResponse(data.UpdatedAt),
+			CreatedAt:      data.CreatedAt.String(),
+			UpdatedAt:      data.UpdatedAt.String(),
 		}
 		jobs = append(jobs, job)
 	}
@@ -79,7 +78,7 @@ func GetCompanyProfileResponse(dto *entity.CompanyDTO, dtoJobs []*entity.JobsDTO
 			Location: dto.About.Location,
 		},
 		Jobs:      jobs,
-		CreatedAt: utils.ToOnlyDateResponse(dto.CreatedAt),
-		UpdatedAt: utils.ToOnlyDateResponse(dto.UpdatedAt),
+		CreatedAt: dto.CreatedAt.String(),
+		UpdatedAt: dto.UpdatedAt.String(),
 	}
 }

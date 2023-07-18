@@ -14,9 +14,8 @@ func (u UseCaseAccountInteractor) SubmitOtp(ctx context.Context, email string, o
 	}
 
 	currentTime := time.Now()
-	formattedTime := currentTime.Format("2006-01-02 15:04:05")
 	// check otp expired or no
-	if formattedTime > user.Expired.Format("2006-01-02 15:04:05") {
+	if currentTime.Unix() > user.Expired.Unix() {
 		return errors.New("the verification code expired")
 	}
 

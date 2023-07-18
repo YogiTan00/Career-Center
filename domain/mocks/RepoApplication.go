@@ -14,25 +14,51 @@ type RepoApplication struct {
 	mock.Mock
 }
 
-// GetByEmail provides a mock function with given fields: ctx, email, companyId
-func (_m *RepoApplication) GetByEmail(ctx context.Context, email string, companyId string) (*entity.ApplicationDTO, error) {
-	ret := _m.Called(ctx, email, companyId)
+// GetByEmail provides a mock function with given fields: ctx, email
+func (_m *RepoApplication) GetByEmail(ctx context.Context, email string) (*entity.ApplicationDTO, error) {
+	ret := _m.Called(ctx, email)
 
 	var r0 *entity.ApplicationDTO
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, string, string) (*entity.ApplicationDTO, error)); ok {
-		return rf(ctx, email, companyId)
+	if rf, ok := ret.Get(0).(func(context.Context, string) (*entity.ApplicationDTO, error)); ok {
+		return rf(ctx, email)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, string, string) *entity.ApplicationDTO); ok {
-		r0 = rf(ctx, email, companyId)
+	if rf, ok := ret.Get(0).(func(context.Context, string) *entity.ApplicationDTO); ok {
+		r0 = rf(ctx, email)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*entity.ApplicationDTO)
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, string, string) error); ok {
-		r1 = rf(ctx, email, companyId)
+	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
+		r1 = rf(ctx, email)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// GetByJobId provides a mock function with given fields: ctx, id
+func (_m *RepoApplication) GetByJobId(ctx context.Context, id string) ([]*entity.ApplicationDTO, error) {
+	ret := _m.Called(ctx, id)
+
+	var r0 []*entity.ApplicationDTO
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, string) ([]*entity.ApplicationDTO, error)); ok {
+		return rf(ctx, id)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, string) []*entity.ApplicationDTO); ok {
+		r0 = rf(ctx, id)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]*entity.ApplicationDTO)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
+		r1 = rf(ctx, id)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -59,6 +85,32 @@ func (_m *RepoApplication) GetListApplication(ctx context.Context) ([]*entity.Ap
 
 	if rf, ok := ret.Get(1).(func(context.Context) error); ok {
 		r1 = rf(ctx)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// GetListByEmail provides a mock function with given fields: ctx, email
+func (_m *RepoApplication) GetListByEmail(ctx context.Context, email string) ([]*entity.ApplicationDTO, error) {
+	ret := _m.Called(ctx, email)
+
+	var r0 []*entity.ApplicationDTO
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, string) ([]*entity.ApplicationDTO, error)); ok {
+		return rf(ctx, email)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, string) []*entity.ApplicationDTO); ok {
+		r0 = rf(ctx, email)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]*entity.ApplicationDTO)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
+		r1 = rf(ctx, email)
 	} else {
 		r1 = ret.Error(1)
 	}

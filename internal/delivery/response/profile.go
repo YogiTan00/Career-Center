@@ -2,7 +2,6 @@ package response
 
 import (
 	"CareerCenter/domain/entity/profile"
-	"CareerCenter/utils"
 )
 
 type ProfileResponse struct {
@@ -31,8 +30,8 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 				Name:            data.Name,
 				StillWorking:    data.StillWorking,
 				DateRange: DateRange{
-					Start: utils.ToOnlyDateResponse(data.DateRange.Start),
-					End:   utils.ToOnlyDateResponse(data.DateRange.End),
+					Start: data.DateRange.Start.String(),
+					End:   data.DateRange.End.String(),
 				},
 				Description: data.Description,
 			}
@@ -48,8 +47,8 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 				Major:          data.Major,
 				SkillEducation: data.StillEducation,
 				DateRange: DateRange{
-					Start: utils.ToOnlyDateResponse(data.DateRange.Start),
-					End:   utils.ToOnlyDateResponse(data.DateRange.End),
+					Start: data.DateRange.Start.String(),
+					End:   data.DateRange.End.String(),
 				},
 				Description: data.Description,
 			}
@@ -68,8 +67,8 @@ func GetProfileResponse(dto *profile.ProfileUserDTO) *ProfileResponse {
 			Language:       dto.Language,
 			CvResume:       dto.CvResume,
 			Portofolio:     dto.Portofolio,
-			CreatedAt:      utils.ToOnlyDateResponse(dto.CreatedAt),
-			UpdateAt:       utils.ToOnlyDateResponse(dto.UpdatedAt),
+			CreatedAt:      dto.CreatedAt.String(),
+			UpdateAt:       dto.UpdatedAt.String(),
 		}
 	}
 

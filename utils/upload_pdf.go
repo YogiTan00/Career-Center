@@ -27,13 +27,13 @@ func UploadPDF(email string, typePdf string, r *http.Request, cfg config.Config)
 
 	// Destination
 	ext := filepath.Ext(header.Filename)
-	// Menyimpan file di folder "uploads"
-	name := strings.Split(email, "@")
-	filename := name[0] + typePdf + ext
 	// Mendapatkan ekstensi file
 	if ext != ".pdf" {
 		return "", exceptions.ErrCustomString("wrong format file only pdf")
 	}
+	// Menyimpan file di folder "uploads"
+	name := strings.Split(email, "@")
+	filename := name[0] + typePdf + ext
 
 	path := cfg.PATH_FILE_UPLOAD + filename
 	pathMeta := cfg.PATH_FILE_UPLOAD_META + filename
