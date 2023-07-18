@@ -27,10 +27,12 @@ func TxQuery(typeSearch *valueobject.TypeSearch, f *filter.Filter) string {
 				fmt.Println("error type search")
 			}
 		}
-		if typeSearch.StringSearch() == string(valueobject.JOBS) {
-			if f.GetStatus() == true {
-				tx := fmt.Sprintf("WHERE status = 1")
-				result = append(result, tx)
+		if typeSearch != nil {
+			if typeSearch.StringSearch() == string(valueobject.JOBS) {
+				if f.GetStatus() == true {
+					tx := fmt.Sprintf("WHERE status = 1")
+					result = append(result, tx)
+				}
 			}
 		}
 		if f.GetLimit() > 0 {

@@ -7,8 +7,9 @@ import (
 	"CareerCenter/utils/exceptions"
 	"context"
 	"fmt"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (l AccountMysqlInteractor) GetByEmail(ctx context.Context, email string) (*account.AccountDTO, error) {
@@ -21,11 +22,11 @@ func (l AccountMysqlInteractor) GetByEmail(ctx context.Context, email string) (*
 		ConcreteStruct: models.AccountModel{},
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
+
 	result := dbq.MustQ(ctx, l.DbConn, stmt, opts, email)
 	if result == nil {
 		return nil, exceptions.ErrorWrongEmailorPassword
 	}
-
 	account := mapper.ModelToEntity(result.(*models.AccountModel))
 
 	return account, nil

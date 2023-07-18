@@ -24,7 +24,7 @@ func (a ApplicationMysqlInteractor) SendApplication(ctx context.Context, applica
 		_, errStore := E(ctx, stmt, nil, postModelStruct)
 
 		if errStore != nil {
-			panic(errStore)
+			err = errStore
 		}
 
 		_ = txCommit()

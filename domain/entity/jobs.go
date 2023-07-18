@@ -14,6 +14,7 @@ type Jobs struct {
 	logo           string
 	address        string
 	status         bool
+	applyDate      time.Time
 	qualification  string
 	jobDescription string
 	category       string
@@ -31,6 +32,7 @@ type JobsDTO struct {
 	Logo           string
 	Address        string
 	Status         bool
+	ApplyDate      time.Time
 	Qualification  string
 	JobDescription string
 	Category       string
@@ -83,33 +85,6 @@ func (dto *JobsDTO) Validation() error {
 }
 
 func (dto *JobsDTO) SetUpdate(data *JobsDTO) *Jobs {
-	//if len(data.CompanyId) > 0 {
-	//	dto.CompanyId = data.CompanyId
-	//}
-	//if len(data.Position) > 0 {
-	//	dto.Position = data.Position
-	//}
-	//if len(data.Company) > 0 {
-	//	dto.Company = data.Company
-	//}
-	//if len(data.Logo) > 0 {
-	//	dto.Logo = data.Logo
-	//}
-	//if len(data.Address) > 0 {
-	//	dto.Address = data.Address
-	//}
-	//if data.Status == true {
-	//	dto.Status = data.Status
-	//}
-	//if len(data.Qualification) > 0 {
-	//	dto.Qualification = data.Qualification
-	//}
-	//if len(data.JobDescription) > 0 {
-	//	dto.JobDescription = data.JobDescription
-	//}
-	//if len(data.Category) > 0 {
-	//	dto.Category = data.Category
-	//}
 	timeNow := time.Now()
 	return &Jobs{
 		id:             dto.Id,
@@ -156,6 +131,10 @@ func (g *Jobs) GetStatus() bool {
 	return g.status
 }
 
+func (g *Jobs) GetApplyDate() time.Time {
+	return g.applyDate
+}
+
 func (g *Jobs) GetQualificationi() string {
 	return g.qualification
 }
@@ -182,4 +161,9 @@ func (g *Jobs) GetDeletedAt() time.Time {
 
 func (g *Jobs) GetApplicant() int {
 	return g.applicant
+}
+
+func (g *JobsDTO) SetForUser(apply *ApplicationDTO) {
+	g.Status = true
+	g.ApplyDate = apply.CreatedAt
 }

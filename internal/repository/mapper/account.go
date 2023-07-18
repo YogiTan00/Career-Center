@@ -23,12 +23,10 @@ func EntityToModel(m *account.Account) *models.AccountModel {
 func ModelToEntity(m *models.AccountModel) *account.AccountDTO {
 	role := valueobject.NewTypeRolesFromString(m.Role)
 	data := &account.AccountDTO{
-		Email:      m.Email,
-		Name:       m.Nama,
-		Password:   m.Password,
-		Role:       role,
-		CodeOtp:    m.CodeOtp,
-		ExpiredOtp: m.ExpiredOtp,
+		Email:    m.Email,
+		Name:     m.Nama,
+		Password: m.Password,
+		Role:     role,
 	}
 	return data
 }

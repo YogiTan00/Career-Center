@@ -25,6 +25,7 @@ func (u UseCaseAccountInteractor) Register(ctx context.Context, data *account.Ac
 	}
 
 	err = u.repoAccount.CreateAccount(ctx, register)
+
 	if err != nil {
 		return err
 	}

@@ -10,10 +10,11 @@ import (
 )
 
 func (p ProfileMysqlInteractor) CreateWorkExperience(ctx context.Context, workExp *profile.WorkExperience) error {
+	var err error
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	err := dbq.Tx(ctx, p.DbConn, func(tx interface{}, Q dbq.QFn, E dbq.EFn, txCommit dbq.TxCommit) {
+	err = dbq.Tx(ctx, p.DbConn, func(tx interface{}, Q dbq.QFn, E dbq.EFn, txCommit dbq.TxCommit) {
 		postModelStruct := profile2.DomainWorkExperienceToInterface(workExp)
 
 		stmt := dbq.INSERTStmt(profile3.GetTableNameWorkExperience(), profile3.TableWorkExperience(), len(postModelStruct), dbq.MySQL)
@@ -21,7 +22,7 @@ func (p ProfileMysqlInteractor) CreateWorkExperience(ctx context.Context, workEx
 		_, errStore := E(ctx, stmt, nil, postModelStruct)
 
 		if errStore != nil {
-			panic(errStore)
+			err = errStore
 		}
 
 		_ = txCommit()

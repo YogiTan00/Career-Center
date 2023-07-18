@@ -10,22 +10,22 @@ import (
 	"time"
 )
 
-func (a ApplicationMysqlInteractor) GetByEmail(ctx context.Context, email string) (*entity.ApplicationDTO, error) {
+func (a ApplicationMysqlInteractor) GetByJobId(ctx context.Context, id string) ([]*entity.ApplicationDTO, error) {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ?`, models.GetTableNameApplication())
+	stmt := fmt.Sprintf(`SELECT * FROM %s where job_id = ?`, models.GetTableNameApplication())
 	opts := &dbq.Options{
-		SingleResult:   true,
+		SingleResult:   false,
 		ConcreteStruct: models.ApplicationModel{},
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
-	result := dbq.MustQ(ctx, a.DbConn, stmt, opts, email)
+	result := dbq.MustQ(ctx, a.DbConn, stmt, opts, id)
 	if result == nil {
 		return nil, nil
 	}
 
-	job := mapper.ModelApplicationToEntity(result.(*models.ApplicationModel))
+	job := mapper.ModelApplicationListToEntity(result.([]*models.ApplicationModel))
 
 	return job, nil
 }

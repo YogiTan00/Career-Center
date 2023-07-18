@@ -10,13 +10,13 @@ import (
 	"time"
 )
 
-func (a ApplicationMysqlInteractor) GetByEmail(ctx context.Context, email string) (*entity.ApplicationDTO, error) {
+func (a ApplicationMysqlInteractor) GetListByEmail(ctx context.Context, email string) ([]*entity.ApplicationDTO, error) {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
 	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ?`, models.GetTableNameApplication())
 	opts := &dbq.Options{
-		SingleResult:   true,
+		SingleResult:   false,
 		ConcreteStruct: models.ApplicationModel{},
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
@@ -25,7 +25,7 @@ func (a ApplicationMysqlInteractor) GetByEmail(ctx context.Context, email string
 		return nil, nil
 	}
 
-	job := mapper.ModelApplicationToEntity(result.(*models.ApplicationModel))
+	jobs := mapper.ModelApplicationListToEntity(result.([]*models.ApplicationModel))
 
-	return job, nil
+	return jobs, nil
 }

@@ -66,6 +66,7 @@ func main() {
 	r.HandleFunc("/v1/otp/submit", handlerAccount.SubmitOtp).Methods(http.MethodPost)
 	//Handler Jobs
 	r.HandleFunc("/v1/list-jobs", handlerJobs.GetListJob).Methods(http.MethodGet)
+	r.HandleFunc("/v1/my-application", handlerJobs.GetListJobByEmail).Methods(http.MethodGet)
 	r.HandleFunc("/v1/job-detail/{job_id}", handlerJobs.GetJobById).Methods(http.MethodGet)
 	r.HandleFunc("/v1/job-aplication", handlerApplication.SendApplication).Methods(http.MethodPost)
 	//Handler Profile
@@ -90,6 +91,7 @@ func main() {
 	r.HandleFunc("/v1/admin/change-role", handlerAccount.ChangeRoleByAdmin).Methods(http.MethodPut)
 	r.HandleFunc("/v1/admin/job", handlerJobs.CreateJob).Methods(http.MethodPost)
 	r.HandleFunc("/v1/admin/update/{job_id}", handlerJobs.UpdateJob).Methods(http.MethodPut)
+	r.HandleFunc("/v1/admin/delete/{job_id}", handlerJobs.DeleteJob).Methods(http.MethodDelete)
 
 	fmt.Println("Career Center Running....")
 	originsOk := handlers.AllowedOrigins([]string{"*"})

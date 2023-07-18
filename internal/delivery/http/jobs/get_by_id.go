@@ -26,7 +26,7 @@ func (h *JobsHandler) GetJobById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jobs, err := h.UCJobs.GetJobById(ctx, user.Email, jobId)
+	jobs, err := h.UCJobs.GetJobById(ctx, user, jobId)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.Error(err)

@@ -10,10 +10,11 @@ import (
 )
 
 func (p ProfileMysqlInteractor) CreateProfile(ctx context.Context, data *profile.ProfileUser) error {
+	var err error
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	err := dbq.Tx(ctx, p.DbConn, func(tx interface{}, Q dbq.QFn, E dbq.EFn, txCommit dbq.TxCommit) {
+	err = dbq.Tx(ctx, p.DbConn, func(tx interface{}, Q dbq.QFn, E dbq.EFn, txCommit dbq.TxCommit) {
 		postModelStruct := profile2.DomainProfileToInterface(data)
 
 		stmt := dbq.INSERTStmt(profile3.GetTableNameProfile(), profile3.TableProfile(), len(postModelStruct), dbq.MySQL)
@@ -21,7 +22,7 @@ func (p ProfileMysqlInteractor) CreateProfile(ctx context.Context, data *profile
 		_, errStore := E(ctx, stmt, nil, postModelStruct)
 
 		if errStore != nil {
-			panic(errStore)
+			err = errStore
 		}
 
 		_ = txCommit()
