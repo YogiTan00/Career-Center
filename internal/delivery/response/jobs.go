@@ -2,7 +2,6 @@ package response
 
 import (
 	"CareerCenter/domain/entity"
-	"CareerCenter/utils"
 )
 
 type JobsResponse struct {
@@ -42,7 +41,7 @@ func GetJobResponse(dto *entity.JobsDTO) *JobsResponse {
 		Logo:      dto.Logo,
 		Address:   dto.Address,
 		Status:    dto.Status,
-		CreatedAt: utils.ToOnlyDateResponse(dto.CreatedAt),
+		CreatedAt: dto.CreatedAt.String(),
 		Applicant: dto.Applicant,
 	}
 }
@@ -65,11 +64,11 @@ func GetDetailJobResponse(dto *entity.JobsDTO) *DetailJobResponse {
 		Logo:           dto.Logo,
 		Address:        dto.Address,
 		Status:         dto.Status,
-		ApplyDate:      utils.ToOnlyDateResponse(dto.ApplyDate),
+		ApplyDate:      dto.ApplyDate.String(),
 		Qualification:  dto.Qualification,
 		JobDescription: dto.JobDescription,
-		CreatedAt:      utils.ToOnlyDateResponse(dto.CreatedAt),
-		UpdatedAt:      utils.ToOnlyDateResponse(dto.UpdatedAt),
+		CreatedAt:      dto.CreatedAt.String(),
+		UpdatedAt:      dto.UpdatedAt.String(),
 		Applicant:      dto.Applicant,
 	}
 }

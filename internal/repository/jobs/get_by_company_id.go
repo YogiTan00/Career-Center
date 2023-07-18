@@ -14,7 +14,7 @@ func (j JobsMysqlInteractor) GetJobByCompanyId(ctx context.Context, id string) (
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE id_company = ?`, models.GetTableNameJobs())
+	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE company_id = ?`, models.GetTableNameJobs())
 	opts := &dbq.Options{
 		SingleResult:   false,
 		ConcreteStruct: models.JobsModel{},

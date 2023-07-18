@@ -12,12 +12,15 @@ func (u UseCaseJobsInteractor) GetListByEmail(ctx context.Context, user *utils.U
 	if err != nil {
 		return nil, 0, err
 	}
-
-	for _, value := range data {
-		job, _ := u.repoJobs.GetJobById(ctx, value.JobId)
-		job.Status = true
-		job.ApplyDate = value.CreatedAt
-		result = append(result, job)
+	if data != nil {
+		for _, value := range data {
+			job, _ := u.repoJobs.GetJobById(ctx, value.JobId)
+			if job != nil {
+				job.Status = true
+				job.ApplyDate = value.CreatedAt
+				result = append(result, job)
+			}
+		}
 	}
 
 	return result, len(result), nil
