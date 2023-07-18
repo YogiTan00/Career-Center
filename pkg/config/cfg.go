@@ -8,6 +8,7 @@ import (
 )
 
 type Config struct {
+	DOMAIN                 string
 	DEBUG                  string
 	TIMEOUT                string
 	ADDRESS                string
@@ -38,6 +39,7 @@ func goDotEnvVariable(key string) string {
 
 func ConfigEnv() Config {
 	return Config{
+		DOMAIN:                 goDotEnvVariable("DOMAIN"),
 		ADDRESS:                goDotEnvVariable("ADDRESS"),
 		DB_HOST:                goDotEnvVariable("DB_HOST"),
 		DB_PORT:                goDotEnvVariable("DB_PORT"),
