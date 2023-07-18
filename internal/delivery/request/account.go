@@ -62,3 +62,9 @@ type RequestSubmitOtp struct {
 	Email string `json:"email"`
 	Otp   string `json:"otp"`
 }
+
+type RequestForgetPasswordUpdate struct {
+	Email           string `json:"email"`
+	NewPassword     string `json:"newPassword"`
+	ConfirmPassword string `json:"confirmPassword"`
+}
