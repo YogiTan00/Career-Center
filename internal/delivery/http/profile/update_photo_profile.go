@@ -21,7 +21,7 @@ func (h *ProfileHandler) UpdatePhotoProfile(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	path, errUpload := utils.UploadPhoto(user.Email, r)
+	path, errUpload := utils.UploadPhoto(user.Email, r, h.cfg)
 	if errUpload != nil {
 		helper.ResponseErr(w, errUpload, http.StatusBadRequest)
 		log.Error(errUpload)

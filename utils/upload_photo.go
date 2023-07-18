@@ -1,15 +1,15 @@
 package utils
 
 import (
+	"CareerCenter/pkg/config"
 	"CareerCenter/utils/exceptions"
-	"fmt"
 	"io"
 	"net/http"
 	"os"
 	"strings"
 )
 
-func UploadPhoto(email string, r *http.Request) (string, error) {
+func UploadPhoto(email string, r *http.Request, cfg config.Config) (string, error) {
 	file, header, err := r.FormFile("photo")
 	if err != nil {
 		return "", err
@@ -17,14 +17,15 @@ func UploadPhoto(email string, r *http.Request) (string, error) {
 	defer file.Close()
 
 	fileType := header.Header.Get("Content-Type")
-	if fileType != "image/png" {
-		return "", exceptions.ErrCustomString("Invalid file type, only PNG is allowed")
+	if fileType != "image/png" && fileType != "image/jpg" && fileType != "image/jpeg" {
+		return "", exceptions.ErrCustomString("Invalid file type, only PNG, JPG or JPEG is allowed")
 	}
 
 	name := strings.Split(email, "@")
 	header.Filename = name[0] + "Photo" + ".png"
+	path := cfg.PATH_FILE_UPLOAD + header.Filename
+	pathMeta := cfg.PATH_FILE_UPLOAD_META + header.Filename
 
-	path := "uploads/image/" + header.Filename
 	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		return "", err
@@ -36,7 +37,5 @@ func UploadPhoto(email string, r *http.Request) (string, error) {
 		return "", err
 	}
 
-	url := fmt.Sprintf("http://%s/photo/%s", r.Host, header.Filename)
-
-	return url, nil
+	return pathMeta, nil
 }
