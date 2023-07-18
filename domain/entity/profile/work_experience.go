@@ -14,6 +14,9 @@ type WorkExperience struct {
 	stillWorking    bool
 	dateRange       DateRangeWork
 	description     string
+	createdAt       time.Time
+	updatedAt       time.Time
+	deletedAt       time.Time
 }
 type DateRangeWork struct {
 	start time.Time
@@ -28,6 +31,9 @@ type WorkExperienceDTO struct {
 	StillWorking    bool
 	DateRange       DateRangeWorkDTO
 	Description     string
+	CreatedAt       time.Time
+	UpdatedAt       time.Time
+	DeletedAt       time.Time
 }
 type DateRangeWorkDTO struct {
 	Start time.Time
@@ -40,6 +46,7 @@ func NewWorkExperience(dto *WorkExperienceDTO) (*WorkExperience, error) {
 		return nil, err
 	}
 	dateRange := NewWorkDateRange(dto.DateRange)
+	timeNow := time.Now()
 	return &WorkExperience{
 		id:              dto.Id,
 		email:           dto.Email,
@@ -48,6 +55,8 @@ func NewWorkExperience(dto *WorkExperienceDTO) (*WorkExperience, error) {
 		stillWorking:    dto.StillWorking,
 		dateRange:       dateRange,
 		description:     dto.Description,
+		createdAt:       timeNow,
+		updatedAt:       timeNow,
 	}, nil
 }
 
@@ -114,6 +123,15 @@ func (data *WorkExperience) GetEndWork() time.Time {
 }
 func (data *WorkExperience) GetDescription() string {
 	return data.description
+}
+func (data *WorkExperience) GetCreatedAt() time.Time {
+	return data.createdAt
+}
+func (data *WorkExperience) GetUpdatedAt() time.Time {
+	return data.updatedAt
+}
+func (data *WorkExperience) GetDeletedAt() time.Time {
+	return data.deletedAt
 }
 
 func (data *WorkExperience) SetEmail(email string) {

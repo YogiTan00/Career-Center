@@ -16,6 +16,9 @@ type Education struct {
 	stillEducation bool
 	dateRange      DateRangeEdu
 	description    string
+	createdAt      time.Time
+	updatedAt      time.Time
+	deletedAt      time.Time
 }
 type DateRangeEdu struct {
 	start time.Time
@@ -31,6 +34,9 @@ type EducationDTO struct {
 	StillEducation bool
 	DateRange      DateRangeEduDTO
 	Description    string
+	CreatedAt      time.Time
+	UpdatedAt      time.Time
+	DeletedAt      time.Time
 }
 type DateRangeEduDTO struct {
 	Start time.Time
@@ -44,6 +50,7 @@ func NewEducation(dto *EducationDTO) (*Education, error) {
 	}
 	dateRange := NewEduDateRange(dto.DateRange)
 	level := valueobject.NewTypeLevelFromString(dto.Major)
+	timeNow := time.Now()
 	return &Education{
 		id:             dto.Id,
 		email:          dto.Email,
@@ -53,6 +60,8 @@ func NewEducation(dto *EducationDTO) (*Education, error) {
 		dateRange:      dateRange,
 		stillEducation: dto.StillEducation,
 		description:    dto.Description,
+		createdAt:      timeNow,
+		updatedAt:      timeNow,
 	}, nil
 }
 
@@ -126,6 +135,15 @@ func (data *Education) GetEndEducation() time.Time {
 }
 func (data *Education) GetDescription() string {
 	return data.description
+}
+func (data *Education) GetCreatedAt() time.Time {
+	return data.createdAt
+}
+func (data *Education) GetUpdatedAt() time.Time {
+	return data.updatedAt
+}
+func (data *Education) GetDeletedAt() time.Time {
+	return data.deletedAt
 }
 
 func (data *Education) SetEmail(email string) {

@@ -32,6 +32,8 @@ func EntityWorkExperienceToModel(m *profile.WorkExperience) *profile2.WorkExperi
 		StartWork:       m.GetStartWork(),
 		EndWork:         m.GetEndWork(),
 		Description:     m.GetDescription(),
+		CreatedAt:       m.GetCreatedAt(),
+		UpdatedAt:       m.GetUpdatedAt(),
 	}
 
 	return data

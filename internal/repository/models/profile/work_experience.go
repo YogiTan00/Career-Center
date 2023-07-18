@@ -11,6 +11,8 @@ type WorkExperienceModel struct {
 	StartWork       time.Time `dbq:"start_work"`
 	EndWork         time.Time `dbq:"end_work"`
 	Description     string    `dbq:"description"`
+	CreatedAt       time.Time `dbq:"created_at"`
+	UpdatedAt       time.Time `dbq:"updated_at"`
 }
 
 func GetTableNameWorkExperience() string {
@@ -27,5 +29,7 @@ func TableWorkExperience() []string {
 		"start_work",
 		"end_work",
 		"description",
+		"created_at",
+		"updated_at",
 	}
 }

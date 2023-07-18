@@ -21,6 +21,8 @@ func ModelEducationToEntity(m *profile2.EducationModel) *profile.EducationDTO {
 			End:   m.EndEdu,
 		},
 		Description: m.Description,
+		CreatedAt:   m.CreatedAt,
+		UpdatedAt:   m.UpdatedAt,
 	}
 	return data
 }
@@ -36,6 +38,8 @@ func EntityEducationToModel(m *profile.Education) *profile2.EducationModel {
 		StartEdu:       m.GetStartEducation(),
 		EndEdu:         m.GetEndEducation(),
 		Description:    m.GetDescription(),
+		CreatedAt:      m.GetCreatedAt(),
+		UpdatedAt:      m.GetUpdatedAt(),
 	}
 
 	return data
