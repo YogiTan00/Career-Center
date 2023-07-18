@@ -59,9 +59,7 @@ func GetProfileResponse(dto *profile.ProfileUserDTO, cfg config.Config) *Profile
 			listEducation = append(listEducation, education)
 		}
 
-		urlPhotos := ""
-		urlCvResume := ""
-		urlPortofolio := ""
+		var urlPhotos, urlCvResume, urlPortofolio string
 		if dto.Photo != "" {
 			urlPhotos = cfg.DOMAIN + cfg.PATH_IMAGE_UPLOAD_META + dto.Photo
 		}
