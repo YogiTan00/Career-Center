@@ -10,10 +10,11 @@ import (
 )
 
 func (j JobsMysqlInteractor) CreateJob(ctx context.Context, data *entity.Jobs) error {
+	var err error
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	err := dbq.Tx(ctx, j.DbConn, func(tx interface{}, Q dbq.QFn, E dbq.EFn, txCommit dbq.TxCommit) {
+	err = dbq.Tx(ctx, j.DbConn, func(tx interface{}, Q dbq.QFn, E dbq.EFn, txCommit dbq.TxCommit) {
 		postModelStruct := mapper.DomainJobToInterface(data)
 
 		stmt := dbq.INSERTStmt(models.GetTableNameJobs(), models.TableJob(), len(postModelStruct), dbq.MySQL)
@@ -21,7 +22,7 @@ func (j JobsMysqlInteractor) CreateJob(ctx context.Context, data *entity.Jobs) e
 		_, errStore := E(ctx, stmt, nil, postModelStruct)
 
 		if errStore != nil {
-			panic(errStore)
+			err = errStore
 		}
 
 		_ = txCommit()

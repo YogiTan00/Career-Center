@@ -10,9 +10,10 @@ import (
 )
 
 func (p ProfileMysqlInteractor) CreateEducation(ctx context.Context, education *profile.Education) error {
+	var err error
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
-	err := dbq.Tx(ctx, p.DbConn, func(tx interface{}, Q dbq.QFn, E dbq.EFn, txCommit dbq.TxCommit) {
+	err = dbq.Tx(ctx, p.DbConn, func(tx interface{}, Q dbq.QFn, E dbq.EFn, txCommit dbq.TxCommit) {
 		postModelStruct := profile2.DomainEducationToInterface(education)
 
 		stmt := dbq.INSERTStmt(profile3.GetTableNameEducation(), profile3.TableEducation(), len(postModelStruct), dbq.MySQL)
@@ -20,7 +21,7 @@ func (p ProfileMysqlInteractor) CreateEducation(ctx context.Context, education *
 		_, errStore := E(ctx, stmt, nil, postModelStruct)
 
 		if errStore != nil {
-			panic(errStore)
+			err = errStore
 		}
 
 		_ = txCommit()
