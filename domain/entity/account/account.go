@@ -11,15 +11,14 @@ import (
 )
 
 type Account struct {
-	id         string
-	email      string
-	name       string
-	password   string
-	role       valueobject.TypeRoles
-	createdAt  time.Time
-	updatedAt  time.Time
-	deletedAt  time.Time
-	registerBy string
+	id        string
+	email     string
+	name      string
+	password  string
+	role      valueobject.TypeRoles
+	createdAt time.Time
+	updatedAt time.Time
+	deletedAt time.Time
 }
 
 type AccountDTO struct {
@@ -33,7 +32,6 @@ type AccountDTO struct {
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 	DeletedAt  time.Time
-	RegisterBy string
 }
 
 func NewAccount(dto *AccountDTO) (*Account, error) {
@@ -47,15 +45,14 @@ func NewAccount(dto *AccountDTO) (*Account, error) {
 		dto.UpdatedAt = timeNow
 	}
 	return &Account{
-		id:         uuid.NewString(),
-		email:      dto.Email,
-		name:       dto.Name,
-		password:   dto.Password,
-		role:       dto.Role,
-		createdAt:  dto.CreatedAt,
-		updatedAt:  dto.UpdatedAt,
-		deletedAt:  dto.DeletedAt,
-		registerBy: dto.RegisterBy,
+		id:        uuid.NewString(),
+		email:     dto.Email,
+		name:      dto.Name,
+		password:  dto.Password,
+		role:      dto.Role,
+		createdAt: dto.CreatedAt,
+		updatedAt: dto.UpdatedAt,
+		deletedAt: dto.DeletedAt,
 	}, nil
 }
 
@@ -94,13 +91,6 @@ func (g *Account) GetUpdatedAt() time.Time {
 }
 func (g *Account) GetDeletedAt() time.Time {
 	return g.deletedAt
-}
-func (g *Account) GetRegisterBy() string {
-	return g.registerBy
-}
-
-func (g *Account) SetRegisterBy(email string) {
-	g.registerBy = email
 }
 
 type Login struct {
