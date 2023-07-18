@@ -54,6 +54,32 @@ func (_m *RepoAccount) GetByEmail(ctx context.Context, email string) (*account.A
 	return r0, r1
 }
 
+// GetOTP provides a mock function with given fields: ctx, email
+func (_m *RepoAccount) GetOTP(ctx context.Context, email string) (*account.CodeOTP, error) {
+	ret := _m.Called(ctx, email)
+
+	var r0 *account.CodeOTP
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, string) (*account.CodeOTP, error)); ok {
+		return rf(ctx, email)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, string) *account.CodeOTP); ok {
+		r0 = rf(ctx, email)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*account.CodeOTP)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
+		r1 = rf(ctx, email)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // RemoveOTP provides a mock function with given fields: ctx, email
 func (_m *RepoAccount) RemoveOTP(ctx context.Context, email string) error {
 	ret := _m.Called(ctx, email)
