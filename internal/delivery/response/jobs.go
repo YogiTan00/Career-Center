@@ -22,6 +22,7 @@ type DetailJobResponse struct {
 	Position       string `json:"position"`
 	Company        string `json:"company"`
 	Logo           string `json:"logo"`
+	UrlLogo        string `json:"urlLogo"`
 	Address        string `json:"address"`
 	Status         bool   `json:"status"`
 	ApplyDate      string `json:"applyDate"`

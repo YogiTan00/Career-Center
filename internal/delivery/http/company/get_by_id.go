@@ -33,7 +33,8 @@ func (h *CompanyHandler) GetCompanyById(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	companyResponse := response.GetCompanyProfileResponse(company, jobs)
+	companyResponse := response.GetCompanyProfileResponse(company, jobs, h.cfg)
+	fmt.Println(companyResponse.UrlLogo)
 	helper.ResponseInterface(w, "success get profile company", companyResponse, http.StatusOK)
 	log.InfoWithData("success Get profile compan", nil)
 	return

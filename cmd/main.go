@@ -48,7 +48,7 @@ var (
 
 	repoCompany    = company.NewCompanyMysqlInteractor(mysqlConn)
 	useCaseCompany = company2.NewCompanyUsecase(repoCompany, repoJobs)
-	handlerCompany = company3.NewUseCaseCompanyHandler(useCaseCompany)
+	handlerCompany = company3.NewUseCaseCompanyHandler(useCaseCompany, configEnv)
 )
 
 func main() {
