@@ -38,7 +38,7 @@ func (h *CompanyHandler) GetListCompany(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	companyResponse := response.GetListCompanyResponse(company)
+	companyResponse := response.GetListCompanyResponse(company, h.cfg)
 	helper.ResponseInterface(w, "success get list company", companyResponse, http.StatusOK)
 	log.InfoWithData("success login", companyResponse)
 	return
