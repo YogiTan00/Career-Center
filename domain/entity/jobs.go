@@ -99,7 +99,6 @@ func (dto *JobsDTO) SetUpdate(data *JobsDTO) *Jobs {
 		category:       data.Category,
 		createdAt:      dto.CreatedAt,
 		updatedAt:      timeNow,
-		deletedAt:      dto.DeletedAt,
 	}
 }
 
