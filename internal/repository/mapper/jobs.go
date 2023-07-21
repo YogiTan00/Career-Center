@@ -20,7 +20,6 @@ func EntityToModelJobs(m *entity.Jobs) *models.JobsModel {
 		Category:       m.GetCategory(),
 		CreatedAt:      m.GetCreatedAt(),
 		UpdatedAt:      m.GetUpdateAt(),
-		DeletedAt:      m.GetDeletedAt(),
 	}
 }
 
