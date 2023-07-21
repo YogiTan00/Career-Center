@@ -63,7 +63,7 @@ func main() {
 	r.HandleFunc("/v1/change/password", handlerAccount.ChangePassword).Methods(http.MethodPost)
 	r.HandleFunc("/v1/logout", handlerAccount.Logout).Methods(http.MethodPost)
 	r.HandleFunc("/v1/forget-password", handlerAccount.ForgetPassword).Methods(http.MethodPost)
-	r.HandleFunc("/v1/update/forget-password", handlerAccount.ForgetPasswordUpdate).Methods(http.MethodPost)
+	r.HandleFunc("/v1/update/forget-password", handlerAccount.ForgetPasswordUpdate).Methods(http.MethodPut)
 	r.HandleFunc("/v1/otp/submit", handlerAccount.SubmitOtp).Methods(http.MethodPost)
 	//Handler Jobs
 	r.HandleFunc("/v1/list-jobs", handlerJobs.GetListJob).Methods(http.MethodGet)
@@ -91,9 +91,10 @@ func main() {
 	//Handler Admin
 	r.HandleFunc("/v1/admin/change-role", handlerAccount.ChangeRoleByAdmin).Methods(http.MethodPut)
 	r.HandleFunc("/v1/admin/job", handlerJobs.CreateJob).Methods(http.MethodPost)
-	r.HandleFunc("/v1/admin/update/{job_id}", handlerJobs.UpdateJob).Methods(http.MethodPut)
+	r.HandleFunc("/v1/admin/update/job/{job_id}", handlerJobs.UpdateJob).Methods(http.MethodPut)
 	r.HandleFunc("/v1/admin/delete/{job_id}", handlerJobs.DeleteJob).Methods(http.MethodDelete)
 	r.HandleFunc("/v1/admin/applicant/{job_id}", handlerApplication.GetApplicant).Methods(http.MethodGet)
+	r.HandleFunc("/v1/admin/update/status-applicant", handlerApplication.UpdateStatusApplicant).Methods(http.MethodPut)
 
 	fmt.Println("Career Center Running....")
 	originsOk := handlers.AllowedOrigins([]string{"*"})

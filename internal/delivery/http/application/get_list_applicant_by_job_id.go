@@ -1,11 +1,13 @@
 package application
 
 import (
+	"CareerCenter/internal/delivery/response"
 	"CareerCenter/logger"
 	"CareerCenter/utils"
 	"CareerCenter/utils/exceptions"
 	"CareerCenter/utils/helper"
 	"context"
+	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 )
@@ -15,7 +17,7 @@ func (h *ApplicationHandler) GetApplicant(w http.ResponseWriter, r *http.Request
 		ctx   = context.TODO()
 		vars  = mux.Vars(r)
 		jobId = vars["job_id"]
-		log   = logger.NewLogger("/v1/admin/applicant/{job_id}")
+		log   = logger.NewLogger(fmt.Sprintf("/v1/admin/applicant/%s", jobId))
 	)
 
 	user, errToken := utils.ValidateTokenFromHeader(r)
@@ -37,7 +39,9 @@ func (h *ApplicationHandler) GetApplicant(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	helper.ResponseInterface(w, "success get application by job id", application, http.StatusOK)
+	result := response.ResponseListApplicantByJobId(application)
+
+	helper.ResponseInterface(w, "success get application by job id", result, http.StatusOK)
 	log.InfoWithData("success get application by job id", nil)
 	return
 }

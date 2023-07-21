@@ -14,6 +14,8 @@ type ApplicationModel struct {
 	Portofolio  string    `dbq:"portofolio"`
 	CreatedAt   time.Time `dbq:"created_at"`
 	UpdateAt    time.Time `dbq:"updated_at"`
+	DeletedAt   time.Time `dbq:"deleted_at"`
+	Status      string    `dbq:"status"`
 }
 
 func GetTableNameApplication() string {
@@ -33,5 +35,7 @@ func TableApplication() []string {
 		"portofolio",
 		"created_at",
 		"updated_at",
+		"deleted_at",
+		"status",
 	}
 }

@@ -11,4 +11,5 @@ type RepoApplication interface {
 	GetListApplication(ctx context.Context) ([]*entity.ApplicationDTO, error)
 	GetByJobId(ctx context.Context, id string) ([]*entity.ApplicationDTO, error)
 	GetListByEmail(ctx context.Context, email string) ([]*entity.ApplicationDTO, error)
+	UpdateStatusById(ctx context.Context, applicant *entity.StatusApplicantRequest) error
 }

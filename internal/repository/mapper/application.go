@@ -2,6 +2,7 @@ package mapper
 
 import (
 	"CareerCenter/domain/entity"
+	"CareerCenter/domain/valueobject"
 	"CareerCenter/internal/repository/models"
 	"github.com/rocketlaunchr/dbq/v2"
 )
@@ -23,6 +24,8 @@ func EntityApplicationToModel(m *entity.Application) *models.ApplicationModel {
 }
 
 func ModelApplicationToEntity(m *models.ApplicationModel) *entity.ApplicationDTO {
+	status := valueobject.NewTypeStatusApplicantFromStringPointer(m.Status)
+
 	data := &entity.ApplicationDTO{
 		Id:          m.Id,
 		CompanyId:   m.CompanyId,
@@ -35,6 +38,8 @@ func ModelApplicationToEntity(m *models.ApplicationModel) *entity.ApplicationDTO
 		Portofolio:  m.Portofolio,
 		CreatedAt:   m.CreatedAt,
 		UpdatedAt:   m.UpdateAt,
+		DeletedAt:   m.DeletedAt,
+		Status:      status,
 	}
 	return data
 }
