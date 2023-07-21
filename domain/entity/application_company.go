@@ -2,6 +2,7 @@ package entity
 
 import (
 	"CareerCenter/domain/entity/profile"
+	"CareerCenter/domain/valueobject"
 	"CareerCenter/utils"
 	"github.com/google/uuid"
 	"time"
@@ -10,6 +11,11 @@ import (
 type ApplicationRequest struct {
 	CompanyId string
 	JobId     string
+}
+
+type StatusApplicantRequest struct {
+	Id     string
+	Status *valueobject.TypeStatusApplicant
 }
 
 type Application struct {
@@ -38,28 +44,9 @@ type ApplicationDTO struct {
 	Portofolio  string
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
+	DeletedAt   time.Time
+	Status      *valueobject.TypeStatusApplicant
 }
-
-//func NewApplication(dto *ApplicationDTO) (*Application, error) {
-//	id, err := uuid.NewUUID()
-//	if err != nil {
-//		return nil, err
-//	}
-//	timeNow := time.Now()
-//	return &Application{
-//		id:          id.String(),
-//		companyId:   dto.CompanyId,
-//		jobId:       dto.JobId,
-//		email:       dto.Email,
-//		name:        dto.Name,
-//		skill:       dto.Skill,
-//		phoneNumber: dto.PhoneNumber,
-//		cvResume:    dto.CvResume,
-//		portofolio:  dto.Portofolio,
-//		createdAt:   timeNow,
-//		updatedAt:   timeNow,
-//	}, nil
-//}
 
 func NewApplicationFromProfile(dto *profile.ProfileUserDTO, apply *ApplicationRequest) (*Application, error) {
 	id, err := uuid.NewUUID()
