@@ -7,4 +7,5 @@ import (
 
 type UseCasApplication interface {
 	SendApplication(ctx context.Context, email string, apply *entity.ApplicationRequest) error
+	GetApplicantByJobId(ctx context.Context, jobId string) ([]*entity.ApplicationDTO, error)
 }
