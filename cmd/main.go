@@ -47,7 +47,7 @@ var (
 	handlerApplication = application3.NewUseCaseApplicationHandler(useCaseApplication)
 
 	repoCompany    = company.NewCompanyMysqlInteractor(mysqlConn)
-	useCaseCompany = company2.NewCompanyUsecase(repoCompany, repoJobs)
+	useCaseCompany = company2.NewCompanyUsecase(repoCompany, repoJobs, repoProfile)
 	handlerCompany = company3.NewUseCaseCompanyHandler(useCaseCompany, configEnv)
 )
 
@@ -91,16 +91,16 @@ func main() {
 	//Handler Admin
 	r.HandleFunc("/v1/admin/change-role", handlerAccount.ChangeRoleByAdmin).Methods(http.MethodPut)
 	r.HandleFunc("/v1/admin/job", handlerJobs.CreateJob).Methods(http.MethodPost)
-	r.HandleFunc("/v1/admin/update/job/{job_id}", handlerJobs.UpdateJob).Methods(http.MethodPut)
+	r.HandleFunc("/v1/admin/company", handlerCompany.CreatCompany).Methods(http.MethodPost)
+	r.HandleFunc("/v1/admin/update-job/{job_id}", handlerJobs.UpdateJob).Methods(http.MethodPut)
 	r.HandleFunc("/v1/admin/delete/{job_id}", handlerJobs.DeleteJob).Methods(http.MethodDelete)
 	r.HandleFunc("/v1/admin/applicant/{job_id}", handlerApplication.GetApplicant).Methods(http.MethodGet)
 	r.HandleFunc("/v1/admin/update/status-applicant", handlerApplication.UpdateStatusApplicant).Methods(http.MethodPut)
 
 	fmt.Println("Career Center Running....")
 	originsOk := handlers.AllowedOrigins([]string{"*"})
-	headersOk := handlers.AllowedHeaders([]string{"Content-Type", "Accept=Language", "Authorization", "X-Requested-With", "Ciam-Type",
-		"X-Device", "X-App-Version", "Channel", "Device-Brand", "promo-config"})
-	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
+	headersOk := handlers.AllowedHeaders([]string{"Content-Type", "Accept-Language", "Authorization"})
+	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"})
 	credsOk := handlers.AllowCredentials()
 
 	err := http.ListenAndServe(":9091", handlers.CORS(originsOk, headersOk, methodsOk, credsOk)(r))

@@ -4,7 +4,6 @@ import (
 	"CareerCenter/domain/entity/account"
 	"CareerCenter/internal/repository/mapper"
 	"CareerCenter/internal/repository/models"
-	"CareerCenter/utils/exceptions"
 	"context"
 	"fmt"
 	"time"
@@ -24,10 +23,8 @@ func (l AccountMysqlInteractor) GetByEmail(ctx context.Context, email string) (*
 	}
 
 	result := dbq.MustQ(ctx, l.DbConn, stmt, opts, email)
-	if result == nil {
-		return nil, exceptions.ErrorWrongEmailorPassword
-	}
-	account := mapper.ModelToEntity(result.(*models.AccountModel))
 
-	return account, nil
+	accountMapper := mapper.ModelToEntity(result.(*models.AccountModel))
+
+	return accountMapper, nil
 }
