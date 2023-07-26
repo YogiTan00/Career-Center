@@ -3,6 +3,8 @@ package company
 import (
 	"CareerCenter/internal/delivery/request"
 	"CareerCenter/logger"
+	"CareerCenter/utils"
+	"CareerCenter/utils/exceptions"
 	"CareerCenter/utils/helper"
 	"context"
 	"encoding/json"
@@ -20,6 +22,19 @@ func (h *CompanyHandler) CreatCompany(w http.ResponseWriter, r *http.Request) {
 	if errDecode != nil {
 		helper.ResponseErr(w, errDecode, http.StatusInternalServerError)
 		log.Error(errDecode)
+		return
+	}
+
+	user, errToken := utils.ValidateTokenFromHeader(r)
+	if errToken != nil {
+		helper.ResponseErr(w, errToken, http.StatusUnauthorized)
+		log.Error(errToken)
+		return
+	}
+
+	if !user.Admin() {
+		helper.ResponseErr(w, exceptions.Unauthorized, http.StatusUnauthorized)
+		log.Error(exceptions.Unauthorized)
 		return
 	}
 

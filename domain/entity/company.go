@@ -3,6 +3,7 @@ package entity
 import (
 	"CareerCenter/domain/entity/profile"
 	"CareerCenter/domain/valueobject"
+	"CareerCenter/utils"
 	"CareerCenter/utils/exceptions"
 	"github.com/google/uuid"
 	"time"
@@ -80,7 +81,28 @@ func (dto *CompanyDTO) Validation() error {
 		return exceptions.ErrIsRequire("email")
 	}
 
+	email := utils.ValitEmail(dto.Email)
+	if email != true {
+		return exceptions.ErrCustomString("error format email")
+	}
+
 	return nil
+}
+
+func (dto *CompanyDTO) SetUpdateCompany(data *CompanyDTO) *Company {
+	about := NewAboutCompany(data.About)
+	timeNow := time.Now()
+	return &Company{
+		id:          dto.Id,
+		email:       data.Email,
+		name:        data.Name,
+		typeCompany: data.TypeCompany,
+		address:     data.Address,
+		logo:        data.Logo,
+		about:       about,
+		createdAt:   dto.CreatedAt,
+		updatedAt:   timeNow,
+	}
 }
 
 func (data *Company) GetId() string {

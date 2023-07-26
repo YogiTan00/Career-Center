@@ -2,6 +2,7 @@ package handler
 
 import (
 	"CareerCenter/logger"
+	"CareerCenter/pkg/config"
 	"fmt"
 	"net/http"
 )
@@ -17,9 +18,10 @@ func ParamHandlerWithoutInput(w http.ResponseWriter, r *http.Request) {
 
 func GetImage(w http.ResponseWriter, r *http.Request) {
 	var (
+		cfg config.Config
 		log = logger.NewLogger("/v1/photo")
 	)
-	filename := "uploads/image/" + r.URL.Query().Get("filename")
+	filename := cfg.PATH_IMAGE_UPLOAD + r.URL.Query().Get("filename")
 	http.ServeFile(w, r, filename)
 	w.WriteHeader(http.StatusOK)
 	log.InfoWithData("get image", filename)
@@ -27,9 +29,10 @@ func GetImage(w http.ResponseWriter, r *http.Request) {
 
 func GetPdf(w http.ResponseWriter, r *http.Request) {
 	var (
+		cfg config.Config
 		log = logger.NewLogger("/v1/pdf")
 	)
-	filename := "uploads/pdf/" + r.URL.Query().Get("filename")
+	filename := cfg.PATH_FILE_UPLOAD + r.URL.Query().Get("filename")
 	http.ServeFile(w, r, filename)
 	w.WriteHeader(http.StatusOK)
 	log.InfoWithData("get pdf", filename)

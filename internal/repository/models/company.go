@@ -35,6 +35,6 @@ func TableCompany() []string {
 		"website",
 		"location",
 		"created_at",
-		"update_at",
+		"updated_at",
 	}
 }
