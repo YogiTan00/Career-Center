@@ -12,7 +12,7 @@ func (c CompanyMysqlInteractor) DeleteCompanyById(ctx context.Context, companyId
 	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 
-	query := fmt.Sprintf("DELETE FROM %s WHERE id = ?", models.GetTableNameJobs())
+	query := fmt.Sprintf("DELETE FROM %s WHERE id = ?", models.GetTableNameCompany())
 
 	_, err := dbq.E(ctx, c.DbConn, query, nil, companyId)
 
