@@ -6,15 +6,16 @@ import (
 	"CareerCenter/internal/repository/models"
 	"context"
 	"fmt"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (c CompanyMysqlInteractor) GetCompanyById(ctx context.Context, id string) (*entity.CompanyDTO, error) {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE id = ?`, models.GetTableNameCompany())
+	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE id = ? AND deleted_at IS NULL `, models.GetTableNameCompany())
 	opts := &dbq.Options{
 		SingleResult:   true,
 		ConcreteStruct: models.CompanyModel{},

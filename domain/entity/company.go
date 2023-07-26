@@ -5,8 +5,9 @@ import (
 	"CareerCenter/domain/valueobject"
 	"CareerCenter/utils"
 	"CareerCenter/utils/exceptions"
-	"github.com/google/uuid"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type Company struct {
@@ -20,6 +21,7 @@ type Company struct {
 	jobs        []*Jobs
 	createdAt   time.Time
 	updatedAt   time.Time
+	deletedAt   time.Time
 }
 
 type About struct {
@@ -63,6 +65,7 @@ func NewCompany(dto *CompanyDTO) (*Company, error) {
 	}
 	about := NewAboutCompany(dto.About)
 	timeNow := time.Now()
+
 	return &Company{
 		id:          uuid.New().String(),
 		email:       dto.Email,
@@ -73,6 +76,7 @@ func NewCompany(dto *CompanyDTO) (*Company, error) {
 		about:       about,
 		createdAt:   timeNow,
 		updatedAt:   timeNow,
+		deletedAt:   dto.DeletedAt,
 	}, nil
 }
 
@@ -131,6 +135,9 @@ func (data *Company) GetCreatedAt() time.Time {
 }
 func (data *Company) GetUpdateAt() time.Time {
 	return data.updatedAt
+}
+func (data *Company) GetDeletedAt() time.Time {
+	return data.deletedAt
 }
 
 func (data *About) GetProfile() string {

@@ -4,6 +4,7 @@ import (
 	"CareerCenter/domain/entity"
 	"CareerCenter/domain/valueobject"
 	"CareerCenter/internal/repository/models"
+
 	"github.com/rocketlaunchr/dbq/v2"
 )
 
@@ -39,7 +40,6 @@ func ModelToEntityCompany(m *models.CompanyModel) *entity.CompanyDTO {
 		},
 		CreatedAt: m.CreatedAt,
 		UpdatedAt: m.UpdatedAt,
-		DeletedAt: m.DeletedAt,
 	}
 }
 
