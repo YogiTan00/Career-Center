@@ -14,7 +14,7 @@ func (a ApplicationMysqlInteractor) GetListByEmail(ctx context.Context, email st
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ? AND deleted_at IS NULL `, models.GetTableNameApplication())
+	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ?`, models.GetTableNameApplication())
 	opts := &dbq.Options{
 		SingleResult:   false,
 		ConcreteStruct: models.ApplicationModel{},

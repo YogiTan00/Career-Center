@@ -17,7 +17,7 @@ func (j JobsMysqlInteractor) GetListJobs(ctx context.Context, typeSearch *valueo
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 	fil := repository.TxQuery(typeSearch, f)
-	stmt := fmt.Sprintf(`SELECT * FROM %s %s AND deleted_at IS NULL `, models.GetTableNameJobs(), fil)
+	stmt := fmt.Sprintf(`SELECT * FROM %s %s`, models.GetTableNameJobs(), fil)
 
 	opts := &dbq.Options{
 		SingleResult:   false,
