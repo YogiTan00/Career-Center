@@ -13,7 +13,7 @@ func (u UseCaseJobsInteractor) UpdateJob(ctx context.Context, id string, dto *en
 		return err
 	}
 	if job == nil {
-		return exceptions.ErrCustomString("cant update because data not found")
+		return exceptions.ErrCantUpdate
 	}
 
 	err = u.repoJobs.UpdateJobById(ctx, job.SetUpdate(dto))

@@ -25,6 +25,7 @@ type CompanyProfileResponse struct {
 	Jobs        []*DetailJobResponse `json:"jobs"`
 	CreatedAt   string               `json:"createdAt"`
 	UpdatedAt   string               `json:"updatedAt"`
+	DeletedAt   string               `json:"deletedAt"`
 }
 
 type AboutResponse struct {
@@ -95,5 +96,6 @@ func GetCompanyProfileResponse(dto *entity.CompanyDTO, dtoJobs []*entity.JobsDTO
 		Jobs:      jobs,
 		CreatedAt: dto.CreatedAt.String(),
 		UpdatedAt: dto.UpdatedAt.String(),
+		DeletedAt: dto.DeletedAt.String(),
 	}
 }

@@ -18,8 +18,8 @@ func (c CompanyMysqlInteractor) GetListCompany(ctx context.Context, typeSearch *
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	filter := repository.TxQuery(typeSearch, f)
-	stmt := fmt.Sprintf(`SELECT * FROM %s %s`, models.GetTableNameCompany(), filter)
+	fil := repository.TxQuery(typeSearch, f)
+	stmt := fmt.Sprintf(`SELECT * FROM %s %s AND deleted_at IS NULL `, models.GetTableNameCompany(), fil)
 
 	opts := &dbq.Options{
 		SingleResult:   false,

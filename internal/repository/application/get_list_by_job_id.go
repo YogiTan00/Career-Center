@@ -14,7 +14,7 @@ func (a ApplicationMysqlInteractor) GetByJobId(ctx context.Context, id string) (
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	stmt := fmt.Sprintf(`SELECT * FROM %s where job_id = ?`, models.GetTableNameApplication())
+	stmt := fmt.Sprintf(`SELECT * FROM %s where job_id = ? AND deleted_at IS NULL `, models.GetTableNameApplication())
 	opts := &dbq.Options{
 		SingleResult:   false,
 		ConcreteStruct: models.ApplicationModel{},

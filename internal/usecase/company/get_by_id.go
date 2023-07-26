@@ -4,6 +4,7 @@ import (
 	"CareerCenter/domain/entity"
 	"CareerCenter/utils"
 	"context"
+	"errors"
 )
 
 func (u UseCaseCompanyInteractor) GetCompanyById(ctx context.Context, id string) (*entity.CompanyDTO, []*entity.JobsDTO, error) {
@@ -14,6 +15,10 @@ func (u UseCaseCompanyInteractor) GetCompanyById(ctx context.Context, id string)
 	data, err := u.repoCompany.GetCompanyById(ctx, uuid)
 	if err != nil {
 		return nil, nil, err
+	}
+
+	if data == nil {
+		return nil, nil, errors.New("company not found")
 	}
 
 	dataJobs, err := u.repoJobs.GetJobByCompanyId(ctx, uuid)

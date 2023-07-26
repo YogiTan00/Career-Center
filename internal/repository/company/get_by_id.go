@@ -6,8 +6,9 @@ import (
 	"CareerCenter/internal/repository/models"
 	"context"
 	"fmt"
-	"github.com/rocketlaunchr/dbq/v2"
 	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 func (c CompanyMysqlInteractor) GetCompanyById(ctx context.Context, id string) (*entity.CompanyDTO, error) {
