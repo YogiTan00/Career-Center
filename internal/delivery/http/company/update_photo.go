@@ -1,17 +1,22 @@
-package profile
+package company
 
 import (
 	"CareerCenter/logger"
 	"CareerCenter/utils"
+	"CareerCenter/utils/exceptions"
 	"CareerCenter/utils/helper"
 	"context"
+	"fmt"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
-func (h *ProfileHandler) UpdatePhotoProfile(w http.ResponseWriter, r *http.Request) {
+func (h *CompanyHandler) UpdateLogoCompany(w http.ResponseWriter, r *http.Request) {
 	var (
-		ctx = context.TODO()
-		log = logger.NewLogger("/v1/profile/update-photo")
+		ctx       = context.TODO()
+		vars      = mux.Vars(r)
+		companyId = vars["company_id"]
+		log       = logger.NewLogger(fmt.Sprintf("/v1/admin/update-logo/%s", companyId))
 	)
 
 	user, errToken := utils.ValidateTokenFromHeader(r)
@@ -21,14 +26,20 @@ func (h *ProfileHandler) UpdatePhotoProfile(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	path, errUpload := utils.UploadPhotoProfile(user.Email, r, h.cfg)
+	if !user.Admin() {
+		helper.ResponseErr(w, exceptions.Unauthorized, http.StatusUnauthorized)
+		log.Error(exceptions.Unauthorized)
+		return
+	}
+
+	path, errUpload := utils.UploadImage(companyId, "Logo", r, h.cfg)
 	if errUpload != nil {
 		helper.ResponseErr(w, errUpload, http.StatusBadRequest)
 		log.Error(errUpload)
 		return
 	}
 
-	err := h.UCProfile.UpdatePhotoProfile(ctx, user.Email, path)
+	err := h.UCCompany.UpdateLogoCompany(ctx, companyId, path)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.Error(err)
