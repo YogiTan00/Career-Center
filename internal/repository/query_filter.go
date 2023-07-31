@@ -14,10 +14,10 @@ func TxQuery(typeSearch *valueobject.TypeSearch, f *filter.Filter) string {
 			like := "%" + f.GetQ() + "%"
 			if typeSearch.StringSearch() == string(valueobject.JOBS) {
 				if f.GetStatus() == true {
-					tx := fmt.Sprintf("WHERE position like '%s' and status = 1", like)
+					tx := fmt.Sprintf("WHERE position like '%s' and status = 1 AND deleted_at IS NULL ", like)
 					result = append(result, tx)
 				} else {
-					tx := fmt.Sprintf("WHERE position like '%s' and status = 0", like)
+					tx := fmt.Sprintf("WHERE position like '%s' and status = 0 AND deleted_at IS NULL ", like)
 					result = append(result, tx)
 				}
 			} else if typeSearch.StringSearch() == string(valueobject.COMPANY) {
@@ -30,7 +30,7 @@ func TxQuery(typeSearch *valueobject.TypeSearch, f *filter.Filter) string {
 		if typeSearch != nil {
 			if typeSearch.StringSearch() == string(valueobject.JOBS) {
 				if f.GetStatus() == true {
-					tx := fmt.Sprintf("WHERE status = 1")
+					tx := fmt.Sprintf("WHERE status = 1 AND deleted_at IS NULL ")
 					result = append(result, tx)
 				}
 			}
@@ -53,6 +53,7 @@ func TxQuery(typeSearch *valueobject.TypeSearch, f *filter.Filter) string {
 			}
 		}
 	}
+
 	tx := strings.Join(result, " ")
 	return tx
 }
