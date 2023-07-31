@@ -92,6 +92,7 @@ func main() {
 	r.HandleFunc("/v1/admin/change-role", handlerAccount.ChangeRoleByAdmin).Methods(http.MethodPut)
 	r.HandleFunc("/v1/admin/job", handlerJobs.CreateJob).Methods(http.MethodPost)
 	r.HandleFunc("/v1/admin/company", handlerCompany.CreatCompany).Methods(http.MethodPost)
+	r.HandleFunc("/v1/admin/update-logo/{company_id}", handlerCompany.UpdateLogoCompany).Methods(http.MethodPut)
 	r.HandleFunc("/v1/admin/update-company/{company_id}", handlerCompany.UpdateCompany).Methods(http.MethodPut)
 	r.HandleFunc("/v1/admin/delete-company/{company_id}", handlerCompany.DeleteJob).Methods(http.MethodDelete)
 	r.HandleFunc("/v1/admin/update-job/{job_id}", handlerJobs.UpdateJob).Methods(http.MethodPut)

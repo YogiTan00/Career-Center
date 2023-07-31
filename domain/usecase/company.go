@@ -12,4 +12,5 @@ type UseCaseCompany interface {
 	GetCompanyById(ctx context.Context, id string) (*entity.CompanyDTO, []*entity.JobsDTO, error)
 	UpdateCompanyById(ctx context.Context, id string, dto *entity.CompanyDTO) error
 	DeleteCompanyById(ctx context.Context, companyId string) error
+	UpdateLogoCompany(ctx context.Context, companyId string, path string) error
 }

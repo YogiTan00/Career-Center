@@ -13,4 +13,5 @@ type RepoCompany interface {
 	GetCompanyById(ctx context.Context, id string) (*entity.CompanyDTO, error)
 	UpdateCompanyById(ctx context.Context, companyId string, company *entity.Company) error
 	DeleteCompanyById(ctx context.Context, companyId string) error
+	UpdateLogoCompanyById(ctx context.Context, companyId string, path string) error
 }
