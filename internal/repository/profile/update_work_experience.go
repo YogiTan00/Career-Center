@@ -13,7 +13,7 @@ func (p ProfileMysqlInteractor) UpdateWorkExperience(ctx context.Context, id str
 	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 
-	query := fmt.Sprintf("UPDATE %s SET skill_experience='%s', name= '%s', still_working= '%t', start_work= '%v' , end_work= '%v', description= '%s' WHERE id = '%s' ",
+	query := fmt.Sprintf("UPDATE %s SET skill_experience='%s', name= '%s', still_working= %t, start_work= '%v' , end_work= '%v', description= '%s' WHERE id = '%s' ",
 		profile2.GetTableNameWorkExperience(), workExp.GetSkillExperience(), workExp.GetName(), workExp.GetStillWorking(), workExp.GetStartWork(), workExp.GetEndWork(), workExp.GetDescription(), id)
 
 	_, err := dbq.E(ctx, p.DbConn, query, nil)
