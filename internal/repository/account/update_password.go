@@ -10,14 +10,13 @@ import (
 )
 
 func (l AccountMysqlInteractor) UpdatePassword(ctx context.Context, email string, password string) error {
+	timeNow := time.Now()
 	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
-	currentTime := time.Now()
-	formattedTime := currentTime.Format("2006-01-02 15:04:05")
 
-	query := fmt.Sprintf("UPDATE %s SET password = '%s', updated_at = '%s' WHERE email = '%s' ", models.GetTableNameAccount(), password, formattedTime, email)
+	query := fmt.Sprintf("UPDATE %s SET password = ?, updated_at = ? WHERE email = ? ", models.GetTableNameAccount())
 
-	_, err := dbq.E(ctx, l.DbConn, query, nil)
+	_, err := dbq.E(ctx, l.DbConn, query, nil, password, timeNow, email)
 
 	if err != nil {
 		return err

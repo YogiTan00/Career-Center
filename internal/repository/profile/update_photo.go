@@ -12,10 +12,9 @@ func (p ProfileMysqlInteractor) UpdatePhotoProfile(ctx context.Context, email st
 	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 
-	query := fmt.Sprintf("UPDATE %s SET photo ='%s' WHERE email = '%s' ",
-		profile.GetTableNameProfile(), path, email)
+	query := fmt.Sprintf("UPDATE %s SET photo = ? WHERE email = ? ", profile.GetTableNameProfile())
 
-	_, err := dbq.E(ctx, p.DbConn, query, nil)
+	_, err := dbq.E(ctx, p.DbConn, query, nil, path, email)
 
 	if err != nil {
 		return err

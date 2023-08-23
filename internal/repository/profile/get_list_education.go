@@ -13,7 +13,7 @@ import (
 func (p ProfileMysqlInteractor) GetListEducation(ctx context.Context, email string) ([]*profile.EducationDTO, error) {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
-	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ?  AND deleted_at IS NULL`, profile2.GetTableNameEducation())
+	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ? AND deleted_at IS NULL`, profile2.GetTableNameEducation())
 
 	opts := &dbq.Options{
 		SingleResult:   false,

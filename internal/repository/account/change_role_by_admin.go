@@ -13,9 +13,9 @@ func (r AccountMysqlInteractor) UpdateRole(ctx context.Context, data *account.Ac
 	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 
-	query := fmt.Sprintf("UPDATE %s SET role = '%s' WHERE email = '%s' ", models.GetTableNameAccount(), data.GetRole().StringRoles(), data.GetEmail())
+	query := fmt.Sprintf("UPDATE %s SET role = ? WHERE email = ? ", models.GetTableNameAccount())
 
-	_, err := dbq.E(ctx, r.DbConn, query, nil)
+	_, err := dbq.E(ctx, r.DbConn, query, nil, data.GetRole().StringRoles(), data.GetEmail())
 
 	if err != nil {
 		return err
