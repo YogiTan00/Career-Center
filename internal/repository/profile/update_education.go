@@ -13,8 +13,8 @@ func (p ProfileMysqlInteractor) UpdateEducation(ctx context.Context, id string, 
 	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 
-	query := fmt.Sprintf("UPDATE %s SET level='%s', name= '%s', major= '%s', still_education = '%t', start_education= '%v' , end_education= '%v', description= '%s' WHERE id = '%s' ",
-		profile2.GetTableNameEducation(), education.GetLevel(), education.GetName(), education.GetMajor(), education.GetStillEducation(), education.GetStartEducation(), education.GetEndEducation(), education.GetDescription(), id)
+	query := fmt.Sprintf("UPDATE %s SET level='%s', name= '%s', major= '%s', still_education = %t, start_education= '%v' , end_education= '%v', description= '%s' WHERE id = '%s' ",
+		profile2.GetTableNameEducation(), education.GetLevel().StringLevel(), education.GetName(), education.GetMajor(), education.GetStillEducation(), education.GetStartEducation(), education.GetEndEducation(), education.GetDescription(), id)
 
 	_, err := dbq.E(ctx, p.DbConn, query, nil)
 
