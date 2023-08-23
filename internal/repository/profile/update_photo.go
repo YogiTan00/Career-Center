@@ -9,12 +9,13 @@ import (
 )
 
 func (p ProfileMysqlInteractor) UpdatePhotoProfile(ctx context.Context, email string, path string) error {
+	timeNow := time.Now()
 	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 
-	query := fmt.Sprintf("UPDATE %s SET photo = ? WHERE email = ? ", profile.GetTableNameProfile())
+	query := fmt.Sprintf("UPDATE %s SET photo = ?, updated_at = ? WHERE email = ? ", profile.GetTableNameProfile())
 
-	_, err := dbq.E(ctx, p.DbConn, query, nil, path, email)
+	_, err := dbq.E(ctx, p.DbConn, query, nil, path, timeNow, email)
 
 	if err != nil {
 		return err
