@@ -13,10 +13,9 @@ func (p ProfileMysqlInteractor) UpdateProfile(ctx context.Context, email string,
 	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 
-	query := fmt.Sprintf("UPDATE %s SET name='%s', skill='%s', phone_number='%s', updated_at='%v' WHERE email = '%s' ",
-		profile2.GetTableNameProfile(), data.GetName(), data.GetSkill(), data.GetPhoneNumber(), data.GetUpdatedAt(), email)
+	query := fmt.Sprintf("UPDATE %s SET name = ?, skill = ?, phone_number = ?, updated_at = ? WHERE email = ? ", profile2.GetTableNameProfile())
 
-	_, err := dbq.E(ctx, p.DbConn, query, nil)
+	_, err := dbq.E(ctx, p.DbConn, query, nil, data.GetName(), data.GetSkill(), data.GetPhoneNumber(), data.GetUpdatedAt(), email)
 
 	if err != nil {
 		return err

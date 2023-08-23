@@ -12,7 +12,7 @@ func (c CompanyMysqlInteractor) UpdateLogoCompanyById(ctx context.Context, compa
 	timeNow := time.Now()
 	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
-	query := fmt.Sprintf("UPDATE %s SET logo= ?,updated_at = ? WHERE id = '%s' ", models.GetTableNameCompany(), companyId)
+	query := fmt.Sprintf("UPDATE %s SET logo = ?,updated_at = ? WHERE id = '%s' ", models.GetTableNameCompany(), companyId)
 
 	_, err := dbq.E(ctx, c.DbConn, query, nil, path, timeNow)
 

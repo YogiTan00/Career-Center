@@ -14,10 +14,10 @@ func TxQuery(typeSearch *valueobject.TypeSearch, f *filter.Filter) string {
 			like := "%" + f.GetQ() + "%"
 			if typeSearch.StringSearch() == string(valueobject.JOBS) {
 				if f.GetStatus() == true {
-					tx := fmt.Sprintf("WHERE position like '%s' and status = 1 AND deleted_at IS NULL ", like)
+					tx := fmt.Sprintf("WHERE position like '%s' and status = 1 ", like)
 					result = append(result, tx)
 				} else {
-					tx := fmt.Sprintf("WHERE position like '%s' and status = 0 AND deleted_at IS NULL ", like)
+					tx := fmt.Sprintf("WHERE position like '%s' and status = 0 ", like)
 					result = append(result, tx)
 				}
 			} else if typeSearch.StringSearch() == string(valueobject.COMPANY) {
@@ -30,11 +30,17 @@ func TxQuery(typeSearch *valueobject.TypeSearch, f *filter.Filter) string {
 		if typeSearch != nil {
 			if typeSearch.StringSearch() == string(valueobject.JOBS) {
 				if f.GetStatus() == true {
-					tx := fmt.Sprintf("WHERE status = 1 AND deleted_at IS NULL ")
+					tx := fmt.Sprintf("WHERE status = 1 ")
 					result = append(result, tx)
 				}
 			}
 		}
+		if len(f.GetQ()) > 0 {
+			result = append(result, "AND deleted_at IS NULL")
+		} else {
+			result = append(result, "WHERE deleted_at IS NULL")
+		}
+
 		if f.GetLimit() > 0 {
 			tx := fmt.Sprintf("LIMIT %d", f.GetLimit())
 			result = append(result, tx)
@@ -43,6 +49,7 @@ func TxQuery(typeSearch *valueobject.TypeSearch, f *filter.Filter) string {
 			tx := fmt.Sprintf("OFFSET %d", f.GetPage())
 			result = append(result, tx)
 		}
+
 		if len(f.GetOrder()) > 0 {
 			if f.GetOrder() == "asc" || f.GetOrder() == "desc" {
 				tx := fmt.Sprintf("ORDER BY created_at %s", f.GetOrder())

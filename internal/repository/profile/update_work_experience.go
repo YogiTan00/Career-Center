@@ -10,13 +10,13 @@ import (
 )
 
 func (p ProfileMysqlInteractor) UpdateWorkExperience(ctx context.Context, id string, workExp *profile.WorkExperience) error {
+	timeNow := time.Now()
 	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 
-	query := fmt.Sprintf("UPDATE %s SET skill_experience='%s', name= '%s', still_working= '%t', start_work= '%v' , end_work= '%v', description= '%s' WHERE id = '%s' ",
-		profile2.GetTableNameWorkExperience(), workExp.GetSkillExperience(), workExp.GetName(), workExp.GetStillWorking(), workExp.GetStartWork(), workExp.GetEndWork(), workExp.GetDescription(), id)
+	query := fmt.Sprintf("UPDATE %s SET skill_experience = ?, name = ?, still_working = ?, start_work = ? , end_work = ?, description = ?, updated_at = ? WHERE id = ? ", profile2.GetTableNameWorkExperience())
 
-	_, err := dbq.E(ctx, p.DbConn, query, nil)
+	_, err := dbq.E(ctx, p.DbConn, query, nil, workExp.GetSkillExperience(), workExp.GetName(), workExp.GetStillWorking(), workExp.GetStartWork(), workExp.GetEndWork(), workExp.GetDescription(), workExp.GetUpdatedAt(), timeNow, id)
 
 	if err != nil {
 		return err

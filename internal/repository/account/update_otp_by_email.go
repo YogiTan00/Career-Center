@@ -10,16 +10,13 @@ import (
 )
 
 func (l AccountMysqlInteractor) UpdateOTP(ctx context.Context, email string, otp string) error {
+	timeExp := time.Now().Add(10 * time.Minute)
 	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 
-	currentTime := time.Now()
-	tenMinutesLater := currentTime.Add(10 * time.Minute)
-	formattedTime := tenMinutesLater.Format("2006-01-02 15:04:05")
+	query := fmt.Sprintf("UPDATE %s SET code_otp = ?, expired_otp = ? WHERE email = ? ", models.GetTableNameAccount())
 
-	query := fmt.Sprintf("UPDATE %s SET code_otp = '%s', expired_otp = '%s' WHERE email = '%s' ", models.GetTableNameAccount(), otp, formattedTime, email)
-
-	_, err := dbq.E(ctx, l.DbConn, query, nil)
+	_, err := dbq.E(ctx, l.DbConn, query, nil, otp, timeExp, email)
 
 	if err != nil {
 		return err

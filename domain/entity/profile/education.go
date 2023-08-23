@@ -49,7 +49,7 @@ func NewEducation(dto *EducationDTO) (*Education, error) {
 		return nil, err
 	}
 	dateRange := NewEduDateRange(dto.DateRange)
-	level := valueobject.NewTypeLevelFromString(dto.Major)
+	level := valueobject.NewTypeLevelFromString(dto.Level.StringLevel())
 	timeNow := time.Now()
 	return &Education{
 		id:             dto.Id,

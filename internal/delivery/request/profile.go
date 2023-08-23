@@ -77,18 +77,21 @@ func NewUpdateEducation(req *RequestEducation) (*profile.EducationDTO, error) {
 		endEdu   time.Time
 		err      error
 	)
-	if len(req.StartEdu) > 0 && len(req.EndEdu) > 0 {
+	if len(req.StartEdu) > 0 {
 		startEdu, err = utils.ToDate(req.StartEdu)
 		if err != nil {
 			return nil, err
 		}
-		endEdu, err = utils.ToDate(req.EndEdu)
+	}
+	if len(req.EndEdu) > 0 {
+		endEdu, _ = utils.ToDate(req.EndEdu)
 		if err != nil {
 			return nil, err
 		}
 	}
 
 	level := valueobject.NewTypeLevelFromString(req.Level)
+
 	return &profile.EducationDTO{
 		Level:          level,
 		Name:           req.Name,

@@ -14,12 +14,12 @@ import (
 
 func (h *ProfileHandler) UpdateEducation(w http.ResponseWriter, r *http.Request) {
 	var (
-		ctx              = context.TODO()
-		req              *request.RequestEducation
-		decoder          = json.NewDecoder(r.Body)
-		vars             = mux.Vars(r)
-		workExperienceId = vars["education_id"]
-		log              = logger.NewLogger(fmt.Sprintf("/v1/profile/update-education/%s", workExperienceId))
+		ctx         = context.TODO()
+		req         *request.RequestEducation
+		decoder     = json.NewDecoder(r.Body)
+		vars        = mux.Vars(r)
+		educationId = vars["education_id"]
+		log         = logger.NewLogger(fmt.Sprintf("/v1/profile/update-education/%s", educationId))
 	)
 
 	errDecode := decoder.Decode(&req)
@@ -43,7 +43,7 @@ func (h *ProfileHandler) UpdateEducation(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	err = h.UCProfile.UpdateEducation(ctx, workExperienceId, workExperience)
+	err = h.UCProfile.UpdateEducation(ctx, educationId, workExperience)
 	if err != nil {
 		helper.ResponseErr(w, err, http.StatusInternalServerError)
 		log.Error(err)
