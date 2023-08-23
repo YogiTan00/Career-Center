@@ -13,7 +13,7 @@ import (
 func (p ProfileMysqlInteractor) GetListWorkExperience(ctx context.Context, email string) ([]*profile.WorkExperienceDTO, error) {
 	ctx, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
-	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ?`, profile2.GetTableNameWorkExperience())
+	stmt := fmt.Sprintf(`SELECT * FROM %s WHERE email = ? AND deleted_at IS NULL`, profile2.GetTableNameWorkExperience())
 
 	opts := &dbq.Options{
 		SingleResult:   false,
