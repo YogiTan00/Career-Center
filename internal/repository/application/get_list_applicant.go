@@ -20,7 +20,10 @@ func (a ApplicationMysqlInteractor) GetListApplication(ctx context.Context) ([]*
 		ConcreteStruct: models.ApplicationModel{},
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
-	result := dbq.MustQ(ctx, a.DbConn, stmt, opts)
+	result, err := dbq.Q(ctx, a.DbConn, stmt, opts)
+	if err != nil {
+		return nil, err
+	}
 	if result == nil {
 		return nil, nil
 	}

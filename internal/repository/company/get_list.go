@@ -27,7 +27,10 @@ func (c CompanyMysqlInteractor) GetListCompany(ctx context.Context, typeSearch *
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
 
-	result := dbq.MustQ(ctx, c.DbConn, stmt, opts)
+	result, err := dbq.Q(ctx, c.DbConn, stmt, opts)
+	if err != nil {
+		return nil, err
+	}
 	if result == nil {
 		return nil, nil
 	}

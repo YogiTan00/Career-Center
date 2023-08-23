@@ -4,8 +4,8 @@ import (
 	"CareerCenter/domain/entity"
 	"CareerCenter/internal/repository/mapper"
 	"CareerCenter/internal/repository/models"
+	"CareerCenter/utils/exceptions"
 	"context"
-	"errors"
 	"fmt"
 	"github.com/rocketlaunchr/dbq/v2"
 	"time"
@@ -26,7 +26,7 @@ func (j JobsMysqlInteractor) GetJobById(ctx context.Context, id string) (*entity
 		return nil, err
 	}
 	if result == nil {
-		return nil, errors.New("job not found")
+		return nil, exceptions.ErrNotFound("job")
 	}
 
 	job := mapper.ModelToEntityJobs(result.(*models.JobsModel))

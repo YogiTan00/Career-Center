@@ -22,9 +22,12 @@ func (r AccountMysqlInteractor) GetOTP(ctx context.Context, email string) (*acco
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
 
-	result := dbq.MustQ(ctx, r.DbConn, stmt, opts, email)
-	if result == nil {
+	result, err := dbq.Q(ctx, r.DbConn, stmt, opts, email)
+	if err != nil {
 		return nil, exceptions.ErrorWrongEmailorPassword
+	}
+	if result == nil {
+		return nil, exceptions.ErrNotFound("email")
 	}
 
 	otp := mapper.ModelOTPToEntity(result.(*models.CodeOTP))

@@ -4,6 +4,7 @@ import (
 	"CareerCenter/domain/entity"
 	"CareerCenter/internal/repository/mapper"
 	"CareerCenter/internal/repository/models"
+	"CareerCenter/utils/exceptions"
 	"context"
 	"fmt"
 	"github.com/rocketlaunchr/dbq/v2"
@@ -20,9 +21,12 @@ func (a ApplicationMysqlInteractor) GetByEmail(ctx context.Context, email string
 		ConcreteStruct: models.ApplicationModel{},
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
-	result := dbq.MustQ(ctx, a.DbConn, stmt, opts, email)
+	result, err := dbq.Q(ctx, a.DbConn, stmt, opts, email)
+	if err != nil {
+		return nil, err
+	}
 	if result == nil {
-		return nil, nil
+		return nil, exceptions.ErrNotFound("email")
 	}
 
 	job := mapper.ModelApplicationToEntity(result.(*models.ApplicationModel))

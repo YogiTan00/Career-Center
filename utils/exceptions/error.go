@@ -21,3 +21,8 @@ func ErrIsRequire(msg string) error {
 	msg = fmt.Sprintf("%s is required", msg)
 	return errors.New(msg)
 }
+
+func ErrNotFound(msg string) error {
+	msg = fmt.Sprintf("%s not found", msg)
+	return errors.New(msg)
+}

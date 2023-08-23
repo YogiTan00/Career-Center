@@ -21,7 +21,10 @@ func (p ProfileMysqlInteractor) GetListWorkExperience(ctx context.Context, email
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
 
-	result := dbq.MustQ(ctx, p.DbConn, stmt, opts, email)
+	result, err := dbq.Q(ctx, p.DbConn, stmt, opts, email)
+	if err != nil {
+		return nil, err
+	}
 	if result == nil {
 		return nil, nil
 	}
