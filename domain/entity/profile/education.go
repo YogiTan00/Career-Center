@@ -103,6 +103,8 @@ func (dto *EducationDTO) Validation() error {
 				return exceptions.ErrorEndDate
 			}
 		}
+	} else {
+		dto.DateRange.End = time.Time{}
 	}
 
 	if dto.Level.StringLevel() == "" {
