@@ -97,6 +97,8 @@ func (dto *WorkExperienceDTO) Validation() error {
 				return exceptions.ErrorEndDate
 			}
 		}
+	} else {
+		dto.DateRange.End = time.Time{}
 	}
 
 	return nil
