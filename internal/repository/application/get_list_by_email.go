@@ -20,7 +20,10 @@ func (a ApplicationMysqlInteractor) GetListByEmail(ctx context.Context, email st
 		ConcreteStruct: models.ApplicationModel{},
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
-	result := dbq.MustQ(ctx, a.DbConn, stmt, opts, email)
+	result, err := dbq.Q(ctx, a.DbConn, stmt, opts, email)
+	if err != nil {
+		return nil, err
+	}
 	if result == nil {
 		return nil, nil
 	}

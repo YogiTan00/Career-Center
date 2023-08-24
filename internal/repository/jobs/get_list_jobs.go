@@ -25,7 +25,10 @@ func (j JobsMysqlInteractor) GetListJobs(ctx context.Context, typeSearch *valueo
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
 
-	result := dbq.MustQ(ctx, j.DbConn, stmt, opts)
+	result, err := dbq.Q(ctx, j.DbConn, stmt, opts)
+	if err != nil {
+		return nil, err
+	}
 	if result == nil {
 		return nil, nil
 	}

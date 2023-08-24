@@ -91,12 +91,14 @@ func (dto *WorkExperienceDTO) Validation() error {
 	if dto.DateRange.End.IsZero() && dto.StillWorking == false {
 		return exceptions.ErrCustomString("still working cant be false")
 	}
-
-	if !dto.DateRange.Start.IsZero() && !dto.DateRange.End.IsZero() {
-		if dto.DateRange.End.Unix() < dto.DateRange.Start.Unix() {
-			return exceptions.ErrorEndDate
+	if dto.StillWorking != true {
+		if !dto.DateRange.Start.IsZero() && !dto.DateRange.End.IsZero() {
+			if dto.DateRange.End.Unix() < dto.DateRange.Start.Unix() {
+				return exceptions.ErrorEndDate
+			}
 		}
 	}
+
 	return nil
 }
 

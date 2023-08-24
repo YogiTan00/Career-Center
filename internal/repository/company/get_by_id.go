@@ -4,6 +4,7 @@ import (
 	"CareerCenter/domain/entity"
 	"CareerCenter/internal/repository/mapper"
 	"CareerCenter/internal/repository/models"
+	"CareerCenter/utils/exceptions"
 	"context"
 	"fmt"
 	"time"
@@ -21,9 +22,12 @@ func (c CompanyMysqlInteractor) GetCompanyById(ctx context.Context, id string) (
 		ConcreteStruct: models.CompanyModel{},
 		DecoderConfig:  dbq.StdTimeConversionConfig(),
 	}
-	result := dbq.MustQ(ctx, c.DbConn, stmt, opts, id)
+	result, err := dbq.Q(ctx, c.DbConn, stmt, opts, id)
+	if err != nil {
+		return nil, err
+	}
 	if result == nil {
-		return nil, nil
+		return nil, exceptions.ErrNotFound("id")
 	}
 
 	job := mapper.ModelToEntityCompany(result.(*models.CompanyModel))
