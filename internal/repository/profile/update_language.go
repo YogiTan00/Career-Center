@@ -13,8 +13,7 @@ func (p ProfileMysqlInteractor) UpdateLanguage(ctx context.Context, email string
 	ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 
-	query := fmt.Sprintf("UPDATE %s SET language = ?, updated_at WHERE email = ? ",
-		profile.GetTableNameProfile())
+	query := fmt.Sprintf("UPDATE %s SET language = ?, updated_at = ? WHERE email = ? ", profile.GetTableNameProfile())
 
 	_, err := dbq.E(ctx, p.DbConn, query, nil, language, timeNow, email)
 
