@@ -98,7 +98,7 @@ func (dto *WorkExperienceDTO) Validation() error {
 			}
 		}
 	} else {
-		dto.DateRange.End = time.Time{}
+		dto.DateRange.End = time.Date(1000, 10, 10, 0, 0, 0, 0, time.UTC)
 	}
 
 	return nil
