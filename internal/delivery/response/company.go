@@ -76,8 +76,8 @@ func GetCompanyProfileResponse(dto *entity.CompanyDTO, dtoJobs []*entity.JobsDTO
 			Status:         data.Status,
 			Qualification:  data.Qualification,
 			JobDescription: data.JobDescription,
-			CreatedAt:      data.CreatedAt.String(),
-			UpdatedAt:      data.UpdatedAt.String(),
+			CreatedAt:      data.CreatedAt.Format("2006-01-02"),
+			UpdatedAt:      data.UpdatedAt.Format("2006-01-02"),
 		}
 		jobs = append(jobs, job)
 	}
@@ -94,8 +94,8 @@ func GetCompanyProfileResponse(dto *entity.CompanyDTO, dtoJobs []*entity.JobsDTO
 			Location: dto.About.Location,
 		},
 		Jobs:      jobs,
-		CreatedAt: dto.CreatedAt.String(),
-		UpdatedAt: dto.UpdatedAt.String(),
-		DeletedAt: dto.DeletedAt.String(),
+		CreatedAt: dto.CreatedAt.Format("2006-01-02"),
+		UpdatedAt: dto.UpdatedAt.Format("2006-01-02"),
+		DeletedAt: dto.DeletedAt.Format("2006-01-02"),
 	}
 }

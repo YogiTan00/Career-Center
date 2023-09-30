@@ -34,8 +34,8 @@ func GetProfileResponse(dto *profile.ProfileUserDTO, cfg config.Config) *Profile
 				Name:            data.Name,
 				StillWorking:    data.StillWorking,
 				DateRange: DateRange{
-					Start: data.DateRange.Start.String(),
-					End:   data.DateRange.End.String(),
+					Start: data.DateRange.Start.Format("2006-01-02"),
+					End:   data.DateRange.End.Format("2006-01-02"),
 				},
 				Description: data.Description,
 			}
@@ -51,8 +51,8 @@ func GetProfileResponse(dto *profile.ProfileUserDTO, cfg config.Config) *Profile
 				Major:          data.Major,
 				SkillEducation: data.StillEducation,
 				DateRange: DateRange{
-					Start: data.DateRange.Start.String(),
-					End:   data.DateRange.End.String(),
+					Start: data.DateRange.Start.Format("2006-01-02"),
+					End:   data.DateRange.End.Format("2006-01-02"),
 				},
 				Description: data.Description,
 			}
@@ -85,8 +85,8 @@ func GetProfileResponse(dto *profile.ProfileUserDTO, cfg config.Config) *Profile
 			UrlCvResume:    urlCvResume,
 			Portofolio:     dto.Portofolio,
 			UrlPortofolio:  urlPortofolio,
-			CreatedAt:      dto.CreatedAt.String(),
-			UpdateAt:       dto.UpdatedAt.String(),
+			CreatedAt:      dto.CreatedAt.Format("2006-01-02"),
+			UpdateAt:       dto.UpdatedAt.Format("2006-01-02"),
 		}
 	}
 

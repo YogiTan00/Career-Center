@@ -42,7 +42,7 @@ func GetJobResponse(dto *entity.JobsDTO) *JobsResponse {
 		Logo:      dto.Logo,
 		Address:   dto.Address,
 		Status:    dto.Status,
-		CreatedAt: dto.CreatedAt.String(),
+		CreatedAt: dto.CreatedAt.Format("2006-01-02"),
 		Applicant: dto.Applicant,
 	}
 }
@@ -65,11 +65,11 @@ func GetDetailJobResponse(dto *entity.JobsDTO) *DetailJobResponse {
 		Logo:           dto.Logo,
 		Address:        dto.Address,
 		Status:         dto.Status,
-		ApplyDate:      dto.ApplyDate.String(),
+		ApplyDate:      dto.ApplyDate.Format("2006-01-02"),
 		Qualification:  dto.Qualification,
 		JobDescription: dto.JobDescription,
-		CreatedAt:      dto.CreatedAt.String(),
-		UpdatedAt:      dto.UpdatedAt.String(),
+		CreatedAt:      dto.CreatedAt.Format("2006-01-02"),
+		UpdatedAt:      dto.UpdatedAt.Format("2006-01-02"),
 		Applicant:      dto.Applicant,
 	}
 }
