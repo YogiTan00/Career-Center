@@ -29,9 +29,9 @@ func ResponseApplicantByJobId(dto *entity.ApplicationDTO) *ResponseApplication {
 		PhoneNumber: dto.PhoneNumber,
 		CvResume:    dto.CvResume,
 		Portofolio:  dto.Portofolio,
-		CreatedAt:   dto.CreatedAt.String(),
-		UpdatedAt:   dto.UpdatedAt.String(),
-		DeletedAt:   dto.DeletedAt.String(),
+		CreatedAt:   dto.CreatedAt.Format("2006-01-02"),
+		UpdatedAt:   dto.UpdatedAt.Format("2006-01-02"),
+		DeletedAt:   dto.DeletedAt.Format("2006-01-02"),
 		Status:      dto.Status.String(),
 	}
 }
