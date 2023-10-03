@@ -36,7 +36,7 @@ var (
 
 	repoJobs    = jobs.NewJobsMysqlInteractor(mysqlConn)
 	useCaseJobs = jobs2.NewJobsUsecase(repoJobs, repoApplication)
-	handlerJobs = jobs3.NewUseCaseJobsHandler(useCaseJobs)
+	handlerJobs = jobs3.NewUseCaseJobsHandler(useCaseJobs, configEnv)
 
 	repoProfile    = profile.NewProfileMysqlInteractor(mysqlConn)
 	useCaseProfile = profile2.NewProfileUsecase(repoProfile, configEnv)
@@ -44,7 +44,7 @@ var (
 
 	repoApplication    = application.NewApplicationMysqlInteractor(mysqlConn)
 	useCaseApplication = application2.NewApplicationUsecase(repoApplication, repoProfile)
-	handlerApplication = application3.NewUseCaseApplicationHandler(useCaseApplication)
+	handlerApplication = application3.NewUseCaseApplicationHandler(useCaseApplication, configEnv)
 
 	repoCompany    = company.NewCompanyMysqlInteractor(mysqlConn)
 	useCaseCompany = company2.NewCompanyUsecase(repoCompany, repoJobs, repoProfile)

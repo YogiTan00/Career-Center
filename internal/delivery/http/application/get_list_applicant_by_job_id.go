@@ -39,7 +39,7 @@ func (h *ApplicationHandler) GetApplicant(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	result := response.ResponseListApplicantByJobId(application)
+	result := response.ResponseListApplicantByJobId(application, h.cfg)
 
 	helper.ResponseInterface(w, "success get application by job id", result, http.StatusOK)
 	log.InfoWithData("success get application by job id", nil)

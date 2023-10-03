@@ -33,7 +33,7 @@ func (h *JobsHandler) GetJobById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jobsResponse := response.GetDetailJobResponse(jobs)
+	jobsResponse := response.GetDetailJobResponse(jobs, h.cfg)
 	helper.ResponseInterface(w, "success get detail job", jobsResponse, http.StatusOK)
 	log.InfoWithData("success Get detail job", jobsResponse)
 	return
