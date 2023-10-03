@@ -2,6 +2,7 @@ package response
 
 import (
 	"CareerCenter/domain/entity"
+	"CareerCenter/pkg/config"
 )
 
 type JobsResponse struct {
@@ -10,6 +11,7 @@ type JobsResponse struct {
 	Position  string `json:"position"`
 	Company   string `json:"company"`
 	Logo      string `json:"logo"`
+	UrlLogo   string `json:"urlLogo"`
 	Address   string `json:"address"`
 	Status    bool   `json:"status"`
 	CreatedAt string `json:"createdAt"`
@@ -33,13 +35,18 @@ type DetailJobResponse struct {
 	Applicant      int    `json:"applicant"`
 }
 
-func GetJobResponse(dto *entity.JobsDTO) *JobsResponse {
+func GetJobResponse(dto *entity.JobsDTO, cfg config.Config) *JobsResponse {
+	var urlLogo string
+	if dto.Logo != "" {
+		urlLogo = cfg.DOMAIN + cfg.PATH_IMAGE_UPLOAD_META + dto.Logo
+	}
 	return &JobsResponse{
 		Id:        dto.Id,
 		CompanyId: dto.CompanyId,
 		Position:  dto.Position,
 		Company:   dto.Company,
 		Logo:      dto.Logo,
+		UrlLogo:   urlLogo,
 		Address:   dto.Address,
 		Status:    dto.Status,
 		CreatedAt: dto.CreatedAt.Format("2006-01-02"),
@@ -47,22 +54,27 @@ func GetJobResponse(dto *entity.JobsDTO) *JobsResponse {
 	}
 }
 
-func GetListJobResponse(dto []*entity.JobsDTO) []*JobsResponse {
+func GetListJobResponse(dto []*entity.JobsDTO, cfg config.Config) []*JobsResponse {
 	listJobs := make([]*JobsResponse, 0)
 	for _, data := range dto {
-		job := GetJobResponse(data)
+		job := GetJobResponse(data, cfg)
 		listJobs = append(listJobs, job)
 	}
 	return listJobs
 }
 
-func GetDetailJobResponse(dto *entity.JobsDTO) *DetailJobResponse {
+func GetDetailJobResponse(dto *entity.JobsDTO, cfg config.Config) *DetailJobResponse {
+	var urlLogo string
+	if dto.Logo != "" {
+		urlLogo = cfg.DOMAIN + cfg.PATH_IMAGE_UPLOAD_META + dto.Logo
+	}
 	return &DetailJobResponse{
 		Id:             dto.Id,
 		CompanyId:      dto.CompanyId,
 		Position:       dto.Position,
 		Company:        dto.Company,
 		Logo:           dto.Logo,
+		UrlLogo:        urlLogo,
 		Address:        dto.Address,
 		Status:         dto.Status,
 		ApplyDate:      dto.ApplyDate.Format("2006-01-02"),

@@ -29,7 +29,7 @@ func (u *JobsHandler) GetListJobByEmail(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	JobsResponse := response.GetListJobResponse(jobs)
+	JobsResponse := response.GetListJobResponse(jobs, u.cfg)
 	helper.ResponseInterfaceWithCount(w, "success get list job", JobsResponse, count, http.StatusOK)
 	log.InfoWithData("success send application", JobsResponse)
 	return

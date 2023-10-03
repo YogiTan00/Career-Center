@@ -1,6 +1,9 @@
 package response
 
-import "CareerCenter/domain/entity"
+import (
+	"CareerCenter/domain/entity"
+	"CareerCenter/pkg/config"
+)
 
 type ResponseApplication struct {
 	Id          string `json:"id"`
@@ -18,7 +21,14 @@ type ResponseApplication struct {
 	Status      string `json:"status"`
 }
 
-func ResponseApplicantByJobId(dto *entity.ApplicationDTO) *ResponseApplication {
+func ResponseApplicantByJobId(dto *entity.ApplicationDTO, cfg config.Config) *ResponseApplication {
+	var urlCvResume, urlPortofolio string
+	if dto.CvResume != "" {
+		urlCvResume = cfg.DOMAIN + cfg.PATH_FILE_UPLOAD_META + dto.CvResume
+	}
+	if dto.Portofolio != "" {
+		urlPortofolio = cfg.DOMAIN + cfg.PATH_FILE_UPLOAD_META + dto.Portofolio
+	}
 	return &ResponseApplication{
 		Id:          dto.Id,
 		CompanyId:   dto.CompanyId,
@@ -27,8 +37,8 @@ func ResponseApplicantByJobId(dto *entity.ApplicationDTO) *ResponseApplication {
 		Name:        dto.Name,
 		Skill:       dto.Skill,
 		PhoneNumber: dto.PhoneNumber,
-		CvResume:    dto.CvResume,
-		Portofolio:  dto.Portofolio,
+		CvResume:    urlCvResume,
+		Portofolio:  urlPortofolio,
 		CreatedAt:   dto.CreatedAt.Format("2006-01-02"),
 		UpdatedAt:   dto.UpdatedAt.Format("2006-01-02"),
 		DeletedAt:   dto.DeletedAt.Format("2006-01-02"),
@@ -36,10 +46,10 @@ func ResponseApplicantByJobId(dto *entity.ApplicationDTO) *ResponseApplication {
 	}
 }
 
-func ResponseListApplicantByJobId(dto []*entity.ApplicationDTO) []*ResponseApplication {
+func ResponseListApplicantByJobId(dto []*entity.ApplicationDTO, cfg config.Config) []*ResponseApplication {
 	res := make([]*ResponseApplication, 0)
 	for _, data := range dto {
-		applicant := ResponseApplicantByJobId(data)
+		applicant := ResponseApplicantByJobId(data, cfg)
 		res = append(res, applicant)
 	}
 	return res
